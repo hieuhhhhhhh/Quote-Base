@@ -14,7 +14,6 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Hello</h1>
       <button onClick={handleRedirect}>Go to About Page</button>
     </div>
   );
