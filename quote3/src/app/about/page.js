@@ -1,4 +1,4 @@
-import Test from "@/screens/test_screen1";
+import Test from "@/components/test_screen1";
 
 export default function Home() {
   return (
