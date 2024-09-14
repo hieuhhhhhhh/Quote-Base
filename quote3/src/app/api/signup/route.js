@@ -11,10 +11,11 @@ export async function POST(req) {
       .from("users")
       .insert([{ username, password_hash: hashed }]);
 
+    console.log("DB response: ", res);
+
     if (res.error) {
       throw new Error(JSON.stringify(res.error));
     }
-    console.log("DB response: ", res);
 
     return new Response("Success: a new user created", {
       headers: { "Content-Type": "application/json" },
