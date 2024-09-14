@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from "../login_signup.module.css";
 import submit from "@/lib/api/submit_signup";
 
@@ -24,13 +24,16 @@ const Page1 = () => {
       return;
     }
 
-    submit(username, password, setMessage, setSubmitOk);
+    await submit(username, password, setMessage, setSubmitOk);
+  };
+
+  useEffect(() => {
     if (submitOk) {
       setConfirmPW("");
       setPassword("");
+      setUsername("");
     }
-    setUsername("");
-  };
+  }, [submitOk]);
 
   return (
     <form onSubmit={handleSubmit}>
