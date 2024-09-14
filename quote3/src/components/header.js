@@ -4,8 +4,8 @@ import styles from "@/styles/components/header.module.css";
 
 const Header = () => {
   return (
-    <header className={styles.header}>
-      <h1>Quotes Base</h1>
+    <div className={styles.header}>
+      <h2>Quotes Base</h2>
       <nav>
         <ul>
           <li>
@@ -19,7 +19,7 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-    </header>
+    </div>
   );
 };
 

@@ -21,8 +21,18 @@
     width: 100%;
     box-sizing: border-box; /* Ensures padding, border included  */
   }
-  
+  .signUp {
+    margin-top: 30px;
+  }
+
+  .signUp a{
+    color: inherit;
+    font-size: small;
+  }
+
   .button {
-    padding: 8px;
+    padding: 5px;
+    padding-inline: 15px;
+    font-size: 15px;
   }
   

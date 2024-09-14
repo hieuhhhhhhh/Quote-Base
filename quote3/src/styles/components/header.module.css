@@ -12,14 +12,20 @@
   box-sizing: border-box; /* Ensures padding and border are included in the width */
 
 }
-  
+.header h2,
+.header nav ul {
+  margin: 12px;
+}
+
 .header nav ul {
   list-style: none;
   display: flex;
+  padding-top: 0;
 }
 
 .header nav ul li {
-  margin: 10px;
+
+  margin-inline: 10px;
 }
 
 .header nav ul li a {
