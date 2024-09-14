@@ -13,7 +13,7 @@ export default function LogIn() {
           </div>
           <button className={styles.button}>Log In</button>
           <div className={styles.signUp}>
-            <a href="#">Create a new account</a>
+            <a href="/login/signup">Create a new account</a>
           </div>
         </form>
       </div>
