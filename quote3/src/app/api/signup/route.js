@@ -12,18 +12,16 @@ export async function POST(req) {
       .insert([{ username, password_hash: hashed }]);
 
     if (error) {
-      throw new Error(error.message);
+      throw new Error(JSON.stringify(error));
     }
+    console.log("data: ", data);
 
-    return new Response(
-      JSON.stringify({ message: "Row added successfully", data }),
-      {
-        headers: { "Content-Type": "application/json" },
-        status: 200, // Return a success status code
-      }
-    );
-  } catch (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      status: 200, // Return a success status code
+    });
+  } catch (e) {
+    return new Response(e.message, {
       headers: { "Content-Type": "application/json" },
       status: 500,
     });
