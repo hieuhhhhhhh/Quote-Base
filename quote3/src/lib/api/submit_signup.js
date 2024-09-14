@@ -4,6 +4,7 @@ async function submit(event, username, password, setMessage, setSubmitOk) {
   event.preventDefault(); // Prevent the default form submission behavior
 
   if (!username || !password) {
+    setSubmitOk(false);
     setMessage("Please enter a username and password.");
     return;
   }
