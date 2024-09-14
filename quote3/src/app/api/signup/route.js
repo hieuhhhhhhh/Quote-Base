@@ -7,18 +7,18 @@ export async function POST(req) {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    const { data, error } = await supabase
+    const res = await supabase
       .from("users")
       .insert([{ username, password_hash: hashed }]);
 
-    if (error) {
-      throw new Error(JSON.stringify(error));
+    if (res.error) {
+      throw new Error(JSON.stringify(res.error));
     }
-    console.log("data: ", data);
+    console.log("DB response: ", res);
 
-    return new Response(JSON.stringify(data), {
+    return new Response("Success: a new user created", {
       headers: { "Content-Type": "application/json" },
-      status: 200, // Return a success status code
+      status: 201, // Return a success status code
     });
   } catch (e) {
     return new Response(e.message, {

@@ -1,4 +1,4 @@
-// send username, password to database to request to sign up.
+// send username, password to database to request for a sign up.
 
 async function submit(event, username, password, setResultMessage) {
   event.preventDefault(); // Prevent the default form submission behavior
@@ -22,8 +22,7 @@ async function submit(event, username, password, setResultMessage) {
       throw new Error(JSON.stringify(error));
     }
 
-    const data = await response.json();
-    setResultMessage(`Success: ${data.message}`); // Update result message on success
+    setResultMessage(`Success: a new user was created`); // Update result message on success
   } catch (e) {
     const error = JSON.parse(e.message);
 
