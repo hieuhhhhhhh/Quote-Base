@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
+import { geistMono, geistSans } from "@/styles/fonts/fonts";
 
-import { geistMono, geistSans } from "@/fonts/fonts";
 import Header from "@/components/header";
 
 export const metadata = {
