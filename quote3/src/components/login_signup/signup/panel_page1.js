@@ -1,13 +1,14 @@
 import { useState } from "react";
 import styles from "../login_signup.module.css";
-import validate from "@/lib/api/validate_username";
+import submit from "@/lib/api/submit_signup";
 
 const Page1 = () => {
   const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [resultMessage, setResultMessage] = useState("");
 
   const handleSubmit = async (event) => {
-    validate(event, username, setResultMessage);
+    submit(event, username, password, setResultMessage);
   };
 
   return (
@@ -21,7 +22,12 @@ const Page1 = () => {
         />
       </div>
       <div className={styles.inputField}>
-        <input type="password" placeholder="Password" />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
       <button type="submit" className={styles.button}>
         Continue
