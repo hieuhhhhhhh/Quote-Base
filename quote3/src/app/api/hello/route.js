@@ -1,5 +1,5 @@
 // app/api/hello/route.js
-import supabase from "@/lib/client1";
+import supabase from "@/lib/db/client";
 
 export async function GET() {
   const { data, error } = await supabase

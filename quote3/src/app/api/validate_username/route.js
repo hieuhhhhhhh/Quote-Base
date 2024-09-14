@@ -1,4 +1,4 @@
-import supabase from "@/lib/client1";
+import supabase from "@/lib/db/client";
 
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
