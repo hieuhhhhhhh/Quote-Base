@@ -1,9 +1,9 @@
-import SignUpBox from "@/components/signup/signup_box";
+import SignUpPanel from "@/components/signup/panel";
 
 export default function SignUp() {
   return (
     <div>
-      <SignUpBox />
+      <SignUpPanel />
     </div>
   );
 }
