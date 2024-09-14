@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/styles/components/login_box.module.css";
+import styles from "../login_signup.module.css";
 import Page1 from "./panel_page1";
 
 const SignUpPanel = () => {

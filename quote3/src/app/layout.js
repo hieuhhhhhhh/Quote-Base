@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { geistMono, geistSans } from "@/styles/fonts/fonts";
 
-import Header from "@/components/header";
+import Header from "@/components/header/header.js";
 
 export const metadata = {
   title: "Quotes Base",

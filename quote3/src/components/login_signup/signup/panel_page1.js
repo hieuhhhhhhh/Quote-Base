@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styles from "@/styles/components/login_box.module.css";
+import styles from "../login_signup.module.css";
 import validate from "@/lib/api/validate_username";
 
 const Page1 = () => {
