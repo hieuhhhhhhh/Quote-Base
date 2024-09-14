@@ -1,10 +1,10 @@
 // send username, password to database to request for a sign up.
 
-async function submit(event, username, password, setResultMessage) {
+async function submit(event, username, password, setMessage, setSubmitOk) {
   event.preventDefault(); // Prevent the default form submission behavior
 
   if (!username || !password) {
-    setResultMessage("Please enter a username and password.");
+    setMessage("Please enter a username and password.");
     return;
   }
 
@@ -22,15 +22,17 @@ async function submit(event, username, password, setResultMessage) {
       throw new Error(JSON.stringify(error));
     }
 
-    setResultMessage(`Success: a new user was created`); // Update result message on success
+    // submit accepted:
+    setSubmitOk(true);
+    setMessage(`Success: a new user was created`);
   } catch (e) {
+    // submit failed:
+    setSubmitOk(false);
     const error = JSON.parse(e.message);
 
     if (error.code === "23505") {
-      setResultMessage(
-        "Username already taken. Please choose a different one."
-      );
-    } else setResultMessage(error.details);
+      setMessage("Username already taken. Please choose a different one.");
+    } else setMessage(error.details);
   }
 }
 

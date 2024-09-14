@@ -5,10 +5,11 @@ import submit from "@/lib/api/submit_signup";
 const Page1 = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [resultMessage, setResultMessage] = useState("");
+  const [resMsg, setResMsg] = useState("");
+  const [submitOk, setSubmitOk] = useState(false);
 
   const handleSubmit = async (event) => {
-    submit(event, username, password, setResultMessage);
+    submit(event, username, password, setResMsg, setSubmitOk);
   };
 
   return (
@@ -32,7 +33,7 @@ const Page1 = () => {
       <button type="submit" className={styles.button}>
         Continue
       </button>
-      {resultMessage && <p>{resultMessage}</p>}
+      {resMsg && !submitOk && <p>{resMsg}</p>}
     </form>
   );
 };
