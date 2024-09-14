@@ -2,22 +2,39 @@
 
 import { useState } from "react";
 import styles from "@/styles/components/login_box.module.css";
-import validate from "@/lib/db/validate_username";
 
-export default function SignUp() {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [resultMessage, setResultMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault(); // Prevent the default form submission behavior
 
-    const usernameExists = await validate(username);
+    // Check if username is provided
+    if (!username) {
+      setResultMessage("Please enter a username.");
+      return;
+    }
 
-    if (usernameExists) {
-      setResultMessage("Username already taken. Please choose another one.");
-    } else {
-      setResultMessage("Username is available.");
-      // Here you can proceed with further sign-up steps
+    try {
+      // Make a GET request to the API route
+      const response = await fetch(
+        `/api/validate_username?username=${encodeURIComponent(username)}`
+      );
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.exists) {
+          setResultMessage("Username is already taken.");
+        } else {
+          setResultMessage("Username is available.");
+          // Proceed with form submission or other logic
+        }
+      } else {
+        setResultMessage(`Error: ${data.error}`);
+      }
+    } catch (error) {
+      setResultMessage(`Error: ${error.message}`);
     }
   };
 
@@ -48,4 +65,6 @@ export default function SignUp() {
       </div>
     </div>
   );
-}
+};
+
+export default SignUp;
