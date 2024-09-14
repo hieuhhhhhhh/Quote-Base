@@ -1,11 +1,8 @@
 // send username, password to database to request for a sign up.
 
-async function submit(event, username, password, setMessage, setSubmitOk) {
-  event.preventDefault(); // Prevent the default form submission behavior
-
+async function submit(username, password, setMessage, setSubmitOk) {
   if (!username || !password) {
-    setSubmitOk(false);
-    setMessage("Please enter a username and password.");
+    console.error("the request is missing username or password");
     return;
   }
 
