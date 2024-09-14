@@ -1,6 +1,7 @@
 import "./globals.css";
 
 import { geistMono, geistSans } from "@/fonts/fonts";
+import Header from "@/components/header";
 
 export const metadata = {
   title: "Quotes Base",
@@ -14,8 +15,9 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/icon.ico" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
-        <h1>Quotes Base</h1>
-        {children}
+        <Header />
+        <div>{children}</div>
+        {/* Adjust the margin as needed */}
       </body>
     </html>
   );
