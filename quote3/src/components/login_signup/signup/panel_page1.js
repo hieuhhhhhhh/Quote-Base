@@ -33,7 +33,7 @@ const Page1 = () => {
       <button type="submit" className={styles.button}>
         Continue
       </button>
-      {resMsg && !submitOk && <p>{resMsg}</p>}
+      {resMsg && !submitOk && <p className={styles.negativeMsg}>{resMsg}</p>}
     </form>
   );
 };
