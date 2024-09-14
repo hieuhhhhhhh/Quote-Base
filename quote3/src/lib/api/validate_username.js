@@ -10,7 +10,7 @@ const validate = async (event, username, setResultMessage) => {
   try {
     // Make a GET request to the API route
     const response = await fetch(
-      `/api/validate_username?username=${encodeURIComponent(username)}`
+      `/api/signup/validate_username?username=${encodeURIComponent(username)}`
     );
     const data = await response.json();
 
