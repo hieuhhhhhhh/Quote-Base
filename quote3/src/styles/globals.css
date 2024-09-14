@@ -8,3 +8,7 @@ body {
   font-family: var(--font-geist-sans);
   padding-top: 100px; /* avoid header */
 }
+
+button {
+  font-family: var(--font-geist-sans);
+}
