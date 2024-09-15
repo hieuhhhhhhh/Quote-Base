@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../login_signup.module.css";
 import submit from "@/lib/api/submit_signup";
 
-const Page1 = () => {
+const Page1 = ({ toNextPage }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState(""); // PW = password
@@ -29,14 +29,14 @@ const Page1 = () => {
 
   useEffect(() => {
     if (submitOk) {
-      setConfirmPW("");
-      setPassword("");
-      setUsername("");
+      toNextPage();
     }
   }, [submitOk]);
 
   return (
     <form onSubmit={handleSubmit}>
+      <h2>Sign Up</h2>
+
       <div className={styles.inputField}>
         <input
           type="text"
@@ -68,6 +68,9 @@ const Page1 = () => {
       {message && (
         <p className={submitOk ? null : styles.negativeMsg}>{message}</p>
       )}
+      <div className={styles.signUp}>
+        <a href="/login">Return to Log In</a>
+      </div>
     </form>
   );
 };
