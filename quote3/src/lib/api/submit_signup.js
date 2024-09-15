@@ -29,7 +29,7 @@ async function submit(username, password, setMessage, setSubmitOk) {
     const error = JSON.parse(e.message);
 
     if (error.code === "23505") {
-      setMessage("Username already taken. Please choose a different one.");
+      setMessage("Username already taken. Please enter a different one.");
     } else setMessage(error.details);
   }
 }
