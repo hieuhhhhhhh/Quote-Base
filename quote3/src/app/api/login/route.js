@@ -43,10 +43,12 @@ export async function POST(req) {
       message: `Success: logged in ${user.username}`,
     });
 
-    // Set cookie
-    response.headers.append(
+    // Set the cookie in the response headers
+    response.headers.set(
       "Set-Cookie",
-      `session_token=${token}; HttpOnly; Max-Age=7200; SameSite=Strict; Secure;`
+      `session_token=${token}; HttpOnly; Max-Age=7200; SameSite=Strict; Secure=${
+        process.env.NODE_ENV === "production"
+      }`
     );
 
     return response;
