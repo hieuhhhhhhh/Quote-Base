@@ -1,22 +1,61 @@
-// app/api/login/route.js
-import { NextResponse } from "next/server";
+import supabase from "@/lib/db/client"; // Import the existing Supabase client
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { NextResponse } from "next/server"; // assuming Next.js is being used
 
 export async function POST(req) {
-  const { username } = await req.json();
+  try {
+    const { username, password } = await req.json();
 
-  // Use the secret key from environment variables
-  const token = jwt.sign({ username }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+    // Fetch user from the database (including user ID)
+    const { data: user, error } = await supabase
+      .from("users") // assuming the users table is named 'users'
+      .select("id, username, password_hash") // select user_id, username, and hashed password
+      .eq("username", username)
+      .single();
 
-  const res = NextResponse.json({ message: `Success: logged in ${username}` });
-  res.cookie("session_token", token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production", // Use HTTPS in production
-    sameSite: "Strict",
-    maxAge: 7200, // 1 hour
-  });
+    if (error || !user) {
+      console.error("Error (server): ", error);
+      return NextResponse.json(
+        { error: "Invalid username or password." },
+        { status: 400 }
+      );
+    }
 
-  return res;
+    // Compare provided password with the stored hashed password
+    const isMatched = await bcrypt.compare(password, user.password_hash);
+
+    if (!isMatched) {
+      console.error("Error (server): wrong password.");
+      return NextResponse.json(
+        { error: "Invalid username or password." },
+        { status: 400 }
+      );
+    }
+
+    // Generate JWT token containing the user ID
+    const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, {
+      expiresIn: "2h",
+    });
+
+    // Create a response
+    const response = NextResponse.json({
+      message: `Success: logged in ${user.username}`,
+    });
+
+    // Set cookie
+    response.headers.append(
+      "Set-Cookie",
+      `session_token=${token}; HttpOnly; Max-Age=7200; SameSite=Strict; Secure;`
+    );
+
+    return response;
+  } catch (e) {
+    console.error("Error (server): ", e.message);
+
+    return NextResponse.json(
+      { error: "Server error. Please try again later." },
+      { status: 500 }
+    );
+  }
 }

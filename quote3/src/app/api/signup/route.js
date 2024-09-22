@@ -5,7 +5,7 @@ export async function POST(req) {
   try {
     const { username, password } = await req.json(); // Parsing the body correctly
 
-    const hashed = await bcrypt.hash(password, 10);
+    const hashed = await bcrypt.hash(password, 5);
 
     const res = await supabase
       .from("users")

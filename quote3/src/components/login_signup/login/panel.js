@@ -1,32 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
+import submit from "@/lib/api/submit_login";
 
 export default function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [msg, setMsg] = useState("");
+  const [submitOk, setSubmitOk] = useState(false);
+
   const router = useRouter(); // For redirecting after login
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (res.ok) {
-      router.push("/protected"); // Redirect to protected page on successful login
-    } else {
-      setError("Invalid login credentials. Please try again.");
-    }
+    setMsg("");
+    await submit(username, password, setMsg, setSubmitOk);
   };
+
+  useEffect(() => {
+    if (submitOk) {
+      router.push("/pages/profile"); // Redirect to protected page on successful login
+    }
+  }, [submitOk]);
 
   return (
     <div className={styles.container}>
@@ -50,12 +46,12 @@ export default function LogIn() {
               required
             />
           </div>
-          {error && <p className={styles.error}>{error}</p>}
+          {msg && <p className={submitOk ? null : styles.negativeMsg}>{msg}</p>}
           <button type="submit" className={styles.button}>
             Log In
           </button>
           <div className={styles.signUp}>
-            <a href="/login/signup">Create a new account</a>
+            <a href="/pages/login/signup">Create a new account</a>
           </div>
         </form>
       </div>

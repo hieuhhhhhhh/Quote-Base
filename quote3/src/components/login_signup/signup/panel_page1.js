@@ -10,13 +10,9 @@ const Page1 = ({ toNextPage }) => {
   const [message, setMessage] = useState("");
   const [submitOk, setSubmitOk] = useState(false);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault(); // Prevent the default form submission behavior
-
-    if (username === "" || password === "" || confirmPW === "") {
-      setMessage("Please fill in all fields before continuing.");
-      return;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // Prevent the default form submission behavior
+    setMsg("");
 
     if (confirmPW !== password) {
       setConfirmPW("");
@@ -43,6 +39,7 @@ const Page1 = ({ toNextPage }) => {
           placeholder="Username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
         />
       </div>
       <div className={styles.inputField}>
@@ -51,6 +48,7 @@ const Page1 = ({ toNextPage }) => {
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          required
         />
       </div>
 
@@ -60,6 +58,7 @@ const Page1 = ({ toNextPage }) => {
           placeholder="Confirm Password"
           value={confirmPW}
           onChange={(e) => setConfirmPW(e.target.value)}
+          required
         />
       </div>
       <button type="submit" className={styles.button}>
@@ -69,7 +68,7 @@ const Page1 = ({ toNextPage }) => {
         <p className={submitOk ? null : styles.negativeMsg}>{message}</p>
       )}
       <div className={styles.signUp}>
-        <a href="/login">Return to Log In</a>
+        <a href="/pages/login">Return to Log In</a>
       </div>
     </form>
   );

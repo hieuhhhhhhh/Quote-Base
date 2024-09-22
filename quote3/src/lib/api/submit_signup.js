@@ -1,13 +1,8 @@
-// send username, password to database to request for a sign up.
+// send request to route api/signup
 
-async function submit(username, password, setMessage, setSubmitOk) {
-  if (!username || !password) {
-    console.error("the request is missing username or password");
-    return;
-  }
-
+async function submit(username, password, setMsg, setOK) {
   try {
-    const response = await fetch("/api/signup", {
+    const res = await fetch("/api/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -15,22 +10,25 @@ async function submit(username, password, setMessage, setSubmitOk) {
       body: JSON.stringify({ username, password }),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(JSON.stringify(error));
+    if (!res.ok) {
+      setOK(false);
+      const data = await res.json();
+      if (data.code === "23505") {
+        setMsg("Username already taken. Please enter a different one.");
+      } else setMsg(data.details);
+
+      return;
     }
 
     // submit accepted:
-    setSubmitOk(true);
-    setMessage(`Success: a new user was created`);
-  } catch (e) {
-    // submit failed:
-    setSubmitOk(false);
-    const error = JSON.parse(e.message);
+    setOK(true);
+    setMsg(`Success: a new user was created`);
 
-    if (error.code === "23505") {
-      setMessage("Username already taken. Please enter a different one.");
-    } else setMessage(error.details);
+    // catch:
+  } catch (e) {
+    setOK(false);
+    const error = JSON.parse(e.message);
+    setMsg(error.details);
   }
 }
 
