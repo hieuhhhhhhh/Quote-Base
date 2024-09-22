@@ -15,6 +15,9 @@ const Header = () => {
             <a href="/about">About</a>
           </li>
           <li>
+            <a href="/profile">Profile</a>
+          </li>
+          <li>
             <a href="/login">Log In</a>
           </li>
         </ul>
