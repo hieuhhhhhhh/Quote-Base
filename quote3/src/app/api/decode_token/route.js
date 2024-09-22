@@ -1,3 +1,5 @@
+// this api is to decode token => return user's id
+
 import jwt from "jsonwebtoken";
 import { parse } from "cookie";
 
@@ -15,10 +17,11 @@ export async function GET(req) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    return new Response(
-      JSON.stringify({ message: "Token is valid", user: decoded }),
-      { status: 200 }
-    );
+    return new Response(JSON.stringify({ user_id: decoded.user_id }), {
+      status: 200,
+    });
+
+    //
   } catch (e) {
     return new Response(e.message, { status: 401 });
   }
