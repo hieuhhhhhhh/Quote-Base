@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import styles from "../login_signup.module.css";
+import styles from "../../login/login_signup.module.css";
 
 const Page2 = () => {
   const [alias, setAlias] = useState("");

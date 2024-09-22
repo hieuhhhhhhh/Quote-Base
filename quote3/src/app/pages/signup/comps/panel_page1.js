@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import styles from "../login_signup.module.css";
+import styles from "../../login/login_signup.module.css";
 import submit from "@/lib/api/submit_signup";
 
 const Page1 = ({ toNextPage }) => {

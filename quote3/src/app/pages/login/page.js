@@ -1,4 +1,4 @@
-import LogInPanel from "@/components/login_signup/login/panel";
+import LogInPanel from "./comps/panel";
 
 export default function LogIn() {
   return <LogInPanel />;

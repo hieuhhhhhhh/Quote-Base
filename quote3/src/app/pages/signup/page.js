@@ -1,4 +1,4 @@
-import SignUpPanel from "@/components/login_signup/signup/panel";
+import SignUpPanel from "./comps/panel";
 
 export default function SignUp() {
   return (

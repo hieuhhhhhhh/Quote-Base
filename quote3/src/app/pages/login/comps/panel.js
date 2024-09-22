@@ -51,7 +51,7 @@ export default function LogIn() {
             Log In
           </button>
           <div className={styles.signUp}>
-            <a href="/pages/login/signup">Create a new account</a>
+            <a href="/pages/signup">Create a new account</a>
           </div>
         </form>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import styles from "../login_signup.module.css";
+import styles from "../../login/login_signup.module.css";
 import Page1 from "./panel_page1";
 import Page2 from "./panel_page2";
 
