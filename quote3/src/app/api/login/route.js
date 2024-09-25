@@ -44,12 +44,12 @@ export async function POST(req) {
     });
 
     // Set the cookie in the response headers
-    response.headers.set(
-      "Set-Cookie",
-      `session_token=${token}; HttpOnly; Max-Age=7200; SameSite=Strict; Secure=${
-        process.env.NODE_ENV === "production"
-      }`
-    );
+    response.cookies.set("session_token", token, {
+      httpOnly: true,
+      maxAge: 7200,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
 
     return response;
   } catch (e) {

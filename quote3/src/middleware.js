@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {
-  const token = req.cookies.get("session_token").value;
+  console.log(req.cookies);
+  const token = req.cookies.get("session_token")?.value;
 
   if (!token) {
     console.log("Error (middleware.js): No token");
