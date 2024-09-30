@@ -3,7 +3,7 @@
 import { DecodeToken } from "@/lib/back_end/decode_token";
 
 export async function GET(req) {
-  const userId = DecodeToken(req);
+  const userId = await DecodeToken(req);
 
   if (userId === null) {
     return new Response("No token got or Invalid token", {
@@ -11,7 +11,7 @@ export async function GET(req) {
     });
   }
 
-  return new Response("Valid token", {
+  return new Response(`Valid token, user id: ${userId}`, {
     status: 200,
   });
 }
