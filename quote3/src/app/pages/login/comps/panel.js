@@ -4,6 +4,9 @@ import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
 import submit from "@/lib/api/submit_login";
 
+import { useDispatch } from "react-redux";
+import { usernameInput } from "@/components/redux/action";
+
 export default function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -12,10 +15,17 @@ export default function LogIn() {
 
   const router = useRouter(); // For redirecting after login
 
+  const dispatch = useDispatch(); // For storing the username in Redux store
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
     await submit(username, password, setMsg, setSubmitOk);
+
+    // Allows for the username to be stored using Redux if the submission is okay
+    if (submitOk) {
+      dispatch(usernameInput(username));
+    }
   };
 
   useEffect(() => {
