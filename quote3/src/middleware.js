@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 
 export async function middleware(req) {
-  console.log(req.cookies);
   const token = req.cookies.get("session_token")?.value;
 
   if (!token) {
@@ -10,7 +9,7 @@ export async function middleware(req) {
   }
 
   // Call the API to verify the token
-  const res = await fetch(new URL("/api/decode_token", req.url), {
+  const res = await fetch(new URL("/api/verify_token", req.url), {
     headers: {
       cookie: `session_token=${token}`,
     },

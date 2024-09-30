@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
-import submit from "@/lib/api/submit_login";
+import submit from "@/lib/front_end/submit_login";
 
 export default function LogIn() {
   const [username, setUsername] = useState("");
