@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../../login/login_signup.module.css";
-import submit from "@/lib/api/submit_signup";
+import submit from "@/lib/front_end/submit_signup";
 
 import { useDispatch, useSelector } from "react-redux"; // npm install redux react-redux
 import { usernameInput, setSubmitOk } from "@/components/redux/action";

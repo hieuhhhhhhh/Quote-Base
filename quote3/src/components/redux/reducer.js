@@ -1,4 +1,3 @@
-import submit from "@/lib/api/submit_signup";
 import { SET_USERNAME, SET_SUBMITOK } from "./action";
 
 const initialState = {

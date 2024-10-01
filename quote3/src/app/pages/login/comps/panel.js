@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
-import submit from "@/lib/api/submit_login";
+import submit from "@/lib/front_end/submit_login";
 
 import { useDispatch, useSelector } from "react-redux";
 import { usernameInput, setSubmitOk } from "@/components/redux/action";
