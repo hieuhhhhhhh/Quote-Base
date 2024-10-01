@@ -1,6 +1,6 @@
 // send request to route api/login
 
-async function submit(username, password, setMsg) {
+async function submit(username, password, setMsg, setOk) {
   try {
     const res = await fetch("/api/login", {
       method: "POST",
@@ -12,22 +12,20 @@ async function submit(username, password, setMsg) {
     });
 
     if (!res.ok) {
+      setOk(false);
       const data = await res.json();
       setMsg(data.error);
-
-      return false;
     }
 
     // submit accepted:
+    setOk(true);
     setMsg(`Success: logged in ${username}`);
 
-    return true;
     // catch:
   } catch (e) {
-    const error = e.message;
+    setOk(false);
+    const error = JSON.parse(e.message);
     setMsg(error.details);
-
-    return false;
   }
 }
 

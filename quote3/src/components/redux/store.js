@@ -2,9 +2,9 @@ import { configureStore } from "@reduxjs/toolkit"; // npm install @reduxjs/toolk
 import usernameReducer from "./reducer";
 
 const store = configureStore({
-    reducer: {
-        username: usernameReducer,
-    },
+  reducer: {
+    username: usernameReducer,
+  },
 });
 
 export default store;

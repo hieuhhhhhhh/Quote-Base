@@ -1,8 +1,7 @@
-import { SET_USERNAME, SET_SUBMITOK } from "./action";
+import { SET_USERNAME } from "./action";
 
 const initialState = {
   username: "",
-  submitOk: false,
 };
 
 const usernameReducer = (state = initialState, action) => {
@@ -11,11 +10,6 @@ const usernameReducer = (state = initialState, action) => {
       return {
         ...state,
         username: action.payload, // Updates username
-      };
-    case SET_SUBMITOK:
-      return {
-        ...state,
-        submitOk: action.payload, // Updates submission of login info
       };
     default:
       return state;

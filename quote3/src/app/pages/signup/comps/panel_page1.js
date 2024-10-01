@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "../../login/login_signup.module.css";
 import submit from "@/lib/front_end/submit_signup";
 
-import { useDispatch, useSelector } from "react-redux"; // npm install redux react-redux
-import { usernameInput, setSubmitOk } from "@/components/redux/action";
+import { useDispatch } from "react-redux"; // npm install redux react-redux
+import { usernameInput } from "@/components/redux/action";
 
 const Page1 = ({ toNextPage }) => {
   const [username, setUsername] = useState("");
@@ -11,15 +11,13 @@ const Page1 = ({ toNextPage }) => {
   const [confirmPW, setConfirmPW] = useState(""); // PW = password
 
   const [message, setMsg] = useState("");
+  const [submitOk, setSubmitOk] = useState(false);
 
   const dispatch = useDispatch(); // For storing the username in Redux store
-  const submitOk = useSelector((state) => state.username.submitOk);
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
     setMsg("");
-
-    //dispatch(usernameInput(username)); // Test for storing the username using redux
 
     if (confirmPW !== password) {
       setConfirmPW("");
@@ -27,7 +25,7 @@ const Page1 = ({ toNextPage }) => {
       return;
     }
 
-    dispatch(setSubmitOk(submit(username, password, setMsg)));
+    await submit(username, password, setMsg, setSubmitOk);
   };
 
   useEffect(() => {
