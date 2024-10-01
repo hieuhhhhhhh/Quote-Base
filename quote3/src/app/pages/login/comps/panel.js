@@ -20,19 +20,16 @@ export default function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
+    //dispatch(usernameInput(username)); // Test for storing the username using redux
     await submit(username, password, setMsg, setSubmitOk);
-
-    // Allows for the username to be stored using Redux if the submission is okay
-    if (submitOk) {
-      dispatch(usernameInput(username));
-    }
   };
 
   useEffect(() => {
     if (submitOk) {
+      dispatch(usernameInput(username));
       router.push("/pages/profile"); // Redirect to protected page on successful login
     }
-  }, [submitOk]);
+  }, [submitOk, username]);
 
   return (
     <div className={styles.container}>

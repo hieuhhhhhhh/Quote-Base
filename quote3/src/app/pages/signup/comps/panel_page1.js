@@ -10,7 +10,7 @@ const Page1 = ({ toNextPage }) => {
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState(""); // PW = password
 
-  const [message, setMessage] = useState("");
+  const [message, setMsg] = useState("");
   const [submitOk, setSubmitOk] = useState(false);
 
   const dispatch = useDispatch(); // For storing the username in Redux store
@@ -19,27 +19,23 @@ const Page1 = ({ toNextPage }) => {
     e.preventDefault(); // Prevent the default form submission behavior
     setMsg("");
 
+    //dispatch(usernameInput(username)); // Test for storing the username using redux
+
     if (confirmPW !== password) {
       setConfirmPW("");
-      setMessage("Passwords do not match. Please try again.");
+      setMsg("Passwords do not match. Please try again.");
       return;
     }
 
-    usernameInput;
-
-    await submit(username, password, setMessage, setSubmitOk);
-
-    // Allows for the username to be stored using Redux if the submission is okay
-    if (submitOk) {
-      dispatch(usernameInput(username));
-    }
+    await submit(username, password, setMsg, setSubmitOk);
   };
 
   useEffect(() => {
     if (submitOk) {
+      dispatch(usernameInput(username));
       toNextPage();
     }
-  }, [submitOk]);
+  }, [submitOk, username]);
 
   return (
     <form onSubmit={handleSubmit}>
