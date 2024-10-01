@@ -1,6 +1,6 @@
 // send request to route api/signup
 
-async function submit(username, password, setMsg, setOK) {
+async function submit(username, password, setMsg) {
   try {
     const res = await fetch("/api/signup", {
       method: "POST",
@@ -11,24 +11,23 @@ async function submit(username, password, setMsg, setOK) {
     });
 
     if (!res.ok) {
-      setOK(false);
       const data = await res.json();
       if (data.code === "23505") {
         setMsg("Username already taken. Please enter a different one.");
       } else setMsg(data.details);
 
-      return;
+      return false;
     }
 
     // submit accepted:
-    setOK(true);
     setMsg(`Success: a new user was created`);
 
+    return true;
     // catch:
   } catch (e) {
-    setOK(false);
-    const error = JSON.parse(e.message);
+    const error = e.message;
     setMsg(error.details);
+    return false;
   }
 }
 

@@ -5,16 +5,17 @@ import React from "react";
 import styles from "./header.module.css";
 
 import { useSelector, useDispatch } from "react-redux";
-import { usernameInput } from "../redux/action";
+import { usernameInput, setSubmitOk } from "../redux/action";
 
 const Header = () => {
   const dispatch = useDispatch();
   const username = useSelector((state) => state.username.username); // Get username from redux store
+  //const submitOk = useSelector((state) => state.username.submitOk);
 
   const handleLogout = (e) => {
-    e.preventDefault(); // Prevent the default link behaviour
     dispatch(usernameInput("")); // Clear username from redux store
-  }
+    dispatch(setSubmitOk(false));
+  };
 
   return (
     <div className={styles.header}>
@@ -32,7 +33,9 @@ const Header = () => {
           </li>
           <li>
             {username.trim() != "" ? (
-              <a href="/pages/login" onClick={handleLogout}>Log Out</a>
+              <a href="/pages/login" onClick={handleLogout}>
+                Log Out
+              </a>
             ) : (
               <a href="/pages/login">Log In</a>
             )}

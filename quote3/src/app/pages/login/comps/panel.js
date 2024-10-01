@@ -4,32 +4,35 @@ import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
 import submit from "@/lib/api/submit_login";
 
-import { useDispatch } from "react-redux";
-import { usernameInput } from "@/components/redux/action";
+import { useDispatch, useSelector } from "react-redux";
+import { usernameInput, setSubmitOk } from "@/components/redux/action";
 
 export default function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState("");
-  const [submitOk, setSubmitOk] = useState(false);
 
   const router = useRouter(); // For redirecting after login
 
   const dispatch = useDispatch(); // For storing the username in Redux store
+  const submitOk = useSelector((state) => state.username.submitOk);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMsg("");
+
     //dispatch(usernameInput(username)); // Test for storing the username using redux
-    await submit(username, password, setMsg, setSubmitOk);
+    dispatch(setSubmitOk(submit(username, password, setMsg)));
   };
 
   useEffect(() => {
     if (submitOk) {
       dispatch(usernameInput(username));
+      setUsername("");
+      setPassword("");
       router.push("/pages/profile"); // Redirect to protected page on successful login
     }
-  }, [submitOk, username]);
+  }, [submitOk]);
 
   return (
     <div className={styles.container}>
