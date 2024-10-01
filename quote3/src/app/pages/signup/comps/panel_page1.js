@@ -2,13 +2,18 @@ import { useState, useEffect } from "react";
 import styles from "../../login/login_signup.module.css";
 import submit from "@/lib/front_end/submit_signup";
 
+import { useDispatch } from "react-redux"; // npm install redux react-redux
+import { usernameInput } from "@/components/redux/action";
+
 const Page1 = ({ toNextPage }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPW, setConfirmPW] = useState(""); // PW = password
 
-  const [message, setMessage] = useState("");
+  const [message, setMsg] = useState("");
   const [submitOk, setSubmitOk] = useState(false);
+
+  const dispatch = useDispatch(); // For storing the username in Redux store
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
@@ -16,15 +21,18 @@ const Page1 = ({ toNextPage }) => {
 
     if (confirmPW !== password) {
       setConfirmPW("");
-      setMessage("Passwords do not match. Please try again.");
+      setMsg("Passwords do not match. Please try again.");
       return;
     }
 
-    await submit(username, password, setMessage, setSubmitOk);
+    await submit(username, password, setMsg, setSubmitOk);
   };
 
   useEffect(() => {
     if (submitOk) {
+      dispatch(usernameInput(username));
+      setUsername("");
+      setPassword("");
       toNextPage();
     }
   }, [submitOk]);
