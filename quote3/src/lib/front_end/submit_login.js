@@ -10,18 +10,19 @@ async function submit(username, password, setMsg, setOK) {
       },
       body: JSON.stringify({ username, password }),
     });
+    const data = await res.json();
 
+    // 1.0: Submit failed.
     if (!res.ok) {
       setOK(false);
-      const data = await res.json();
       setMsg(data.error);
     }
 
-    // submit accepted:
+    // 2.0: Submit accepted, token got:
     setOK(true);
-    setMsg(`Success: logged in ${username}`);
+    setMsg(data.message);
 
-    // catch:
+    //
   } catch (e) {
     setOK(false);
     const error = JSON.parse(e.message);

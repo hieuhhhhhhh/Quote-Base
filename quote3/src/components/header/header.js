@@ -1,13 +1,12 @@
-"use client";
+// useSelector count: 1
 
-// src/components/Header.js
-import React from "react";
+"use client";
+import Link from "next/link";
+import { useSelector } from "react-redux";
 import styles from "./header.module.css";
 
-import { useSelector } from "react-redux";
-
 const Header = () => {
-  const username = useSelector((state) => state.username.username); // Get username from redux store
+  const myId = useSelector((state) => state.myProfile.myId); // Access myId from Redux
 
   return (
     <div className={styles.header}>
@@ -15,26 +14,22 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link href="/">Home</Link>
           </li>
           <li>
-            <a href="/pages/about">About</a>
+            <Link href="/pages/about">About</Link>
           </li>
           <li>
-            {username.trim() != "" ? (
-              <a href="/pages/profile" style={{ color: "blue" }}>
-                @{username}
-              </a>
-            ) : (
-              <a href="/pages/profile">Profile</a>
-            )}
+            {/* Conditional Link based on existance of myId*/}
+            <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
+              Profile
+            </Link>
           </li>
           <li>
-            {username.trim() != "" ? (
-              <a href="/">Log Out</a>
-            ) : (
-              <a href="/pages/login">Log In</a>
-            )}
+            <Link href="/pages/token_check">Token Check</Link>
+          </li>
+          <li>
+            <Link href="/pages/login">Log In</Link>
           </li>
         </ul>
       </nav>

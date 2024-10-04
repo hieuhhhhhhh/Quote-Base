@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export default function Profile() {
+export default function Token_check() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -21,10 +21,5 @@ export default function Profile() {
     fetchTokenValidation();
   }, []);
 
-  return (
-    <div>
-      this is Profile
-      <div>The server says: {message}</div>
-    </div>
-  );
+  return <div>The server says: {message}</div>;
 }
