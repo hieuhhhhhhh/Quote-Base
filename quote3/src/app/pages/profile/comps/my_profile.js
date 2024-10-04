@@ -15,12 +15,8 @@ function MyProfile() {
   useEffect(() => {
     // fetch other data that redux not have:
     const fetchDB = async () => {
-      try {
-        const data = await getPublicInfo(myId);
-        setBio(data.biography);
-      } catch (error) {
-        console.log("Error (my_profile.js): ", error.message);
-      }
+      const data = await getPublicInfo(myId);
+      setBio(data.biography);
     };
 
     fetchDB();

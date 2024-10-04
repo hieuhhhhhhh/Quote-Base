@@ -11,23 +11,19 @@ function SomeoneProfile({ user_id }) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      try {
-        // Fetch basic info
-        const basicData = await getBasicInfo(user_id);
+      // Fetch basic info
+      const basicData = await getBasicInfo(user_id);
 
-        // Fetch public info
-        const publicData = await getPublicInfo(user_id);
+      // Fetch public info
+      const publicData = await getPublicInfo(user_id);
 
-        // Update profile state with both sets of data
-        setProfile((prevProfile) => ({
-          ...prevProfile,
-          username: basicData.username,
-          alias: basicData.alias,
-          biography: publicData.biography,
-        }));
-      } catch (error) {
-        console.log("Error (someone_profile.js): ", error.message);
-      }
+      // Update profile state with both sets of data
+      setProfile((prevProfile) => ({
+        ...prevProfile,
+        username: basicData.username,
+        alias: basicData.alias,
+        biography: publicData.biography,
+      }));
     };
 
     fetchProfileData();
