@@ -13,19 +13,13 @@ export async function POST(req) {
     });
   }
 
-  const { data, error } = await supabase
+  const { data } = await supabase
     .from("users_info")
     .select("biography")
     .eq("user_id", user_id)
     .single();
 
-  if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
-      status: 500,
-    });
-  }
-
-  return new Response(JSON.stringify({ biography: data.biography }), {
+  return new Response(JSON.stringify({ biography: data?.biography || "" }), {
     status: 200,
   });
 }

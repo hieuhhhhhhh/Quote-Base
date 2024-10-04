@@ -13,30 +13,24 @@ export async function POST(req) {
   }
 
   // Get alias:
-  const { data: data1, error1 } = await supabase
+  const { data: data1 } = await supabase
     .from("users_info")
     .select("alias")
     .eq("user_id", user_id)
     .single();
 
   // Get username:
-  const { data: data2, error2 } = await supabase
+  const { data: data2 } = await supabase
     .from("users")
     .select("username")
     .eq("id", user_id)
     .single();
 
-  if (error1 || error2) {
-    // Use the appropriate error variable here
-    const error = error1 ? error1.message : error2.message;
-
-    return new Response(JSON.stringify({ error: error }), {
-      status: 500,
-    });
-  }
-
   return new Response(
-    JSON.stringify({ alias: data1.alias, username: data2.username }),
+    JSON.stringify({
+      alias: data1?.alias || "",
+      username: data2?.username || "",
+    }),
     { status: 200 }
   );
 }
