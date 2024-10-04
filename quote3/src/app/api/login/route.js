@@ -1,29 +1,17 @@
-import supabase from "@/lib/db/client"; // Import the existing Supabase client
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import { NextResponse } from "next/server"; // assuming Next.js is being used
+import { fetchAuthentication } from "./helpers/fetch_authentication";
+import { setTokenCookie } from "./helpers/set_token_cookie";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
     const { username, password } = await req.json();
 
-    // Fetch user from the database (including user ID)
-    const { data: user, error } = await supabase
-      .from("users") // assuming the users table is named 'users'
-      .select("id, username, password_hash") // select user_id, username, and hashed password
-      .eq("username", username)
-      .single();
+    // 1.0: Get password + id by username from db
+    const authen = await fetchAuthentication(username);
 
-    if (error || !user) {
-      console.error("Error (server): ", error);
-      return NextResponse.json(
-        { error: "Invalid username or password." },
-        { status: 400 }
-      );
-    }
-
-    // Compare provided password with the stored hashed password
-    const isMatched = await bcrypt.compare(password, user.password_hash);
+    // 1.1: Compare provided password with the stored hashed password
+    const isMatched = await bcrypt.compare(password, authen.password_hash);
 
     if (!isMatched) {
       console.error("Error (server): wrong password.");
@@ -33,30 +21,20 @@ export async function POST(req) {
       );
     }
 
-    // Generate JWT token containing the user ID
-    const token = jwt.sign({ user_id: user.id }, process.env.JWT_SECRET, {
-      expiresIn: "2h",
+    // 2: Create a response
+    let response = NextResponse.json({
+      message: `Success: logged in ${username}`,
     });
 
-    // Create a response
-    const response = NextResponse.json({
-      message: `Success: logged in ${user.username}`,
-    });
-
-    // Set the cookie in the response headers
-    response.cookies.set("session_token", token, {
-      httpOnly: true,
-      maxAge: 7200,
-      sameSite: "strict",
-      secure: process.env.NODE_ENV === "production",
-    });
+    // 3: Set token cookie onto response:
+    setTokenCookie(response, authen.id);
 
     return response;
   } catch (e) {
     console.error("Error (server): ", e.message);
 
     return NextResponse.json(
-      { error: "Server error. Please try again later." },
+      { message: `Server error: ${e.message}` },
       { status: 500 }
     );
   }

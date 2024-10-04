@@ -1,9 +1,9 @@
-import { configureStore } from "@reduxjs/toolkit"; // npm install @reduxjs/toolkit react-redux
-import usernameReducer from "./reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import profileReducer from "./reducer";
 
 const store = configureStore({
   reducer: {
-    username: usernameReducer,
+    myProfile: profileReducer,
   },
 });
 

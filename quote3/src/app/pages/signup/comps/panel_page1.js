@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import styles from "../../login/login_signup.module.css";
-import submit from "@/lib/front_end/submit_signup";
+import submit from "../helpers/submit_signup";
+import Link from "next/link";
 
-import { useDispatch } from "react-redux"; // npm install redux react-redux
-import { usernameInput } from "@/components/redux/action";
+import { useDispatch } from "react-redux"; // redux
+import { setUsername as reduxUsername } from "@/components/redux/action";
 
 const Page1 = ({ toNextPage }) => {
   const [username, setUsername] = useState("");
@@ -30,7 +31,7 @@ const Page1 = ({ toNextPage }) => {
 
   useEffect(() => {
     if (submitOk) {
-      dispatch(usernameInput(username));
+      dispatch(reduxUsername(username));
       setUsername("");
       setPassword("");
       toNextPage();
@@ -76,7 +77,7 @@ const Page1 = ({ toNextPage }) => {
         <p className={submitOk ? null : styles.negativeMsg}>{message}</p>
       )}
       <div className={styles.signUp}>
-        <a href="/pages/login">Return to Log In</a>
+        <Link href="/pages/login">Return to Log In</Link>
       </div>
     </form>
   );

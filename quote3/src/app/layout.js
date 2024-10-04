@@ -2,10 +2,8 @@ import "@/styles/globals.css";
 import { geistMono, geistSans } from "@/styles/fonts/fonts";
 
 import Header from "@/components/header/header.js";
-
-// npm install redux react-redux
-// npm install @reduxjs/toolkit react-redux
 import Providers from "@/components/redux/provider";
+import Initializer from "@/components/initializer/initializer";
 
 export const metadata = {
   title: "Quotes Base",
@@ -20,9 +18,10 @@ export default function RootLayout({ children }) {
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
         <Providers>
-          <Header />
-          <div>{children}</div>
-          {/* Adjust the margin as needed */}
+          <Initializer>
+            <Header />
+            <div>{children}</div>
+          </Initializer>
         </Providers>
       </body>
     </html>

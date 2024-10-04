@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // For programmatic navigation
 import styles from "../login_signup.module.css";
 import submit from "@/lib/front_end/submit_login";
+import Link from "next/link";
 
 import { useDispatch } from "react-redux";
-import { usernameInput } from "@/components/redux/action";
+import fetchMyBasicInfo from "@/lib/front_end/user_info/my_basic_info";
 
 export default function LogIn() {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ export default function LogIn() {
 
   const router = useRouter(); // For redirecting after login
 
-  const dispatch = useDispatch(); // For storing the username in Redux store
+  const dispatch = useDispatch(); // For redux
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,11 +26,16 @@ export default function LogIn() {
   };
 
   useEffect(() => {
+    // Upon successful submit:
     if (submitOk) {
-      dispatch(usernameInput(username));
       setUsername("");
       setPassword("");
-      router.push("/pages/profile"); // Redirect to protected page on successful login
+      // 1: update global states using redux:
+      console.log("(panel.js): Fetching...");
+      fetchMyBasicInfo(dispatch);
+
+      // 2: Navigate to new page on successful login
+      router.push("/");
     }
   }, [submitOk]);
 
@@ -60,7 +66,7 @@ export default function LogIn() {
             Log In
           </button>
           <div className={styles.signUp}>
-            <a href="/pages/signup">Create a new account</a>
+            <Link href="/pages/signup">Create a new account</Link>
           </div>
         </form>
       </div>
