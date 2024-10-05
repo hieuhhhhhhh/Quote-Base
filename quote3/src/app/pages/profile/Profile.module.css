@@ -1,0 +1,91 @@
+/* Profile.module.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 10px 20px;
+  color: #fff;
+}
+
+.header h1 {
+  margin: 0;
+}
+
+.header nav {
+  display: flex;
+  gap: 20px;
+}
+
+.header nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.profileContentMain {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 40px;
+  border: 1px solid #ccc;
+  border-radius: 10px; /* Add this to make the sides curved */
+  padding: 20px; /* Optional: to make the content inside look better */
+}
+
+.profileContentSub {
+ text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 10px; /* Rounded corners */
+  margin-top: 60px;
+  font-size: 1.5rem;
+  padding: 20px; /* Optional: Adds padding inside the container */
+}
+
+.profileLeft {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profilePic {
+  width: 150px;
+  height: 150px;
+  background-color: #333;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.profileRight {
+  flex: 2;
+  padding-left: 40px;
+}
+
+.username {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  font-size: 1.2rem;
+  color: #888;
+}
+
+.bio {
+  margin-top: 20px;
+  font-size: 1rem;
+  color: #555;
+}
+
+

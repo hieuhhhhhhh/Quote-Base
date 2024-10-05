@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBasicInfo } from "@/lib/front_end/user_info/basic_info";
 import { getPublicInfo } from "@/lib/front_end/user_info/public_info";
+import styles from '../Profile.module.css';
 
 function SomeoneProfile({ user_id }) {
   const [profile, setProfile] = useState({
@@ -30,12 +31,28 @@ function SomeoneProfile({ user_id }) {
   }, [user_id]);
 
   return (
-    <div>
-      <h1>Profile Information</h1>
-      <div>This is NOT your profile.</div>
-      <p>Username: {profile.username}</p>
-      <p>Alias: {profile.alias}</p>
-      <p>Biography: {profile.biography}</p> {/* Added bio to display */}
+    <div className={styles.container}>
+        <div className={styles.profileContentMain}>
+          <div className={styles.profileLeft}>
+            <img
+              src="/default-profile-image3.png"
+              alt="Profile"
+              className={styles.profilePic}
+            />
+          </div>
+          <div className={styles.profileRight}>
+            <h2 className={styles.username}>{profile.username}</h2>
+            <p>{profile.alias || 'My Alias' }</p>
+            <div className={styles.stats}>
+              <p>30 posts</p>
+              <p>15 followers</p>
+            </div>
+            <p className={styles.bio}>{profile.alias || 'Biography goes here'}</p>
+          </div>
+        </div>
+      <div className={styles.profileContentSub}>
+        <p>To be continued area ....</p>
+      </div>
     </div>
   );
 }
