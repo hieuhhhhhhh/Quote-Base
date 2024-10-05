@@ -12,13 +12,9 @@ function SomeoneProfile({ user_id }) {
 
   useEffect(() => {
     const fetchProfileData = async () => {
-      // Fetch basic info
       const basicData = await getBasicInfo(user_id);
-
-      // Fetch public info
       const publicData = await getPublicInfo(user_id);
 
-      // Update profile state with both sets of data
       setProfile((prevProfile) => ({
         ...prevProfile,
         username: basicData.username,
