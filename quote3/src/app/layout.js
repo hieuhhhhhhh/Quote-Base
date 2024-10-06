@@ -4,6 +4,7 @@ import { geistMono, geistSans } from "@/styles/fonts/fonts";
 import Header from "@/components/header/header.js";
 import Providers from "@/components/redux/provider";
 import Initializer from "@/components/initializer/initializer";
+import HomeLayout from "@/components/layout/home_layout";
 
 export const metadata = {
   title: "Quotes Base",
@@ -20,7 +21,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Initializer>
             <Header />
-            <div>{children}</div>
+            <HomeLayout>{children}</HomeLayout>
           </Initializer>
         </Providers>
       </body>

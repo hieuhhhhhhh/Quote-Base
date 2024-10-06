@@ -35,18 +35,37 @@ const Header = () => {
           <li>
             <Link href="/">Home</Link>
           </li>
+
           <li>
             <Link href="/pages/about">About</Link>
           </li>
+
           <li>
             {/* Conditional Link based on existance of myId*/}
             <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
               Profile
             </Link>
           </li>
+
+          <li>
+            {/* Conditional Link based on existance of myId*/}
+            <Link
+              href={
+                myId ? `/pages/posts/someone_posts/${myId}` : "/pages/login"
+              }
+            >
+              My_Posts
+            </Link>
+          </li>
+
+          <li>
+            <Link href="/pages/posts/make_post">Make_Post</Link>
+          </li>
+
           <li>
             <Link href="/pages/token_check">Token Check</Link>
           </li>
+
           <li>
             {myId != null ? (
               <Link href="/" onClick={clearUserData}>
