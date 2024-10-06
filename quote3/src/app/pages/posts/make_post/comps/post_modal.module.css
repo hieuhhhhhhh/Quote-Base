@@ -1,0 +1,40 @@
+.textarea {
+  width: 100%; /* This makes the textarea take the full width of its container */
+  text-align: center;
+  font-size: 20px;
+  resize: none;
+  border: none;
+  background-color: burlywood;
+  font-family: inherit;
+
+  overflow-wrap: normal; /* Prevents words from breaking */
+  overflow: hidden;
+}
+.textareaContainer {
+  display: flex;
+  align-items: center;
+  height: 130px;
+  width: 400px;
+  border: 2px solid burlywood;
+  padding: 30px;
+}
+
+.textarea:focus {
+  border: none;
+  outline: none;
+}
+
+.resultContainer {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  height: 130px;
+  border: 2px solid burlywood;
+  padding: 30px;
+}
