@@ -4,7 +4,7 @@
 // fetches count: 2
 // redux dispatch count: 3
 
-import { setUsername, setAlias, setMyId } from "@/components/redux/action"; // redux actions
+import { updateMyProfile } from "@/components/redux/action"; // redux actions
 
 async function fetchMyBasicInfo(dispatch) {
   console.log("(my_basic_info.js): Fetching... ");
@@ -37,16 +37,14 @@ async function fetchMyBasicInfo(dispatch) {
     // 3.0: Success, update global states with redux
     const { alias, username } = await res2.json();
 
-    dispatch(setMyId(myId));
-    dispatch(setAlias(alias));
-    dispatch(setUsername(username));
+    dispatch(updateMyProfile({ id: myId, alias: alias, username: username }));
 
     return;
 
     // 3.1: Failure
   } catch (e) {
     console.log("Error (my_basic_info.js):", e);
-    dispatch(setMyId(""));
+    dispatch(updateMyProfile({ id: "" }));
     return;
   }
 }

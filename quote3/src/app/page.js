@@ -19,9 +19,9 @@ const EditableDiv = () => {
       suppressContentEditableWarning={true}
       style={{
         minHeight: "50px",
-        alignItems: "center", // Center vertically
-        border: "1px solid #ccc", // Optional: to visualize the editable area
-        padding: "5px", // Optional: some padding for better UX
+        alignItems: "center",
+        border: "1px solid #ccc",
+        padding: "5px",
       }}
     />
   );

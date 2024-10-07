@@ -20,7 +20,7 @@ const Initializer = ({ children }) => {
     fetchMyBasicInfo(dispatch);
   }, [dispatch]); // empty array => only run once
 
-  const myId = useSelector((state) => state.myProfile.myId); // Access myId from Redux
+  const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
 
   // if myId not initialized yet, print loading screen
   if (myId !== null) return <div>{children}</div>;
