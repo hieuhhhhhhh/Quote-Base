@@ -10,7 +10,7 @@ async function fetchMyBasicInfo(dispatch) {
   console.log("(my_basic_info.js): Fetching... ");
   try {
     // 1: Get id by token stored in cookie
-    const res1 = await fetch("/api/my_id", {
+    const res1 = await fetch("/api/user_info/my_id", {
       method: "GET",
       credentials: "include", // To include cookies with the request
     });
@@ -22,7 +22,7 @@ async function fetchMyBasicInfo(dispatch) {
     const { myId } = await res1.json();
 
     // 2: Use user ID to get basic info
-    const res2 = await fetch("/api/basic_user_info", {
+    const res2 = await fetch("/api/user_info/basic_info", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

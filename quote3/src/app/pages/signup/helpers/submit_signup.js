@@ -2,7 +2,7 @@
 
 async function submit(username, password, setMsg, setOK) {
   try {
-    const res = await fetch("/api/signup", {
+    const res = await fetch("/api/authentication/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

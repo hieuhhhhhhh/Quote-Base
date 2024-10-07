@@ -6,7 +6,7 @@
 export const getBasicInfo = async (user_id) => {
   console.log("(basic_info.js): Fetching... ");
 
-  const res = await fetch("/api/basic_user_info", {
+  const res = await fetch("/api/user_info/basic_info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

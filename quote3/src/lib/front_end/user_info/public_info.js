@@ -5,7 +5,7 @@
 export const getPublicInfo = async (user_id) => {
   console.log("(public_info.js): Fetching... ");
 
-  const res = await fetch("/api/public_user_info", {
+  const res = await fetch("/api/user_info/public_info", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
