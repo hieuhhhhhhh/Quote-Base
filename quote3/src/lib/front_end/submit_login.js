@@ -2,7 +2,7 @@
 
 async function submit(username, password, setMsg, setOK) {
   try {
-    const res = await fetch("/api/login", {
+    const res = await fetch("/api/authentication/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -15,7 +15,7 @@ async function submit(username, password, setMsg, setOK) {
     // 1.0: Submit failed.
     if (!res.ok) {
       setOK(false);
-      setMsg(data.error);
+      setMsg("Invalid username or password");
       return;
     }
 

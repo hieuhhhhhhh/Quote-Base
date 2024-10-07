@@ -9,7 +9,7 @@ export default function Token_check() {
     const fetchTokenValidation = async () => {
       console.log("(token_check): Fetching...");
 
-      const res = await fetch("/api/verify_token");
+      const res = await fetch("/api/authentication/verify_token");
       if (!res.ok) {
         // Handle error response
         const msg = await res.text();
