@@ -4,7 +4,7 @@ import submit from "../helpers/submit_signup";
 import Link from "next/link";
 
 import { useDispatch } from "react-redux"; // redux
-import { setUsername as reduxUsername } from "@/components/redux/action";
+import { updateMyProfile } from "@/components/redux/action";
 
 const Page1 = ({ toNextPage }) => {
   const [username, setUsername] = useState("");
@@ -31,7 +31,7 @@ const Page1 = ({ toNextPage }) => {
 
   useEffect(() => {
     if (submitOk) {
-      dispatch(reduxUsername(username));
+      dispatch(updateMyProfile({ username: username }));
       setUsername("");
       setPassword("");
       toNextPage();

@@ -6,7 +6,7 @@ import NotMyProfile from "../comps/someone_profile";
 
 export default function Page({ params }) {
   // Determine if user is accessing their profile or viewing someone else's
-  const myId = useSelector((state) => state.myProfile.myId);
+  const myId = useSelector((state) => state.myProfile.id);
 
   // Conditionally render:
   if (myId == params.user_id) {

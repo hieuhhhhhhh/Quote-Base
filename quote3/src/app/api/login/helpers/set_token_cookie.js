@@ -11,6 +11,5 @@ export function setTokenCookie(response, userId) {
     httpOnly: true,
     maxAge: 7200, // 2 hours in seconds
     sameSite: "strict",
-    secure: process.env.NODE_ENV === "production",
   });
 }

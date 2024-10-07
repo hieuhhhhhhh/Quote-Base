@@ -16,6 +16,7 @@ async function submit(username, password, setMsg, setOK) {
     if (!res.ok) {
       setOK(false);
       setMsg(data.error);
+      return;
     }
 
     // 2.0: Submit accepted, token got:

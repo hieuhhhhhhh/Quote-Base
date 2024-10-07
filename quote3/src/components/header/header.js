@@ -4,27 +4,19 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./header.module.css";
-
-import {
-  setUsername,
-  setProfilePicture,
-  setBiography,
-  setAlias,
-  setMyId,
-} from "../redux/action";
+import removeToken from "@/lib/front_end/authentication/logout";
+import { resetMyProfile, updateMyProfile } from "../redux/action";
 
 const Header = () => {
   const dispatch = useDispatch();
 
-  const myId = useSelector((state) => state.myProfile.myId); // Access myId from Redux
+  const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
 
   // Clear all profile data
   const clearUserData = () => {
-    dispatch(setMyId());
-    dispatch(setUsername());
-    dispatch(setProfilePicture());
-    dispatch(setBiography());
-    dispatch(setAlias());
+    removeToken();
+    dispatch(resetMyProfile());
+    dispatch(updateMyProfile({ id: "" }));
   };
 
   return (
@@ -67,7 +59,7 @@ const Header = () => {
           </li>
 
           <li>
-            {myId != null ? (
+            {myId != "" ? (
               <Link href="/" onClick={clearUserData}>
                 Log Out
               </Link>

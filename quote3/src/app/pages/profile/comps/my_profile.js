@@ -7,7 +7,7 @@ function MyProfile() {
   // Accessing redux state
   const myUsername = useSelector((state) => state.myProfile.username);
   const myAlias = useSelector((state) => state.myProfile.alias);
-  const myId = useSelector((state) => state.myProfile.myId);
+  const myId = useSelector((state) => state.myProfile.id);
 
   const [bio, setBio] = useState("");
 
