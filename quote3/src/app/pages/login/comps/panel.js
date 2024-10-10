@@ -26,17 +26,20 @@ export default function LogIn() {
   };
 
   useEffect(() => {
-    // Upon successful submit:
-    if (submitOk) {
-      setUsername("");
-      setPassword("");
-      // 1: update global states using redux:
-      console.log("(panel.js): Fetching...");
-      fetchMyBasicInfo(dispatch);
+    const handleSubmitSuccess = async () => {
+      // Upon successful submit:
+      if (submitOk) {
+        console.log("(panel.js): Fetching...");
 
-      // 2: Navigate to new page on successful login
-      router.push("/");
-    }
+        // 1: update global states using redux:
+        await fetchMyBasicInfo(dispatch); // Await the fetching of basic info
+
+        // 2: Navigate to new page on successful login
+        router.push("/");
+      }
+    };
+
+    handleSubmitSuccess();
   }, [submitOk]);
 
   return (

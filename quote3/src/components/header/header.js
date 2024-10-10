@@ -60,7 +60,7 @@ const Header = () => {
 
           <li>
             {myId != "" ? (
-              <Link href="/" onClick={clearUserData}>
+              <Link href="/pages/login" onClick={clearUserData}>
                 Log Out
               </Link>
             ) : (

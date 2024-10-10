@@ -15,11 +15,17 @@ export async function POST(req) {
 
   const { data } = await supabase
     .from("users_info")
-    .select("biography")
+    .select("biography,profile_pic")
     .eq("user_id", user_id)
     .single();
 
-  return new Response(JSON.stringify({ biography: data?.biography || "" }), {
-    status: 200,
-  });
+  return new Response(
+    JSON.stringify({
+      biography: data?.biography || "",
+      profile_pic: data?.profile_pic || "",
+    }),
+    {
+      status: 200,
+    }
+  );
 }
