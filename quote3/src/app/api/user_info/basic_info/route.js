@@ -15,7 +15,7 @@ export async function POST(req) {
   // Get alias:
   const { data: data1 } = await supabase
     .from("users_info")
-    .select("alias")
+    .select("alias,avatar")
     .eq("user_id", user_id)
     .single();
 
@@ -29,6 +29,7 @@ export async function POST(req) {
   return new Response(
     JSON.stringify({
       alias: data1?.alias || "",
+      avatar: data1?.avatar || "",
       username: data2?.username || "",
     }),
     { status: 200 }

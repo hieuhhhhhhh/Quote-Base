@@ -11,6 +11,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
+  const myAvatar = useSelector((state) => state.myProfile.avatar);
 
   // Clear all profile data
   const clearUserData = () => {
@@ -67,6 +68,16 @@ const Header = () => {
               <Link href="/pages/login">Log In</Link>
             )}
           </li>
+
+          {myId != "" && (
+            <li>
+              <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
+                <div className="avatarHolder">
+                  <img src={myAvatar} className="avatar" />
+                </div>
+              </Link>
+            </li>
+          )}
         </ul>
       </nav>
     </div>

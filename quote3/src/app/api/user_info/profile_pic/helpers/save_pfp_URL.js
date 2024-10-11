@@ -2,9 +2,10 @@ import supabase from "@/lib/db/client"; // Ensure your Supabase client is correc
 
 export default async function SaveProfilePicURL(userId, url) {
   try {
-    const { error } = await supabase
-      .from("users_info")
-      .upsert({ user_id: userId, profile_pic: url }); // Use upsert to insert or update
+    const { error } = await supabase.from("users_info").upsert({
+      user_id: userId,
+      profile_pic: `${url}?t=${new Date().getTime()}`,
+    }); // Use upsert to insert or update
 
     if (error) {
       throw new Error(error.message); // Throw an error with the specific message if there is an error

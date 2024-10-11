@@ -9,6 +9,7 @@ function SomeoneProfile({ user_id }) {
     alias: "",
     biography: "",
     pfp: "",
+    pfpExist: true,
   });
 
   useEffect(() => {
@@ -25,8 +26,15 @@ function SomeoneProfile({ user_id }) {
         username: basicData.username,
         alias: basicData.alias,
         biography: publicData.biography,
-        pfp: `${publicData.profile_pic}?t=${new Date().getTime()}`,
+        pfp: publicData.profile_pic,
       }));
+
+      if (publicData.profile_pic == "") {
+        setProfile((prevProfile) => ({
+          ...prevProfile,
+          pfpExist: false,
+        }));
+      }
     };
 
     fetchProfileData();
@@ -36,7 +44,12 @@ function SomeoneProfile({ user_id }) {
     <div className={styles.container}>
       <div className={styles.profileContentMain}>
         <div className={styles.profileLeft}>
-          <img src={profile.pfp} className={styles.profilePic} />
+          <div className={styles.imgHolder}>
+            <img
+              src={profile.pfpExist ? profile.pfp : "/default_pfp.webp"} // if no pfp set default pfp
+              className={styles.profilePic}
+            />
+          </div>
         </div>
         <div className={styles.profileRight}>
           <h2 className={styles.username}>{profile.username}</h2>
