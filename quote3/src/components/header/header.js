@@ -73,7 +73,10 @@ const Header = () => {
             <li>
               <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
                 <div className="avatarHolder">
-                  <img src={myAvatar} className="avatar" />
+                  <img
+                    src={myAvatar != "" ? myAvatar : "/default_pfp.webp"}
+                    className="avatar"
+                  />
                 </div>
               </Link>
             </li>
