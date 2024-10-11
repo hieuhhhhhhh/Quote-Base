@@ -6,7 +6,7 @@ import { UPDATE_MY_PROFILE, RESET_MY_PROFILE } from "./action";
 const initialState = {
   id: null,
   username: null,
-  profilepic: null,
+  avatar: null,
   bio: null,
   alias: null,
 };

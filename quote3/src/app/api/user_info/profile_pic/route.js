@@ -3,6 +3,7 @@ import SaveProfilePicURL from "./helpers/save_pfp_URL";
 import GenerateWebp from "./helpers/generate_webp";
 import UploadImg from "./helpers/upload_img";
 import GetProfilePicURL from "./helpers/get_pfp_URL";
+import GenerateUploadAvatar from "./helpers/avatar";
 
 export async function POST(req) {
   try {
@@ -19,14 +20,17 @@ export async function POST(req) {
     // Upload webp to supabase storage:
     const fileName = await UploadImg(userId, webp);
 
+    // Generate avatar:
+    const avatarUrl = await GenerateUploadAvatar(userId, webp);
+
     // Generate URL for the uploaded image
     const url = await GetProfilePicURL(fileName);
 
     // Store URL to db (not await this one):
     SaveProfilePicURL(userId, url);
 
-    // Respond URL upon success
-    return new Response(JSON.stringify({ url: url }), {
+    // Respond the url of avatar:
+    return new Response(JSON.stringify({ avatar: avatarUrl }), {
       status: 200,
       headers: { "Content-Type": "application/json" },
     });

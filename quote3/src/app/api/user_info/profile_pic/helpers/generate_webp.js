@@ -20,20 +20,18 @@ export default async function GenerateWebp(req) {
     });
   }
 
-  const maxSize = 200 * 1024; // 200 KB
-
-  // Convert to webp
+  // Convert binary to webp
   let webp = await sharp(binary)
-    .webp({ quality: 100 }) // Convert to WebP at quality 100
+    .webp({ quality: 100 }) // Start with maximum quality
     .toBuffer();
 
-  // Compress file if file large than maxSize
+  // Compress if file is larger than maxSize
+  const maxSize = 200 * 1024; // 200 KB
+  const dimension = 1000;
   if (webp.length > maxSize) {
-    const size = webp.length;
-
-    const newRatio = Math.round((maxSize / size) * 100);
-
-    webp = await sharp(binary).webp({ quality: newRatio }).toBuffer();
+    webp = await sharp(webp)
+      .resize({ width: dimension, height: dimension, fit: "inside" }) // Maintain the resized dimension
+      .toBuffer();
   }
 
   return webp;

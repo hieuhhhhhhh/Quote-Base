@@ -12,13 +12,17 @@ function MyProfile() {
 
   const [bio, setBio] = useState("");
   const [pfp, setPfp] = useState("");
+  const [pfpExist, setPfpExist] = useState(true);
 
   useEffect(() => {
     // Fetch additional data not available in redux
     const fetchDB = async () => {
       const data = await getPublicInfo(myId);
       setBio(data.biography);
-      setPfp(`${data.profile_pic}?t=${new Date().getTime()}`);
+      if (data.profile_pic == "") {
+        setPfpExist(false);
+      }
+      setPfp(data.profile_pic);
     };
 
     fetchDB();
@@ -26,13 +30,19 @@ function MyProfile() {
 
   const onUpdate = (pfp) => {
     setPfp(pfp);
+    setPfpExist(true);
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.profileContentMain}>
         <div className={styles.profileLeft}>
-          <img src={pfp} className={styles.profilePic} />
+          <div className={styles.imgHolder}>
+            <img
+              src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
+              className={styles.profilePic}
+            />
+          </div>
         </div>
         <div className={styles.profileRight}>
           <h2 className={styles.username}>{myUsername}</h2>

@@ -2,12 +2,15 @@ import { useState, useRef } from "react";
 
 import BeforeCrop from "./before_crop";
 import AfterCrop from "./after_crop";
+import { useDispatch } from "react-redux";
+import { updateMyProfile } from "@/components/redux/action"; // redux actions
 
 export default function CropImage({ onUpdate }) {
   const [rawImg, setRawImg] = useState(null);
   const [img, setImg] = useState(null);
 
   const inputRef = useRef(null);
+  const dispatch = useDispatch(); // For redux
 
   // Load image from file input
   const onSelectImg = (event) => {
@@ -42,10 +45,16 @@ export default function CropImage({ onUpdate }) {
         throw new Error(data.message || "Unknown error."); // Use specific error message
       }
 
+      // Get avatar and update redux
       const data = await res.json();
-      console.log("Image uploaded successfully:", data.url);
+      console.log("Image uploaded successfully:", data.avatar);
+      dispatch(
+        updateMyProfile({
+          avatar: data.avatar,
+        })
+      );
 
-      // Handle the result from the API as needed
+      //
     } catch (e) {
       console.error("Error (upload_pfp.js):", e);
     }
@@ -57,8 +66,16 @@ export default function CropImage({ onUpdate }) {
         ref={inputRef}
         type="file"
         accept="image/*"
+        style={{ display: "none" }} // Hide the actual file input
         onChange={onSelectImg}
       />
+      <button
+        onClick={() => {
+          inputRef.current.click();
+        }}
+      >
+        Change Profile Picture
+      </button>
       {rawImg && (
         <BeforeCrop rawImg={rawImg} setImg={setImg} setRawImg={setRawImg} />
       )}
