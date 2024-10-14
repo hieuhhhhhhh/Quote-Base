@@ -71,7 +71,7 @@ const Header = () => {
 
           {myId != "" && (
             <li>
-              <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
+              <Link href={`/pages/profile/${myId}`}>
                 <div className="avatarHolder">
                   <img
                     src={myAvatar != "" ? myAvatar : "/default_pfp.webp"}

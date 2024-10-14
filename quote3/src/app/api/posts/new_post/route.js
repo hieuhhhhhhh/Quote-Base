@@ -12,10 +12,11 @@ export async function POST(req) {
     });
   }
   const { content } = await req.json();
+  const trimmed = content.trim();
 
   const res = await supabase
     .from("posts")
-    .insert([{ user_id: userId, content: content }]);
+    .insert([{ user_id: userId, content: trimmed }]);
 
   if (res.error) {
     return new Response("Failed to add new post", {

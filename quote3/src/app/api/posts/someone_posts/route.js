@@ -9,7 +9,7 @@ export async function POST(req) {
   // Query to get all content from posts for the given user_id
   const { data, error } = await supabase
     .from("posts")
-    .select("content")
+    .select("content, id")
     .eq("user_id", user_id);
 
   // Handle errors
