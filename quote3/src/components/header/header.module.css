@@ -3,7 +3,7 @@
   top: 0; /* Or adjust as needed */
   left: 0;
   width: 100%;
-  background-color: inherit;
+  background-color: var(--background);
   z-index: 1000; /* Ensures the header is on top of other content */
   display: flex;
   justify-content: space-between; /* Adjusts space between h1 and nav */
