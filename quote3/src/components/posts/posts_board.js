@@ -3,7 +3,7 @@ import styles from "./post_board.module.css"; // Import the CSS module
 import PostPreviews from "./post_previews";
 import PostDetails from "./post_details";
 
-export default function PostsBoard({ posts, onLoadMorePosts = () => {} }) {
+export default function PostsBoard({ posts, onLoadMorePosts }) {
   const [selectedID, setSelectedID] = useState(null); // To track the selected post
   const loadingRef = useRef(null);
 
@@ -28,10 +28,10 @@ export default function PostsBoard({ posts, onLoadMorePosts = () => {} }) {
       }
     );
 
-    if (loadingRef.current) {
+    if (loadingRef.current && onLoadMorePosts != undefined) {
       observer.observe(loadingRef.current); // Start observing the loading div
     }
-  }, [loadingRef, onLoadMorePosts]);
+  }, [onLoadMorePosts]);
 
   return (
     <div>
@@ -41,9 +41,13 @@ export default function PostsBoard({ posts, onLoadMorePosts = () => {} }) {
 
       <div className={`${styles.postsList} ${selectedID && styles.shrink}`}>
         <PostPreviews posts={posts} onClickPost={onClickPost} />
-        <div style={{ height: "60px" }}></div>
-        <div ref={loadingRef}>Loading...</div>
-        <div style={{ height: "60px" }}></div>
+        {onLoadMorePosts && (
+          <>
+            <div style={{ height: "60px" }}></div>
+            <div ref={loadingRef}>Loading...</div>
+            <div style={{ height: "60px" }}></div>
+          </>
+        )}
       </div>
     </div>
   );
