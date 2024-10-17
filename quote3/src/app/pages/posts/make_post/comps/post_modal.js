@@ -4,11 +4,16 @@ import update_FontSize_Width from "@/lib/front_end/post/dynamic_fontsize_width";
 import addPost from "../helpers/submit_post";
 
 const PostModal = ({ closeModal }) => {
+  const [titleInput, setTitleInput] = useState("");
   const [input, setInput] = useState("");
   const [fontSize, setFontSize] = useState("");
   const [width, setWidth] = useState("");
 
   const textareaRef = useRef(null);
+
+  const handleTitleInput = (e) => {
+    setTitleInput(e.target.value);
+  };
 
   const handleInput = (e) => {
     const value = e.target.value;
@@ -30,8 +35,9 @@ const PostModal = ({ closeModal }) => {
 
   const handleContinue = async () => {
     try {
-      const res = await addPost(input); // Await the addPost function
+      const res = await addPost(titleInput, input); // Await the addPost function
       if (res) {
+        setTitleInput("");
         setInput("");
       }
     } catch (err) {
@@ -41,6 +47,19 @@ const PostModal = ({ closeModal }) => {
   return (
     <div>
       <button onClick={closeModal}>Close</button>
+
+      <div className={styles.textareaContainer}>
+        <textarea
+          className={styles.textarea}
+          type="text"
+          rows={1}
+          placeholder="Type Title Here..."
+          value={titleInput}
+          onChange={handleTitleInput} // Use the handleTitleInput function
+          style={{ fontSize }} // Inline style for dynamic font size
+        />
+      </div>
+
       <div
         className={styles.textareaContainer}
         onClick={() => textareaRef.current.focus()}
@@ -50,7 +69,7 @@ const PostModal = ({ closeModal }) => {
           className={styles.textarea}
           type="text"
           rows={1}
-          placeholder="Type here..."
+          placeholder="Type Content Here..."
           value={input}
           onChange={handleInput} // Use the handleInput function
           style={{ fontSize }} // Inline style for dynamic font size

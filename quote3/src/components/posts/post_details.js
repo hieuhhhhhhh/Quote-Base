@@ -36,15 +36,7 @@ function PostDetails({ id, onClose }) {
 
   return (
     <div className={styles.detailsPanel}>
-      <button
-        onClick={() => {
-          onClose();
-        }}
-      >
-        Close
-      </button>
       <div>
-        Owner Avatar:
         <div className="avatarHolder">
           <img
             src={data?.avatar != "" ? data?.avatar : "/default_pfp.webp"}
@@ -52,14 +44,24 @@ function PostDetails({ id, onClose }) {
           />
         </div>
       </div>
+      <p style={{ fontWeight: "700" }}>{data?.title}</p>
+      <p style={{ whiteSpace: "pre-line" }}>"{data?.content}"</p>
       <p className="name">
-        Owner Name: {data?.alias.length > 0 ? data?.alias : data?.username}
+        - {data?.alias.length > 0 ? data?.alias : data?.username}
       </p>
-      <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
       <p>Likes: {data?.likes}</p>
       {isLiked != null && (
         <button onClick={onLikeUnlike}>{isLiked ? "Unlike" : "Like"}</button>
       )}
+      <br />
+      <br />
+      <button
+        onClick={() => {
+          onClose();
+        }}
+      >
+        Close
+      </button>
     </div>
   );
 }
