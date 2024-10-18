@@ -28,13 +28,13 @@ const AuthorModal = ({ closeModal, closeAuthorModal, content }) => {
   };
 
   useEffect(() => {
-      // Call getFontSize when input changes
-      update_FontSize_Width(input, setFontSize, setWidth);
+    // Call getFontSize when input changes
+    update_FontSize_Width(input, setFontSize, setWidth);
   }, [input]); // Ensure effect runs when 'input' changes
 
   const openPreviewModal = () => {
-    if (input === "") {
-        setInput(username);
+    if (input.trim() === "") {
+      setInput(username);
     }
     setIsModalOpen(true);
   };

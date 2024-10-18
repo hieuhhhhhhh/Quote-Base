@@ -59,7 +59,7 @@ const PostModal = ({ closeModal }) => {
             />
           </div>
           <br />
-          <button onClick={openAuthorModal}>Continue</button>
+          <button onClick={openAuthorModal} disabled={!input.trim()}>Continue</button>
           <button onClick={closeModal}>Close</button>
         </div>
       ) : (
