@@ -11,7 +11,9 @@ function PostPreviews({ posts, onClickPost }) {
           }} // Handle click event
           className={styles.postItem}
         >
-          {each.content}
+          "{each.content}"
+          <br />
+          - {each.author}
           <p></p>
         </div>
       ))}

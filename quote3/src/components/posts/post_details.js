@@ -55,7 +55,9 @@ function PostDetails({ id, onClose }) {
       <p className="name">
         Owner Name: {data?.alias.length > 0 ? data?.alias : data?.username}
       </p>
-      <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
+      <p style={{ whiteSpace: "pre-line" }}>
+        "{data?.content}" {"\n" + "- " + data?.author}
+      </p>
       <p>Likes: {data?.likes}</p>
       {isLiked != null && (
         <button onClick={onLikeUnlike}>{isLiked ? "Unlike" : "Like"}</button>
