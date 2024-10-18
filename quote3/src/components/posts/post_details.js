@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import FetchPostDetail from "@/lib/front_end/post/post_details";
 import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
 import { useSelector } from "react-redux";
-
+import aStyles from "@/styles/avatar.module.css"; // a = avatar
 function PostDetails({ id, onClose }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
@@ -45,16 +45,14 @@ function PostDetails({ id, onClose }) {
       </button>
       <div>
         Owner Avatar:
-        <div className="avatarHolder">
+        <div className={aStyles.avatarHolder}>
           <img
             src={data?.avatar != "" ? data?.avatar : "/default_pfp.webp"}
-            className="avatar"
+            className={aStyles.avatar}
           />
         </div>
       </div>
-      <p className="name">
-        Owner Name: {data?.alias.length > 0 ? data?.alias : data?.username}
-      </p>
+      <p>Owner Name: {data?.alias.length > 0 ? data?.alias : data?.username}</p>
       <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
       <p>Likes: {data?.likes}</p>
       {isLiked != null && (
