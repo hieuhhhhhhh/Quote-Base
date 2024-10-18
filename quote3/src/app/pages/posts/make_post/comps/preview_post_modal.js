@@ -23,7 +23,7 @@ const PreviewModal = ({
 
   const handlePost = async () => {
     try {
-      const res = await addPost(content, author); // Await the addPost function
+      const res = await addPost(content.trim(), author.trim()); // Await the addPost function
       if (res) {
         // Close all modals
         closePreviewModal();
@@ -38,8 +38,8 @@ const PreviewModal = ({
   return (
     <div>
       <div className={styles.resultContainer} style={{ width, fontSize }}>
-        "{content}"
-        <br />- {author}
+        "{content.trim()}"
+        <br />- {author.trim()}
       </div>
       <button onClick={handlePost}>Post</button>
       <button onClick={closePreviewModal}>Back</button>

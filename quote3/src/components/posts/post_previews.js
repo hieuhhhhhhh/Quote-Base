@@ -12,8 +12,6 @@ function PostPreviews({ posts, onClickPost }) {
           className={styles.postItem}
         >
           "{each.content}"
-          <br />
-          - {each.author}
           <p></p>
         </div>
       ))}
