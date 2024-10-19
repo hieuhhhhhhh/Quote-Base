@@ -2,13 +2,24 @@ import styles from "./post_board.module.css";
 import { useState, useEffect } from "react";
 import FetchPostDetail from "@/lib/front_end/post/post_details";
 import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
+
 import { useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
 function PostDetails({ id, onClose }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
+
   const myId = useSelector((state) => state.myProfile.id);
+  const router = useRouter(); // For redirecting after login
 
   const onLikeUnlike = () => {
+    if (!myId) {
+      // user no login yet
+      router.push("/pages/login");
+      return;
+    }
+
     LikeUnlikePost(isLiked, id);
     setIsLiked(!isLiked);
 
