@@ -32,7 +32,9 @@ const Header = () => {
           <li>
             <Link href="/pages/about">About</Link>
           </li>
-
+          <li>
+            <Link href="/pages/search">Search</Link>
+          </li>
           <li>
             {/* Conditional Link based on existance of myId*/}
             <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
