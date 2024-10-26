@@ -76,7 +76,7 @@ const Header = () => {
               <Link href={`/pages/profile/${myId}`}>
                 <div className="avatarHolder">
                   <img
-                    src={myAvatar != "" ? myAvatar : "/default_pfp.webp"}
+                    src={myAvatar || "/default_pfp.webp"}
                     className="avatar"
                   />
                 </div>

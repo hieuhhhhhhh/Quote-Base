@@ -1,24 +1,35 @@
 /* PostsBoard.module.css */
 
-.detailsPanel {
+.exit {
+  top: 12vh;
+  right: 60vw;
   position: fixed;
-  width: 40%;
-  padding-inline: 20px;
+  z-index: 10;
+}
+
+.scroll {
+  position: fixed;
+  background-color: var(--middleground);
+  padding-inline: 1vw;
+  box-sizing: border-box;
+  top: 10vh;
+  height: 88vh;
+  width: 40vw;
+  overflow-y: auto;
+  scrollbar-width: thin;
 }
 
 .postsList {
-  padding-inline: 20px;
   transition: padding-left 0.2s ease;
+  overflow: hidden;
 }
 
 .postItem {
   white-space: pre-line;
+  box-sizing: border-box;
+  padding-inline: 1vw;
 }
 
 .postItem:hover {
   color: aqua;
-}
-
-.shrink {
-  padding-left: 600px;
 }

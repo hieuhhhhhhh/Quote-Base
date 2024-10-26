@@ -1,0 +1,23 @@
+.input {
+  resize: none;
+  font: inherit;
+  align-content: center;
+  padding: 10px;
+  flex-grow: 1;
+}
+
+.inputBox {
+  display: flex;
+  align-items: flex-start;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px;
+}
+
+.comment {
+  padding: 15px;
+  font-size: small;
+}
