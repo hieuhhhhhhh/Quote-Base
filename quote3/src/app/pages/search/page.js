@@ -8,6 +8,8 @@ export default function Search() {
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false); // Loading state
   const [idCount, setIdCount] = useState(-1);
+  const [onShrink, setOnShrink] = useState(false);
+
   const submit = async (e) => {
     e.preventDefault();
 
@@ -43,22 +45,22 @@ export default function Search() {
 
   return (
     <div>
-      <form onSubmit={submit}>
-        <input
-          type="text"
-          value={term}
-          onChange={(e) => setTerm(e.target.value)}
-          placeholder="Search Posts"
-          required
-        />
-        <button type="submit">Search</button>
-      </form>
-      <br />
-      {loading && <p>Loading...</p>} {/* Loading status */}
-      <div>
+      <div className={onShrink ? "shrinkForDetails" : ""}>
+        <form onSubmit={submit}>
+          <input
+            type="text"
+            value={term}
+            onChange={(e) => setTerm(e.target.value)}
+            placeholder="Search Posts"
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
+        <br />
+        {loading && <p>Loading...</p>} {/* Loading status */}
         {idCount >= 0 && !loading && <h2>Found {idCount} posts</h2>}{" "}
-        <PostsBoard posts={previews} />
       </div>
+      <PostsBoard posts={previews} onShrink={setOnShrink} />
     </div>
   );
 }

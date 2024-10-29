@@ -5,8 +5,7 @@ import styles from "../Profile.module.css";
 
 function SomeoneProfile({ user_id }) {
   const [profile, setProfile] = useState({
-    username: "",
-    alias: "",
+    name: "",
     biography: "",
     pfp: "",
     pfpExist: true,
@@ -23,8 +22,7 @@ function SomeoneProfile({ user_id }) {
       // Update profile state with both sets of data
       setProfile((prevProfile) => ({
         ...prevProfile,
-        username: basicData.username,
-        alias: basicData.alias,
+        name: basicData.name,
         biography: publicData.biography,
         pfp: publicData.profile_pic,
       }));
@@ -52,8 +50,7 @@ function SomeoneProfile({ user_id }) {
           </div>
         </div>
         <div className={styles.profileRight}>
-          <h2 className={styles.username}>{profile.username}</h2>
-          <p>{profile.alias}</p>
+          <h2 className={styles.name}>{profile.name}</h2>
           <div className={styles.stats}>
             <p>30 posts</p>
             <p>15 followers</p>

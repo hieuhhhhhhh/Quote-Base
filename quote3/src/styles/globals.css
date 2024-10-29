@@ -6,6 +6,7 @@
   html {
     color-scheme: dark;
     --background: #121212;
+    --middleground: #1c1c1c;
     --foreground: #ffffff;
   }
 }
@@ -13,28 +14,44 @@
 @media (prefers-color-scheme: light) {
   html {
     color-scheme: light;
-    --background: white;
+    --background: rgb(240, 240, 240);
+    --middleground: white;
+
     --foreground: #333;
   }
 }
 
 body {
   font-family: var(--font-geist-sans);
-  padding-top: 60px; /* avoid header */
+  padding-top: 10vh;
+  margin: 0;
+  background-color: var(--background);
 }
 
 button {
   font-family: var(--font-geist-sans);
 }
 
+.shrinkForDetails {
+  padding-left: 40vw;
+}
+
 .avatarHolder {
   border-radius: 50%;
   background-color: #ccc; /* Default background color */
-  width: 37px;
+  width: 35px;
   aspect-ratio: 1/1;
   overflow: hidden;
 }
 
 .avatar {
   width: 100%;
+}
+
+.smallAvatarHolder {
+  border-radius: 50%;
+  background-color: #ccc; /* Default background color */
+  width: 25px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
 }
