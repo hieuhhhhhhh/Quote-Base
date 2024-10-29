@@ -5,10 +5,9 @@ import { UPDATE_MY_PROFILE, RESET_MY_PROFILE } from "./action";
 
 const initialState = {
   id: null,
-  username: null,
+  name: null,
   avatar: null,
   bio: null,
-  alias: null,
 };
 
 const myProfileReducer = (state = initialState, action) => {

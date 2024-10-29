@@ -3,16 +3,22 @@ import styles from "./post_board.module.css"; // Import the CSS module
 import PostPreviews from "./post_previews";
 import PostDetails from "./post_details";
 
-export default function PostsBoard({ posts, onLoadMorePosts }) {
+export default function PostsBoard({
+  posts,
+  onLoadMorePosts,
+  onShrink = () => {},
+}) {
   const [selectedID, setSelectedID] = useState(null); // To track the selected post
   const loadingRef = useRef(null);
 
   const onClickPost = (id) => {
     setSelectedID(id); // Set the clicked post as selected
+    onShrink(true);
   };
 
   const handleCloseDetails = () => {
     setSelectedID(null);
+    onShrink(false);
   };
 
   useEffect(() => {
@@ -38,8 +44,11 @@ export default function PostsBoard({ posts, onLoadMorePosts }) {
       {selectedID && (
         <PostDetails onClose={handleCloseDetails} id={selectedID} />
       )}
-
-      <div className={`${styles.postsList} ${selectedID && styles.shrink}`}>
+      <div
+        className={`${styles.postsList} ${
+          selectedID ? "shrinkForDetails" : ""
+        }`}
+      >
         <PostPreviews posts={posts} onClickPost={onClickPost} />
         {onLoadMorePosts && (
           <>

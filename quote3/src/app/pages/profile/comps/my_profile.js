@@ -6,8 +6,7 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 
 function MyProfile() {
   // Accessing redux state
-  const myUsername = useSelector((state) => state.myProfile.username);
-  const myAlias = useSelector((state) => state.myProfile.alias);
+  const myName = useSelector((state) => state.myProfile.name);
   const myId = useSelector((state) => state.myProfile.id);
 
   const [bio, setBio] = useState("");
@@ -45,8 +44,7 @@ function MyProfile() {
           </div>
         </div>
         <div className={styles.profileRight}>
-          <h2 className={styles.username}>{myUsername}</h2>
-          <p>{myAlias}</p>
+          <h2 className={styles.name}>{myName}</h2>
           <div className={styles.stats}>
             <div>30 posts</div>
             <div>15 followers</div>

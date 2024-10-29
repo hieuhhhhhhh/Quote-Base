@@ -1,0 +1,65 @@
+.input {
+  resize: none;
+  font: inherit;
+  align-content: center;
+  padding: 9px;
+  flex-grow: 1;
+  font-size: small;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  margin-left: 6px;
+}
+.column1 {
+  margin-right: 6px;
+  margin-top: 1.5px;
+}
+.column2 {
+  flex-grow: 1;
+}
+
+.inputBox {
+  display: flex;
+  align-items: flex-start;
+}
+
+.submitButton {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  font-size: small;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+.button {
+  font-size: 10px;
+  color: aquamarine;
+  margin-top: 3px;
+  margin-right: 3px;
+  background: none;
+  border: none;
+  border-radius: 3px;
+}
+.button:hover {
+  background: rgba(136, 136, 136, 0.5);
+}
+
+.title {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.name {
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.birth_time {
+  font-size: 10px;
+  font-style: italic;
+
+  margin-left: 20px;
+}

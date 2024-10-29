@@ -12,25 +12,19 @@ export async function POST(req) {
     });
   }
 
-  // Get alias:
-  const { data: data1 } = await supabase
-    .from("users_info")
-    .select("alias,avatar")
-    .eq("user_id", user_id)
-    .single();
-
-  // Get username:
-  const { data: data2 } = await supabase
-    .from("users")
-    .select("username")
-    .eq("id", user_id)
-    .single();
+  const [{ data: data1 }, { data: data2 }] = await Promise.all([
+    supabase
+      .from("users_info")
+      .select("alias,avatar")
+      .eq("user_id", user_id)
+      .single(),
+    supabase.from("users").select("username").eq("id", user_id).single(),
+  ]);
 
   return new Response(
     JSON.stringify({
-      alias: data1?.alias || "",
+      name: data1?.alias || data2?.username || "",
       avatar: data1?.avatar || "",
-      username: data2?.username || "",
     }),
     { status: 200 }
   );
