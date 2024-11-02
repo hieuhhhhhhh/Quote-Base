@@ -22,6 +22,7 @@
 .postsList {
   transition: padding-left 0.2s ease;
   overflow: hidden;
+  
 }
 
 .postItem {
@@ -32,4 +33,35 @@
 
 .postItem:hover {
   color: aqua;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; 
+  background-color: #121212;
+  color: #ffffff;
+}
+.quotesContainer {
+  flex: 1; 
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
+  gap: 30px;
+  padding: 10px;
+  background-color: #1f1f1f;
+  align-items: start; 
+}
+.quoteCard {
+  padding: 40px;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  word-wrap: break-word; 
+  color: #333333; 
+  transition: transform 0.2s;
+}
+.quoteCard:hover {
+  transform: scale(1.05); 
 }
