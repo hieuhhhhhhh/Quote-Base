@@ -9,7 +9,6 @@
   display: flex;
   justify-content: space-between; /* Adjusts space between h1 and nav */
   align-items: center; /* Vertically centers h1 and nav */
-  padding-inline: 20px;
   box-sizing: border-box; /* Ensures padding and border are included in the width */
 }
 .header h2,

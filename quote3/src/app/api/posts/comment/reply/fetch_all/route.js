@@ -2,13 +2,13 @@ import supabase from "@/lib/db/client";
 
 export async function POST(req) {
   try {
-    const { post_id } = await req.json();
+    const { parent_id } = await req.json();
 
-    // Fetch comments based on post_id
+    // Fetch comments based on parent_id
     const { data: cmts, error } = await supabase
       .from("comments")
       .select("id, commenter_id, birth_time, likes, comment, replies")
-      .eq("post_id", post_id)
+      .eq("parent_id", parent_id)
       .order("birth_time", { ascending: false });
 
     if (error) {

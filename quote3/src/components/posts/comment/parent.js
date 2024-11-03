@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import fetchAllComments from "./helpers/fetch_all";
+import fetchAllComments from "./helpers/fetch_all_comments";
 import Comment from "./comment";
 import CommentInput from "./input";
 import { useSelector } from "react-redux";
@@ -8,13 +8,15 @@ export default function CommentsParent({ post_id }) {
   const [rows, setRows] = useState([]);
   const myProfile = useSelector((state) => state.myProfile);
 
-  const onAddComment = (comment) => {
+  const onAddComment = (added) => {
     const row = {
-      comment: comment,
+      comment: added.comment,
       commenter: {
         avatar: myProfile.avatar,
-        name: myProfile.alias ?? myProfile.username,
+        name: myProfile.name,
       },
+      id: added.id,
+      birth_time: added.birth_time,
     };
 
     setRows((prev) => [row, ...prev]);
@@ -34,9 +36,10 @@ export default function CommentsParent({ post_id }) {
   }, [post_id]);
   return (
     <div>
+      <p></p>
       <CommentInput post_id={post_id} onAddComment={onAddComment} />
       {rows.map((each, index) => (
-        <Comment each={each} index={index} />
+        <Comment each={each} key={index} />
       ))}
     </div>
   );

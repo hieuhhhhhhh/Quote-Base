@@ -39,11 +39,19 @@ button {
 .avatarHolder {
   border-radius: 50%;
   background-color: #ccc; /* Default background color */
-  width: 37px;
+  width: 35px;
   aspect-ratio: 1/1;
   overflow: hidden;
 }
 
 .avatar {
   width: 100%;
+}
+
+.smallAvatarHolder {
+  border-radius: 50%;
+  background-color: #ccc; /* Default background color */
+  width: 25px;
+  aspect-ratio: 1/1;
+  overflow: hidden;
 }
