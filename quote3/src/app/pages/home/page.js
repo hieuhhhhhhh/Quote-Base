@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
+import fetchTrendingPreviews from "@/lib/front_end/post/fetch_trending_previews";
 import PostsBoard from "@/components/posts/posts_board";
 
 // Fetch post IDs
@@ -18,6 +19,7 @@ const fetchIds = async () => {
 const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
   const [previews, setPreviews] = useState([]);
+  const [trendingPreviews, setTrendingPreviews] = useState([]);
   const [index, setIndex] = useState(0);
   const loadSize = 50;
 
@@ -37,15 +39,19 @@ const Home = () => {
     if (index < postIds.length) {
       // Fetch the previews using postIds directly (since it's now pure IDs)
       const res = await fetchPreviews(postIds.slice(index, index + loadSize));
+      const trendingRes = await fetchTrendingPreviews(
+        postIds.slice(index, index + loadSize)
+      );
 
       setPreviews((prev) => [...prev, ...res]);
+      setTrendingPreviews((prev) => [...prev, ...trendingRes]);
       setIndex(index + loadSize); // Increase index by loadSize
     }
   };
 
   return (
     <div>
-      <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
+      <PostsBoard posts={previews} trendingPosts={trendingPreviews} onLoadMorePosts={onLoadMorePosts} />
     </div>
   );
 };
