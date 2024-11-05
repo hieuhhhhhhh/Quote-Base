@@ -80,11 +80,21 @@ export default function ReplyParent({ parent }) {
           }}
         />
       )}
-      {parent.replies > 0 && (
+      {parent.replies > 0 && !repliesOpen && (
         <>
+          {" "}
           |
           <button className={styles.button} onClick={onShowReplies}>
             {parent.replies} Replies
+          </button>
+        </>
+      )}
+      {repliesOpen && (
+        <>
+          {" "}
+          |
+          <button className={styles.button} onClick={onShowReplies}>
+            Collapse
           </button>
         </>
       )}

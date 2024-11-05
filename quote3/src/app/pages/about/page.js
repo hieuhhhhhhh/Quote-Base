@@ -1,25 +1,31 @@
-// app/page.js
 "use client";
+import React, { useState } from "react";
+import { PhotoshopPicker } from "react-color";
 
-import { useEffect, useState } from "react";
+const ColorPicker = () => {
+  const [color, setColor] = useState({ hex: "#fff" });
 
-export default function About() {
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    const fetchMessage = async () => {
-      const response = await fetch("/api/hello");
-      const data = await response.json();
-      setMessage(data.message);
-    };
-
-    fetchMessage();
-  }, []);
+  const handleChangeComplete = (color) => {
+    setColor(color);
+  };
 
   return (
-    <div>
-      <h1>Hello World from Next.js!</h1>
-      <p>{message}</p>
+    <div style={{ padding: "20px" }}>
+      <h2>Color Picker</h2>
+      <div
+        style={{
+          width: "100px",
+          height: "100px",
+          backgroundColor: color.hex,
+          marginBottom: "10px",
+        }}
+      />
+      <PhotoshopPicker
+        color={color.hex}
+        onChangeComplete={handleChangeComplete}
+      />
     </div>
   );
-}
+};
+
+export default ColorPicker;

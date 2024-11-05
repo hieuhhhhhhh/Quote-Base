@@ -12,11 +12,14 @@ function AfterCrop({ img, setImg, onSubmit, onUpdate }) {
     onSubmit();
   };
   return (
-    <div className={styles.overlay}>
-      <div className={styles.modal}>
-        <div className={styles.imgHolder}>
-          <img className={styles.img} src={img} alt="Cropped Image" />
+    <div className="overlay">
+      <div className="modal">
+        <div className={styles.cropBox}>
+          <div className={styles.imgHolder}>
+            <img className={styles.img} src={img} alt="Cropped Image" />
+          </div>
         </div>
+
         <button onClick={onSave}>Save</button>
         <button onClick={onClose}>Cancel</button>
       </div>
