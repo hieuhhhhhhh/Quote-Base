@@ -22,7 +22,7 @@ export async function GET() {
     if (lastUpdate != DbLastUpdate) {
       console.log("fetching posts from db");
       lastUpdate = DbLastUpdate;
-      // Call the Supabase function to get the latest 100 posts
+      // Call the Supabase function to get the latest  posts
       const { data, error } = await supabase.rpc("get_latest_posts", {
         limit_count: 300,
       });
