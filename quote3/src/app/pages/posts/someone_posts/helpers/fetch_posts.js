@@ -1,4 +1,4 @@
-const fetchPosts = async (user_id, setPosts) => {
+const fetchPostIds = async (user_id) => {
   try {
     const res = await fetch("/api/posts/someone_posts", {
       method: "POST",
@@ -15,7 +15,7 @@ const fetchPosts = async (user_id, setPosts) => {
     }
 
     const data = await res.json();
-    setPosts(data);
+    return data;
 
     //
   } catch (error) {
@@ -23,4 +23,4 @@ const fetchPosts = async (user_id, setPosts) => {
   }
 };
 
-export default fetchPosts;
+export default fetchPostIds;

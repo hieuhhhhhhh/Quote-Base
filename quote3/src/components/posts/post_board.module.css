@@ -25,12 +25,51 @@
   overflow: hidden;
 }
 
-.postItem {
-  white-space: pre-line;
-  box-sizing: border-box;
-  padding-inline: 1vw;
-}
-
 .postItem:hover {
   color: aqua;
+}
+
+.resultContainer {
+  margin: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+
+  height: 190px;
+  border-radius: 10px;
+
+  /* Make it look clickable */
+  cursor: pointer;
+  transition: box-shadow 0.1s ease;
+}
+
+/* Add hover effect */
+.resultContainer:hover {
+  box-shadow: 0 0 3px 1px var(--foreground); /* Add shadow */
+}
+
+.author {
+  font-weight: 300;
+  font-size: 15px;
+  margin-top: 5px;
+  margin-bottom: -20px;
+}
+
+.previewsBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 15px;
+}
+
+.shrink {
+  padding-inline: 0px;
+  padding-left: 40vw;
 }

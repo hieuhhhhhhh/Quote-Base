@@ -45,9 +45,7 @@ export default function PostsBoard({
         <PostDetails onClose={handleCloseDetails} id={selectedID} />
       )}
       <div
-        className={`${styles.postsList} ${
-          selectedID ? "shrinkForDetails" : ""
-        }`}
+        className={`${styles.postsList} ${selectedID ? styles.shrink : null}`}
       >
         <PostPreviews posts={posts} onClickPost={onClickPost} />
         {onLoadMorePosts && (
