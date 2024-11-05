@@ -7,7 +7,6 @@ const minWidth = 110;
 
 const update_FontSize_Width = (text, setFontSize, setWidth) => {
   const { lines, max } = countLines(text);
-  console.log("Lines: ", lines);
   const size = base - (lines / linesAtMin) * (base - min);
 
   const width = minWidth + (maxWidth - minWidth) * (max / 39);

@@ -7,7 +7,7 @@ const fetchPreviews = async (ids) => {
     body: JSON.stringify({ ids }),
   });
 
-  const { data } = await res.json();
+  const data = await res.json();
 
   if (!res.ok) {
     throw new Error(data.error);
