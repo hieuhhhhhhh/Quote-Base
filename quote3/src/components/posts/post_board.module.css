@@ -21,7 +21,6 @@
 }
 
 .postsList {
-  transition: padding-left 0.2s ease;
   overflow: hidden;
 }
 
