@@ -1,8 +1,8 @@
-import styles from "./pfp.module.css";
+import styles from "./background_img.module.css";
 import { useState, useCallback } from "react";
 import Cropper from "react-easy-crop";
 
-function BeforeCrop({ rawImg, setImg, setRawImg }) {
+export default function Cropping({ rawImg, aspect, onDone }) {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [cropInfo, setCropInfo] = useState(null);
@@ -35,28 +35,29 @@ function BeforeCrop({ rawImg, setImg, setRawImg }) {
       );
 
       const base64 = canvas.toDataURL("image/jpeg");
-      setImg(base64);
-      setRawImg(null);
+      onDone(base64);
     };
   };
 
+  const onCancel = () => {
+    onDone();
+  };
+
   return (
-    <div className="overlay">
-      <div className="modal">
-        <div className={styles.cropBox}>
-          <Cropper
-            image={rawImg}
-            crop={crop}
-            zoom={zoom}
-            aspect={1}
-            onCropChange={setCrop}
-            onZoomChange={setZoom}
-            onCropComplete={onCropComplete}
-          />
-        </div>
-        <button onClick={onCrop}>Crop Image</button>
+    <div>
+      <div className={styles.cropBox}>
+        <Cropper
+          image={rawImg}
+          crop={crop}
+          zoom={zoom}
+          aspect={aspect}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onCropComplete={onCropComplete}
+        />
       </div>
+      <button onClick={onCancel}>Cancel</button>
+      <button onClick={onCrop}>Crop Image</button>
     </div>
   );
 }
-export default BeforeCrop;

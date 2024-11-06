@@ -1,16 +1,20 @@
-import { UPDATE_MY_PROFILE, RESET_MY_PROFILE } from "./action";
+import {
+  UPDATE_MY_PROFILE,
+  RESET_MY_PROFILE,
+  UPDATE_USER_ACTIONS,
+} from "./action";
 
 // null => not intialized yet
 // empty strings => intialized but no data found from db
 
-const initialState = {
+const myProfileInit = {
   id: null,
   name: null,
   avatar: null,
   bio: null,
 };
 
-const myProfileReducer = (state = initialState, action) => {
+const myProfileReducer = (state = myProfileInit, action) => {
   switch (action.type) {
     case UPDATE_MY_PROFILE:
       return {
@@ -18,10 +22,27 @@ const myProfileReducer = (state = initialState, action) => {
         ...action.payload, // Spread the payload to update multiple fields
       };
     case RESET_MY_PROFILE:
-      return initialState;
+      return myProfileInit;
     default:
       return state;
   }
 };
 
-export default myProfileReducer;
+const userActionsInit = {
+  isCreatingPost: false,
+};
+
+const userActionsReducer = (state = userActionsInit, action) => {
+  switch (action.type) {
+    case UPDATE_USER_ACTIONS:
+      return {
+        ...state,
+        ...action.payload, // Spread the payload to update multiple fields
+      };
+
+    default:
+      return state;
+  }
+};
+
+export { myProfileReducer, userActionsReducer };

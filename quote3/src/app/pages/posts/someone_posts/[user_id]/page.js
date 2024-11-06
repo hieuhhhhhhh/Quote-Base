@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import fetchPosts from "../helpers/fetch_posts";
+import fetchPostIds from "../helpers/fetch_posts";
+import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 
 export default function Posts({ params }) {
@@ -9,12 +10,23 @@ export default function Posts({ params }) {
   const user_id = params.user_id;
 
   // State to hold posts
-  const [posts, setPosts] = useState([]);
+  const [previews, setPreviews] = useState([]);
 
   useEffect(() => {
-    fetchPosts(user_id, setPosts);
-  }, []);
+    // Fetch post IDs and previews in sequence
+    const fetchData = async () => {
+      // Step 1: Fetch post IDs
+      const ids = await fetchPostIds(user_id);
+      // Step 2: Fetch previews for those IDs
+      if (ids && ids.length > 0) {
+        const res = await fetchPreviews(ids);
+        setPreviews(res);
+      }
+    };
+
+    fetchData();
+  }, [user_id]);
 
   // Render posts if available
-  return <PostsBoard posts={posts}></PostsBoard>;
+  return <PostsBoard posts={previews} onShrink={() => {}} />;
 }

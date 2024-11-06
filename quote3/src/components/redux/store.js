@@ -1,9 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import myProfileReducer from "./reducer";
+import { myProfileReducer, userActionsReducer } from "./reducer";
 
 const store = configureStore({
   reducer: {
     myProfile: myProfileReducer,
+    userActions: userActionsReducer,
   },
 });
 
