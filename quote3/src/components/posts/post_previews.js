@@ -1,20 +1,18 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import styles from "./post_board.module.css";
 import Preview from "./comps/preview";
 
 function PostPreviews({ posts, onClickPost, seID, setSeID, detailsOpen }) {
   const refs = useRef([]);
+  const [seIndex, setSeIndex] = useState(0); // seIndex = selectedIndex
 
   // Scroll to seID
   useEffect(() => {
     if (seID !== null) {
-      const index = posts.findIndex((post) => post.id === seID);
-      if (index !== -1 && refs.current[index]) {
-        refs.current[index].scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-      }
+      refs.current[seIndex].scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
     }
   }, [detailsOpen]);
 
@@ -26,6 +24,7 @@ function PostPreviews({ posts, onClickPost, seID, setSeID, detailsOpen }) {
           ref={(el) => (refs.current[index] = el)}
           onClick={() => {
             setSeID(each.id); // Set the selected post ID
+            setSeIndex(index);
             onClickPost(each.id);
           }}
         >
