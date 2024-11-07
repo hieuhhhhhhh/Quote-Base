@@ -11,6 +11,8 @@ function SomeoneProfile({ user_id }) {
     pfpExist: true,
   });
 
+  const [moreOpen, setMoreOpen] = useState(false);
+
   useEffect(() => {
     const fetchProfileData = async () => {
       // Fetch basic info
@@ -52,12 +54,29 @@ function SomeoneProfile({ user_id }) {
         <div className={styles.profileRight}>
           <h2 className={styles.name}>{profile.name}</h2>
           <div className={styles.stats}>
-            <p>30 posts</p>
-            <p>15 followers</p>
+            <p>0 posts</p>
+            <p>0 followers</p>
           </div>
           <p className={styles.bio}>{profile.bio}</p>
         </div>
       </div>
+      <button>Follow</button>
+
+      <div>
+        <button
+          onClick={() => {
+            setMoreOpen(!moreOpen);
+          }}
+        >
+          More
+        </button>
+        {moreOpen && (
+          <span className={styles.rightModal}>
+            <button onClick={() => alert("Report")}>Report</button>
+          </span>
+        )}
+      </div>
+
       <div className={styles.profileContentSub}>
         <p>To be continued area ....</p>
       </div>
