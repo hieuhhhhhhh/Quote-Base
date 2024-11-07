@@ -9,6 +9,8 @@ function MyProfile() {
   const myName = useSelector((state) => state.myProfile.name);
   const myId = useSelector((state) => state.myProfile.id);
 
+  const [moreOpen, setMoreOpen] = useState(false);
+
   const [bio, setBio] = useState("");
   const [pfp, setPfp] = useState("");
   const [pfpExist, setPfpExist] = useState(true);
@@ -46,13 +48,30 @@ function MyProfile() {
         <div className={styles.profileRight}>
           <h2 className={styles.name}>{myName}</h2>
           <div className={styles.stats}>
-            <div>30 posts</div>
-            <div>15 followers</div>
+            <div>0 posts</div>
+            <div>0 followers</div>
           </div>
           <div className={styles.bio}>{bio}</div>
         </div>
       </div>
       <UploadProfilePic onUpdate={onUpdate} />
+      <button>Edit Profile</button>
+
+      <div>
+        <button
+          onClick={() => {
+            setMoreOpen(!moreOpen);
+          }}
+        >
+          More
+        </button>
+        {moreOpen && (
+          <span className={styles.rightModal}>
+            <button onClick={() => alert("Log Out")}>Log Out</button>
+          </span>
+        )}
+      </div>
+
       <div className={styles.profileContentSub}>
         <p>To be continued area ....</p>
       </div>
