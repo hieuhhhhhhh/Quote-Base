@@ -20,6 +20,7 @@ const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
   const [previews, setPreviews] = useState([]);
   const [trendingPreviews, setTrendingPreviews] = useState([]);
+  const [trending, setTrending] = useState(false); // To track if the posts should be sorted by likes
   const [index, setIndex] = useState(0);
   const loadSize = 50;
 
@@ -51,7 +52,20 @@ const Home = () => {
 
   return (
     <div>
-      <PostsBoard posts={previews} trendingPosts={trendingPreviews} onLoadMorePosts={onLoadMorePosts} />
+      {trending ? (
+        <button onClick={() => setTrending(!trending)}>
+          Randomize Newest Posts
+        </button>
+      ) : (
+        <button onClick={() => setTrending(!trending)}>Sort By Trending</button>
+      )}
+      
+      <PostsBoard
+        posts={previews}
+        trendingPosts={trendingPreviews}
+        trending={trending}
+        onLoadMorePosts={onLoadMorePosts}
+      />
     </div>
   );
 };

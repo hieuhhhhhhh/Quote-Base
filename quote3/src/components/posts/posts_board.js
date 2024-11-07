@@ -6,11 +6,11 @@ import PostDetails from "./post_details";
 export default function PostsBoard({
   posts,
   trendingPosts,
+  trending,
   onLoadMorePosts,
   onShrink = () => {},
 }) {
   const [selectedID, setSelectedID] = useState(null); // To track the selected post
-  const [trending, setTrending] = useState(false); // To track if the posts should be sorted by likes
 
   const loadingRef = useRef(null);
 
@@ -52,15 +52,6 @@ export default function PostsBoard({
           selectedID ? "shrinkForDetails" : ""
         }`}
       >
-        {trending ? (
-          <button onClick={() => setTrending(!trending)}>
-            Randomize Newest Posts
-          </button>
-        ) : (
-          <button onClick={() => setTrending(!trending)}>
-            Sort By Trending
-          </button>
-        )}
         <PostPreviews
           posts={posts}
           trendingPosts={trendingPosts}

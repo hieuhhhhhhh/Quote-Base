@@ -1,5 +1,4 @@
 import supabase from "@/lib/db/client";
-import Shuffle from "@/lib/back_end/shuffle";
 export async function POST(req) {
   try {
     // Parse the array of IDs from the incoming request
@@ -13,11 +12,11 @@ export async function POST(req) {
       );
     }
 
-    // Query the "posts" table using Supabase to select rows where the ID is in the given array
+    // Query the "posts" table using Supabase to get the posts ordered by likes
     const { data, error } = await supabase
       .from("posts")
       .select("id, content, author, likes")
-      .in("id", ids);
+      .order("likes", { ascending: false });
 
     // Handle any errors from the query
     if (error) {
@@ -25,8 +24,6 @@ export async function POST(req) {
         status: 500,
       });
     }
-
-    data.sort((a, b) => b.likes - a.likes);
 
     // Return the retrieved data
     return new Response(JSON.stringify({ data }), { status: 200 });
