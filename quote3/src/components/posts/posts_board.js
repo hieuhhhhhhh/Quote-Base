@@ -36,9 +36,17 @@ export default function PostsBoard({
       }
     );
 
-    if (loadingRef.current && onLoadMorePosts != undefined) {
+    if (loadingRef.current && onLoadMorePosts !== undefined) {
       observer.observe(loadingRef.current); // Start observing the loading div
     }
+
+    // Cleanup function to disconnect the observer
+    return () => {
+      if (loadingRef.current) {
+        observer.unobserve(loadingRef.current);
+      }
+      observer.disconnect();
+    };
   }, [onLoadMorePosts]);
 
   return (
