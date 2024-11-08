@@ -1,22 +1,12 @@
 import supabase from "@/lib/db/client";
-export async function POST(req) {
+export async function GET(req) {
   try {
-    // Parse the array of IDs from the incoming request
-    const { ids } = await req.json();
-
-    // Validate the IDs array
-    if (!Array.isArray(ids) || ids.length === 0) {
-      return new Response(
-        JSON.stringify({ error: "Invalid or empty array of IDs" }),
-        { status: 400 }
-      );
-    }
-
     // Query the "posts" table using Supabase to get the posts ordered by likes
     const { data, error } = await supabase
       .from("posts")
-      .select("id, likes")
-      .order("likes", { ascending: false });
+      .select("id")
+      .order("likes", { ascending: false })
+      .limit(300); // Limit the number of posts retrieved from the database to 300
 
     // Handle any errors from the query
     if (error) {
@@ -25,8 +15,11 @@ export async function POST(req) {
       });
     }
 
-    // Return the retrieved data
-    return new Response(JSON.stringify({ data }), { status: 200 });
+    // Return  response
+    return new Response(JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      status: 200,
+    });
   } catch (err) {
     // Handle any unexpected errors
     return new Response(JSON.stringify({ error: err.message }), {

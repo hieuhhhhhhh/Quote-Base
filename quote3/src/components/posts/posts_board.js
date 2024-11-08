@@ -5,8 +5,6 @@ import PostDetails from "./post_details";
 
 export default function PostsBoard({
   posts,
-  trendingPosts,
-  trending,
   onLoadMorePosts,
   onShrink = () => {},
 }) {
@@ -56,8 +54,6 @@ export default function PostsBoard({
           seID={seID}
           setSeID={setSeID}
           detailsOpen={detailsOpen}
-          trendingPosts={trendingPosts}
-          trending={trending}
         />
         {onLoadMorePosts && (
           <>
