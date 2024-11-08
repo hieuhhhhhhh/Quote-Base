@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
+import fetchTrendingPreviews from "@/lib/front_end/post/fetch_trending_previews";
 import PostsBoard from "@/components/posts/posts_board";
 import { useSelector } from "react-redux";
 import CreatePost from "./comps/create_post/parent";
@@ -8,6 +9,8 @@ import CreatePost from "./comps/create_post/parent";
 const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
   const [previews, setPreviews] = useState([]);
+  const [trendingPreviews, setTrendingPreviews] = useState([]);
+  const [trending, setTrending] = useState(false); // To track if the posts should be sorted by likes
   const [index, setIndex] = useState(0);
   const loadSize = 50;
 
@@ -31,8 +34,12 @@ const Home = () => {
     if (index < postIds.length) {
       // Fetch the previews using postIds directly (since it's now pure IDs)
       const res = await fetchPreviews(postIds.slice(index, index + loadSize));
+      const trendingRes = await fetchTrendingPreviews(
+        postIds.slice(index, index + loadSize)
+      );
 
       setPreviews((prev) => [...prev, ...res]);
+      setTrendingPreviews((prev) => [...prev, ...trendingRes]);
       setIndex(index + loadSize); // Increase index by loadSize
     }
   };
@@ -40,7 +47,20 @@ const Home = () => {
   return (
     <div>
       {isCreatingPost && <CreatePost></CreatePost>}
-      <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
+      {trending ? (
+        <button onClick={() => setTrending(!trending)}>
+          Randomize Newest Posts
+        </button>
+      ) : (
+        <button onClick={() => setTrending(!trending)}>Sort By Trending</button>
+      )}
+
+      <PostsBoard
+        posts={previews}
+        trendingPosts={trendingPreviews}
+        trending={trending}
+        onLoadMorePosts={onLoadMorePosts}
+      />
     </div>
   );
 };

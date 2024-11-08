@@ -5,11 +5,14 @@ import PostDetails from "./post_details";
 
 export default function PostsBoard({
   posts,
+  trendingPosts,
+  trending,
   onLoadMorePosts,
   onShrink = () => {},
 }) {
   const [seID, setSeID] = useState(null); // seID = selected id
   const [detailsOpen, setDetailsOp] = useState(false);
+
   const loadingRef = useRef(null);
 
   const onClickPost = (id) => {
@@ -53,6 +56,8 @@ export default function PostsBoard({
           seID={seID}
           setSeID={setSeID}
           detailsOpen={detailsOpen}
+          trendingPosts={trendingPosts}
+          trending={trending}
         />
         {onLoadMorePosts && (
           <>
