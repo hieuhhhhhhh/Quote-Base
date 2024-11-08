@@ -1,15 +1,13 @@
-// this api is to get all posts from a user's id.
-
 import supabase from "@/lib/db/client";
 
 export async function POST(req) {
   // Extract user_id from the request body
   const { user_id } = await req.json();
 
-  // Query to get all content from posts for the given user_id
+  // Query all post ids for the given user_id
   const { data, error } = await supabase
     .from("posts")
-    .select("content, id")
+    .select("id")
     .eq("user_id", user_id);
 
   // Handle errors
@@ -19,6 +17,8 @@ export async function POST(req) {
     });
   }
 
-  // Return the retrieved data
-  return new Response(JSON.stringify(data), { status: 200 });
+  const ids = data.map((post) => post.id); // Extract ids from the response
+
+  // Return the retrieved ids
+  return new Response(JSON.stringify(ids), { status: 200 });
 }

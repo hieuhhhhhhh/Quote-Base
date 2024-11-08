@@ -1,5 +1,5 @@
-const fetchPreviews = async (ids) => {
-  const res = await fetch("/api/posts/post_previews", {
+const fetchTrendingPreviews = async (ids) => {
+  const res = await fetch("/api/posts/trending_previews", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -7,7 +7,7 @@ const fetchPreviews = async (ids) => {
     body: JSON.stringify({ ids }),
   });
 
-  const data = await res.json();
+  const { data } = await res.json();
 
   if (!res.ok) {
     throw new Error(data.error);
@@ -16,4 +16,4 @@ const fetchPreviews = async (ids) => {
   return data;
 };
 
-export default fetchPreviews;
+export default fetchTrendingPreviews;

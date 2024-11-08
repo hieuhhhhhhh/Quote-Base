@@ -4,7 +4,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
-import Home from "@/app/pages/home/page";
+import Home from "@/app/pages/home/home";
 
 export default function HomeLayout({ children }) {
   const path = usePathname();
@@ -15,7 +15,7 @@ export default function HomeLayout({ children }) {
       <div style={{ display: path == "/" ? "block" : "none" }}>
         <Home key={myId} />
       </div>
-      {path != "/" && <div>{children}</div>}
+      <div>{children}</div>
     </div>
   );
 }

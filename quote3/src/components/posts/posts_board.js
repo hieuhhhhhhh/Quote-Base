@@ -5,19 +5,24 @@ import PostDetails from "./post_details";
 
 export default function PostsBoard({
   posts,
+  trendingPosts,
+  trending,
   onLoadMorePosts,
   onShrink = () => {},
 }) {
-  const [selectedID, setSelectedID] = useState(null); // To track the selected post
+  const [seID, setSeID] = useState(null); // seID = selected id
+  const [detailsOpen, setDetailsOp] = useState(false);
+
   const loadingRef = useRef(null);
 
   const onClickPost = (id) => {
-    setSelectedID(id); // Set the clicked post as selected
+    setSeID(id); // Set the clicked post as selected
+    setDetailsOp(true);
     onShrink(true);
   };
 
   const handleCloseDetails = () => {
-    setSelectedID(null);
+    setDetailsOp(false);
     onShrink(false);
   };
 
@@ -41,15 +46,19 @@ export default function PostsBoard({
 
   return (
     <div>
-      {selectedID && (
-        <PostDetails onClose={handleCloseDetails} id={selectedID} />
-      )}
+      {detailsOpen && <PostDetails onClose={handleCloseDetails} id={seID} />}
       <div
-        className={`${styles.postsList} ${
-          selectedID ? "shrinkForDetails" : ""
-        }`}
+        className={`${styles.postsList} ${detailsOpen ? styles.shrink : null}`}
       >
-        <PostPreviews posts={posts} onClickPost={onClickPost} />
+        <PostPreviews
+          posts={posts}
+          onClickPost={onClickPost}
+          seID={seID}
+          setSeID={setSeID}
+          detailsOpen={detailsOpen}
+          trendingPosts={trendingPosts}
+          trending={trending}
+        />
         {onLoadMorePosts && (
           <>
             <div style={{ height: "60px" }}></div>

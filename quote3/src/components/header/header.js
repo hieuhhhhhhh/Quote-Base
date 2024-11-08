@@ -5,7 +5,11 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./header.module.css";
 import removeToken from "@/lib/front_end/authentication/logout";
-import { resetMyProfile, updateMyProfile } from "../redux/action";
+import {
+  resetMyProfile,
+  updateMyProfile,
+  updateUserActions,
+} from "../redux/action";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -26,7 +30,14 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link
+              href="/"
+              onClick={() => {
+                dispatch(updateUserActions({ isCreatingPost: false }));
+              }}
+            >
+              Home
+            </Link>
           </li>
 
           <li>
@@ -54,7 +65,14 @@ const Header = () => {
           </li>
 
           <li>
-            <Link href="/pages/posts/make_post">Make_Post</Link>
+            <Link
+              href="/"
+              onClick={() => {
+                dispatch(updateUserActions({ isCreatingPost: true }));
+              }}
+            >
+              Create_Post
+            </Link>
           </li>
 
           <li>
