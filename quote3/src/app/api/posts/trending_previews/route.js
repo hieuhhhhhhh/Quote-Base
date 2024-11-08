@@ -1,12 +1,9 @@
 import supabase from "@/lib/db/client";
 export async function GET(req) {
   try {
-    // Query the "posts" table using Supabase to get the posts ordered by likes
-    const { data, error } = await supabase
-      .from("posts")
-      .select("id")
-      .order("likes", { ascending: false })
-      .limit(300); // Limit the number of posts retrieved from the database to 300
+    const { data, error } = await supabase.rpc("get_posts_by_likes", {
+      limit_count: 300, // Pass the limit value as a parameter
+    });
 
     // Handle any errors from the query
     if (error) {

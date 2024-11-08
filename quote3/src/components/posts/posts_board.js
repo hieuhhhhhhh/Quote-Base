@@ -10,6 +10,7 @@ export default function PostsBoard({
 }) {
   const [seID, setSeID] = useState(null); // seID = selected id
   const [detailsOpen, setDetailsOp] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const loadingRef = useRef(null);
 
@@ -26,10 +27,12 @@ export default function PostsBoard({
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
+      async (entries) => {
         // Check if the loading div is seenable
-        if (entries[0].isIntersecting) {
-          onLoadMorePosts();
+        if (entries[0].isIntersecting && !loading) {
+          setLoading(true); // Set loading state to true
+          await onLoadMorePosts();
+          setLoading(false); // Reset loading state
         }
       },
       {
@@ -40,7 +43,14 @@ export default function PostsBoard({
     if (loadingRef.current && onLoadMorePosts != undefined) {
       observer.observe(loadingRef.current); // Start observing the loading div
     }
-  }, [onLoadMorePosts]);
+
+    // Cleanup function to disconnect the observer on component unmount
+    return () => {
+      if (loadingRef.current) {
+        observer.unobserve(loadingRef.current);
+      }
+    };
+  }, [onLoadMorePosts, loading]); // Only re-run when 'onLoadMorePosts' or 'loading' changes
 
   return (
     <div>

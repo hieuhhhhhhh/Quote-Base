@@ -46,6 +46,7 @@ const Home = () => {
       // Fetch the previews using postIds directly (since it's now pure IDs)
       const res = await fetchPreviews(postIds.slice(index, index + loadSize));
 
+      //setPreviews([]);
       setPreviews((prev) => [...prev, ...res]);
       setIndex((prevIndex) => prevIndex + loadSize); // Increase index by loadSize
     }
