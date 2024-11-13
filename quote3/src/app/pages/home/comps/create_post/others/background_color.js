@@ -1,3 +1,4 @@
+import styles from "../background_img/background_img.module.css";
 import { useState } from "react";
 import { CompactPicker } from "react-color";
 
@@ -14,7 +15,7 @@ export default function BackgroundColor({ preview, onDone, BGcolor }) {
 
       {/* Pass the custom colors to the CompactPicker */}
       <CompactPicker color={color} onChangeComplete={handleColorChange} />
-      <div>
+      <div className={styles.footerButtons}>
         <button onClick={() => onDone(BGcolor)}>Cancel</button>
         <button onClick={() => onDone(color)}>Save</button>
       </div>

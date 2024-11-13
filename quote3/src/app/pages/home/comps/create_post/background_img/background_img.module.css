@@ -3,3 +3,17 @@
   width: 350px;
   height: 350px;
 }
+
+.footerButtons {
+  display: flex;
+  justify-content: space-between; /* Align back and continue to edges */
+  margin-top: 20px; /* Add some space above the footer buttons */
+}
+
+.footerButtons button:first-child {
+  align-self: flex-start; /* Back button on the bottom left */
+}
+
+.footerButtons button:last-child {
+  align-self: flex-end; /* Continue button on the bottom right */
+}
