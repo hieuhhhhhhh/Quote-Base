@@ -56,8 +56,10 @@ export default function Cropping({ rawImg, aspect, onDone }) {
           onCropComplete={onCropComplete}
         />
       </div>
-      <button onClick={onCancel}>Cancel</button>
-      <button onClick={onCrop}>Crop Image</button>
+      <div className={styles.footerButtons}>
+        <button onClick={onCancel}>Cancel</button>
+        <button onClick={onCrop}>Crop Image</button>
+      </div>
     </div>
   );
 }

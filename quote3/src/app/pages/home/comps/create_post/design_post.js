@@ -1,6 +1,5 @@
 // BG = background
 // T = text
-
 import { useState, useEffect } from "react";
 import Cropping from "./background_img/cropping";
 import ImgInput from "./background_img/img_input";
@@ -8,8 +7,11 @@ import update_FontSize_Width from "@/lib/front_end/post/dynamic_fontsize_width";
 import Preview from "./others/preview";
 import BackgroundColor from "./others/background_color";
 import TextColor from "./others/text_color";
+import styles from "./create_post.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPalette, faFont } from "@fortawesome/free-solid-svg-icons";
 
-export default function CPpage3({
+export default function CPdesign({
   content,
   author,
   img,
@@ -101,27 +103,24 @@ export default function CPpage3({
       default:
         return (
           <div>
-            <ImgInput
-              setRawImg={setRawImg}
-              onDone={() => setPage(PAGE.UPLOAD_PIC)}
-            />
-            <button
-              onClick={() => {
-                setPage(PAGE.BG_COLOR);
-              }}
-            >
-              Set BG Color
-            </button>
-            <button
-              onClick={() => {
-                setPage(PAGE.TEXT_COLOR);
-              }}
-            >
-              Set Text Color
-            </button>
+            <div className={styles.iconRow}>
+              <div>
+                <ImgInput setRawImg={setRawImg} onDone={() => setPage(PAGE.UPLOAD_PIC)} />
+              </div>
+              <div onClick={() => setPage(PAGE.BG_COLOR)}>
+                <FontAwesomeIcon icon={faPalette} title="Set Background Color" />
+              </div>
+              <div onClick={() => setPage(PAGE.TEXT_COLOR)}>
+                <FontAwesomeIcon icon={faFont} title="Set Text Color" />
+              </div>
+            </div>
+
             <PreviewComp />
-            <button onClick={onBack}>Back</button>
-            <button onClick={onFinish}>Continue</button>
+
+            <div className={styles.footerButtons}>
+              <button onClick={onBack}>Back</button>
+              <button onClick={onFinish}>Next</button>
+            </div>
           </div>
         );
     }
