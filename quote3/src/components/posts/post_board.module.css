@@ -72,3 +72,10 @@
   padding-inline: 0px;
   padding-left: 40vw;
 }
+
+.buttonContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
