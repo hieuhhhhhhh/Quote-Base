@@ -1,18 +1,19 @@
-//Parent.js
 import { useState, useEffect } from "react";
 import addPost from "../../helpers/submit_post";
+import styles from "./create_post.module.css";
 
 import { useDispatch } from "react-redux";
 import { updateUserActions } from "@/components/redux/action";
 
 import CPinput from "./input_post";
+import CPauthor from "./author_post";
 import CPdesign from "./design_post";
 import CPpreview from "./preview_post";
 
 export default function CPparent() {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState("");
-  const [author, setAuthor] = useState("Anonymous");
+  const [author, setAuthor] = useState("");
   const [img, setImg] = useState(null);
   const [BGcolor, setBGcolor] = useState(null);
   const [whiteText, setWhiteT] = useState(true);
@@ -57,17 +58,29 @@ export default function CPparent() {
   return (
     <div className="overlay">
       <div className="modal">
+        <button className={styles.closeButton}
+          onClick={() => {
+            dispatch(updateUserActions({ isCreatingPost: false }));
+          }}
+        >
+          X
+        </button>
         <div>
           {page === 1 && (
             <CPinput 
               content={content} 
               setContent={setContent} 
+              onNext={onNext} />
+          )}
+         {page === 2 && (
+            <CPauthor 
+              author={author}
+              setAuthor={setAuthor}
               onNext={onNext}
-              onBack={onBack} 
-              setAuthor={setAuthor}/>
+              onBack={onBack}/>
           )}
 
-          {page === 2 && (
+          {page === 3 && (
             <CPdesign
               content={content}
               author={author}
@@ -81,7 +94,7 @@ export default function CPparent() {
               onBack={onBack}
             />
           )}
-          {page === 3 && (
+          {page === 4 && (
             <CPpreview
               content={content}
               author={author}

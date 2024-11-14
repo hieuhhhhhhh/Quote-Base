@@ -1,10 +1,9 @@
-
 import { useState, useRef, useEffect } from "react";
 import update_FontSize_Width from "@/lib/front_end/post/dynamic_fontsize_width";
 import styles from "./create_post.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 
-export default function CPinput({ content, setContent, onNext, onBack, setAuthor }) {
+export default function CPinput({ content, setContent, onNext }) {
   const [fontSize, setFontSize] = useState("");
 
   const handleAuthorChange = (e) => {
@@ -43,10 +42,6 @@ export default function CPinput({ content, setContent, onNext, onBack, setAuthor
 
   return (
     <div>
-      <label>
-        Author's Name : 
-        <input type="textbox" onChange={handleAuthorChange} placeholder="Enter Author's Name" />
-      </label>
       <div
         className={styles.textareaContainer}
         onClick={() => TAref.current.focus()}
@@ -62,10 +57,7 @@ export default function CPinput({ content, setContent, onNext, onBack, setAuthor
           style={{ fontSize }} 
         />
       </div>
-      <div className={styles.footerButtons}>
-        <button  onClick={onBack}>
-          Discard
-        </button>
+      <div className={styles.singelFooterButton}>
         <button  onClick={onContinue} disabled={!content.trim()}>
           Next
         </button>
