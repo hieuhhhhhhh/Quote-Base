@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import update_FontSize_Width from "@/lib/front_end/post/dynamic_fontsize_width";
 import Preview from "./others/preview";
+import styles from "./create_post.module.css";
 
-export default function CPpage4({
+export default function CPpreview({
   content,
   author,
   onFinish,
@@ -22,7 +23,8 @@ export default function CPpage4({
 
   return (
     <div>
-      <h3>Final Preview</h3>
+      <h3 style={{ textAlign: 'center', margin: '20px 0', fontSize: '1.5em', fontWeight: 'bold' }}> Final Preview </h3>
+
       <Preview
         width={width}
         fontSize={fontSize}
@@ -32,22 +34,14 @@ export default function CPpage4({
         BGcolor={BGcolor}
         whiteText={whiteText}
       />
-
-      <button
-        onClick={() => {
-          onBack();
-        }}
-      >
-        Back
-      </button>
-
-      <button
-        onClick={() => {
-          onFinish();
-        }}
-      >
-        Finish
-      </button>
+      <div className={styles.footerButtons}>
+        <button onClick={() => { onBack(); }} >
+          Back
+        </button>
+        <button onClick={() => { onFinish(); }}>
+          Post
+        </button>
+      </div>
     </div>
   );
 }

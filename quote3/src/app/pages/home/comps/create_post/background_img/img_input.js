@@ -1,4 +1,7 @@
+
 import { useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faImage} from "@fortawesome/free-solid-svg-icons";
 
 export default function ImgInput({ setRawImg, onDone }) {
   const inputRef = useRef(null);
@@ -23,13 +26,14 @@ export default function ImgInput({ setRawImg, onDone }) {
         style={{ display: "none" }} // Hide the actual file input
         onChange={afterSelectFile}
       />
-      <button
-        onClick={() => {
-          inputRef.current.click();
-        }}
-      >
-        Upload Background Picture
-      </button>
+      <div onClick={() => { inputRef.current.click(); }}>
+        <FontAwesomeIcon icon={faImage} title="Upload Background Image" />
+      </div>
+      
     </span>
   );
 }
+
+                
+                
+
