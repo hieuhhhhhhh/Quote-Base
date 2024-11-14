@@ -13,7 +13,7 @@ export async function POST(req) {
   // Fetch tb 'users_info':
   const owner_id = data1.user_id;
 
-  const [{ data: data2 }, { data: data3 }, { data: data4 }] = await Promise.all(
+  const [{ data: data2 }, { data: data3 }, { data: data4 }, { data: data5 }] = await Promise.all(
     [
       supabase
         .from("users_info")
@@ -29,6 +29,13 @@ export async function POST(req) {
         .eq("post_id", post_id)
         .eq("user_id", user_id)
         .limit(1),
+
+      supabase
+        .from("saves")
+        .select("*")
+        .eq("post_id", post_id)
+        .eq("user_id", user_id)
+        .limit(1),
     ]
   );
   return new Response(
@@ -40,6 +47,7 @@ export async function POST(req) {
       avatar: data2?.avatar || "",
       username: data3?.username || "",
       is_liked: data4?.length > 0 || false,
+      is_saved: data5?.length > 0 || false,
     }),
     { status: 200 }
   );

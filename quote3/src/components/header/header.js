@@ -66,6 +66,16 @@ const Header = () => {
 
           <li>
             <Link
+              href={
+                myId ? `/pages/posts/saved_posts/${myId}` : "/pages/login"
+              }
+            >
+              Saved_Posts
+            </Link>
+          </li>
+
+          <li>
+            <Link
               href="/"
               onClick={() => {
                 dispatch(updateUserActions({ isCreatingPost: true }));

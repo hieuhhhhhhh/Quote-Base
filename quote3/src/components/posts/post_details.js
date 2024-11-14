@@ -2,6 +2,7 @@ import styles from "./post_board.module.css";
 import { useState, useEffect } from "react";
 import FetchPostDetail from "@/lib/front_end/post/post_details";
 import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
+import SaveUnsavePost from "@/lib/front_end/post/save_unsave_post";
 import CommentsParent from "./comment/parent";
 
 import { useSelector } from "react-redux";
@@ -12,6 +13,7 @@ import preventBodyScroll from "./prevent_scroll";
 function PostDetails({ id, onClose }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
+  const [isSaved, setIsSaved] = useState(null);
 
   const [IsScrolling, setIsScrolling] = useState(false);
 
@@ -34,6 +36,22 @@ function PostDetails({ id, onClose }) {
     }));
   };
 
+    const onSaveUnsave = () => {
+    if (!myId) {
+      // user no login yet
+      router.push("/pages/login");
+      return;
+    }
+
+    SaveUnsavePost(isSaved, id);
+    setIsSaved(!isSaved);
+
+    setData((prev) => ({
+      ...prev,
+      saves: prev.saves + (isSaved ? -1 : 1),
+    }));
+  };
+
   useEffect(() => {
     if (!id) {
       setData(null);
@@ -44,6 +62,7 @@ function PostDetails({ id, onClose }) {
 
       setData(res);
       setIsLiked(res.is_liked);
+      setIsSaved(res.is_saved);
     };
 
     fetch();
@@ -87,12 +106,18 @@ function PostDetails({ id, onClose }) {
           </p>
           <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
           <p>Likes: {data?.likes}</p>
-          {isLiked != null && (
-            <button onClick={onLikeUnlike}>
-              {isLiked ? "Unlike" : "Like"}
-            </button>
-          )}
-
+          <div className={styles.buttonContainer}>
+            {isLiked != null && (
+              <button onClick={onLikeUnlike}>
+                {isLiked ? "Unlike" : "Like"}
+              </button>
+            )}
+            {isSaved != null && (
+              <button onClick={onSaveUnsave}>
+                {isSaved ? "Unsave" : "Save"}
+              </button>
+            )}
+          </div>
           <CommentsParent post_id={id} />
         </div>
       )}
