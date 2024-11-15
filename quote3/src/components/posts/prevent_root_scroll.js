@@ -1,17 +1,18 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
-export default function preventBodyScroll(active) {
+export default function preventRootScroll(activated) {
   const [scrollY, setScrollY] = useState(0);
   const [offSet, setOffSet] = useState(0);
 
   const path = usePathname();
 
   const handleScroll = () => {
-    if (!active) {
-      setScrollY(window.scrollY);
-    } else {
+    if (activated) {
       setOffSet(scrollY);
+    } else {
+      setScrollY(window.scrollY);
+      setOffSet(window.scrollY);
     }
   };
 
@@ -21,19 +22,19 @@ export default function preventBodyScroll(active) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [active]);
+  }, [activated]);
 
   useEffect(() => {
-    if (active) {
+    if (activated) {
       document.body.style.position = "fixed";
       document.body.style.overflowY = "scroll";
-      document.body.style.top = `-${scrollY}px`;
-    } else if (!active) {
+      document.body.style.top = `-${offSet}px`;
+    } else if (!activated) {
       document.body.style.position = "static";
 
       window.scrollTo(0, offSet);
     }
-  }, [active]);
+  }, [activated]);
 
   useEffect(() => {
     return () => {

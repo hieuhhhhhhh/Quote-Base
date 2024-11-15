@@ -8,14 +8,14 @@ import CommentsParent from "./comment/parent";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-import preventBodyScroll from "./prevent_scroll";
+import preventRootScroll from "./prevent_root_scroll";
 
 function PostDetails({ id, onClose }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
 
-  const [IsScrolling, setIsScrolling] = useState(false);
+  const [PRS_active, set_PRS_active] = useState(false); // PRS = prevent body scroll
 
   const myId = useSelector((state) => state.myProfile.id);
   const router = useRouter(); // For redirecting after login
@@ -36,7 +36,7 @@ function PostDetails({ id, onClose }) {
     }));
   };
 
-    const onSaveUnsave = () => {
+  const onSaveUnsave = () => {
     if (!myId) {
       // user no login yet
       router.push("/pages/login");
@@ -68,7 +68,7 @@ function PostDetails({ id, onClose }) {
     fetch();
   }, [id]);
 
-  preventBodyScroll(IsScrolling);
+  preventRootScroll(PRS_active);
 
   return (
     <>
@@ -76,10 +76,10 @@ function PostDetails({ id, onClose }) {
         <div
           className={styles.scroll}
           onMouseEnter={() => {
-            setIsScrolling(true);
+            set_PRS_active(true);
           }}
           onMouseLeave={() => {
-            setIsScrolling(false);
+            set_PRS_active(false);
           }}
         >
           <div className={styles.exit}>
