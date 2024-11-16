@@ -3,6 +3,10 @@ import { useSelector } from "react-redux";
 import { getPublicInfo } from "@/lib/front_end/user_info/public_info"; // Fetch biography
 import styles from "../Profile.module.css";
 import UploadProfilePic from "./profile_pic/upload_pfp";
+import Page2 from "../../signup/comps/panel_page2";
+import ReactModal from "react-modal";
+
+//ReactModal.setAppElement("#MyProfile");
 
 function MyProfile() {
   // Accessing redux state
@@ -14,6 +18,11 @@ function MyProfile() {
   const [bio, setBio] = useState("");
   const [pfp, setPfp] = useState("");
   const [pfpExist, setPfpExist] = useState(true);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     // Fetch additional data not available in redux
@@ -55,7 +64,19 @@ function MyProfile() {
         </div>
       </div>
       <UploadProfilePic onUpdate={onUpdate} />
-      <button>Edit Profile</button>
+
+      <button onClick={openModal}>Edit Profile</button>
+
+      <ReactModal
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Profile Form"
+        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
+        className={styles.AddInfoModalContent}
+      >
+        <h2>Edit Profile</h2>
+        <Page2 closeModal={closeModal} />
+      </ReactModal>
 
       <div>
         <button

@@ -1,8 +1,8 @@
-// send request to route api/signup
+// send request to route api/signup/username_and_password
 
 async function submit(username, password, setMsg, setOK) {
   try {
-    const res = await fetch("/api/authentication/signup", {
+    const res = await fetch("/api/authentication/signup/username_and_password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
