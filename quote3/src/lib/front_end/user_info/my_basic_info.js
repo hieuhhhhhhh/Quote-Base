@@ -35,13 +35,14 @@ async function fetchMyBasicInfo(dispatch) {
     }
 
     // 3.0: Success, update global states with redux
-    const { name, avatar } = await res2.json();
+    const { name, avatar, bio } = await res2.json();
 
     dispatch(
       updateMyProfile({
         id: myId,
         name: name,
         avatar: avatar,
+        bio: bio,
       })
     );
 

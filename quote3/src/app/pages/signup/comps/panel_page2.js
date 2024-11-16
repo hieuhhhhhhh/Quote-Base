@@ -13,7 +13,7 @@ const Page2 = ({ isSignUp, closeModal }) => {
   );
   const [bio, setBio] = useState(useSelector((state) => state.myProfile.bio));
 
-  const id = useSelector((state) => state.myProfile.id);
+  let id = useSelector((state) => state.myProfile.id);
 
   const [msg, setMsg] = useState("");
   const [submitOk, setSubmitOk] = useState(false);
@@ -39,8 +39,8 @@ const Page2 = ({ isSignUp, closeModal }) => {
         await fetchMyBasicInfo(dispatch); // Await the fetching of basic info
 
         if (isSignUp) {
-          // 2: Navigate to new page on successful sign up
-          router.push(`/pages/profile/${id}`);
+          // 2: Navigate to new page (Home page) on successful sign up
+          router.push("/");
         } else {
           closeModal();
         }
@@ -83,6 +83,11 @@ const Page2 = ({ isSignUp, closeModal }) => {
       <button type="submit" className={styles.button}>
         Save
       </button>
+      {!isSignUp && (
+        <button onClick={closeModal} className={styles.button}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 };

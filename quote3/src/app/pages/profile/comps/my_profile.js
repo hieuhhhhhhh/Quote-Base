@@ -6,16 +6,17 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 import Page2 from "../../signup/comps/panel_page2";
 import ReactModal from "react-modal";
 
-//ReactModal.setAppElement("#MyProfile");
+//ReactModal.setAppElement("SomeElement");
 
 function MyProfile() {
   // Accessing redux state
   const myName = useSelector((state) => state.myProfile.name);
+  const myBio = useSelector((state) => state.myProfile.bio);
   const myId = useSelector((state) => state.myProfile.id);
 
   const [moreOpen, setMoreOpen] = useState(false);
 
-  const [bio, setBio] = useState("");
+  const [bio, setBio] = useState(myBio);
   const [pfp, setPfp] = useState("");
   const [pfpExist, setPfpExist] = useState(true);
 
@@ -60,7 +61,7 @@ function MyProfile() {
             <div>0 posts</div>
             <div>0 followers</div>
           </div>
-          <div className={styles.bio}>{bio}</div>
+          <div className={styles.bio}>{myBio}</div>
         </div>
       </div>
       <UploadProfilePic onUpdate={onUpdate} />
@@ -68,6 +69,7 @@ function MyProfile() {
       <button onClick={openModal}>Edit Profile</button>
 
       <ReactModal
+        ariaHideApp={false}
         isOpen={isModalOpen}
         onRequestClose={closeModal}
         contentLabel="Edit Profile Form"

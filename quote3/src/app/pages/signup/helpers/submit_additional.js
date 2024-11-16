@@ -2,16 +2,13 @@
 
 async function submitInfo(alias, bio, setMsg, setOK) {
   try {
-    const res = await fetch(
-      "/api/authentication/signup/additional_info",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ alias, bio }),
-      }
-    );
+    const res = await fetch("/api/authentication/signup/additional_info", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ alias, bio }),
+    });
 
     if (!res.ok) {
       setOK(false);
@@ -30,8 +27,7 @@ async function submitInfo(alias, bio, setMsg, setOK) {
     // catch:
   } catch (e) {
     setOK(false);
-    //const error = JSON.parse(e.message);
-    const error = e.message;
+    const error = JSON.parse(e.message);
     setMsg(error.details);
   }
 }
