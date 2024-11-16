@@ -1,20 +1,20 @@
-// send request to route api/signup/username_and_password
+// send request to route api/signup/additional_info
 
-async function submit(username, password, setMsg, setOK) {
+async function submitInfo(alias, bio, setMsg, setOK) {
   try {
-    const res = await fetch("/api/authentication/signup/username_and_password", {
+    const res = await fetch("/api/authentication/signup/additional_info", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username, password }),
+      body: JSON.stringify({ alias, bio }),
     });
 
     if (!res.ok) {
       setOK(false);
       const data = await res.json();
       if (data.code === "23505") {
-        setMsg("Username already taken. Please enter a different one.");
+        setMsg("Alias already taken. Please enter a different one.");
       } else setMsg(data.details);
 
       return;
@@ -22,7 +22,7 @@ async function submit(username, password, setMsg, setOK) {
 
     // submit accepted:
     setOK(true);
-    setMsg(`Success: a new user was created`);
+    setMsg(`Success: additional user info was saved`);
 
     // catch:
   } catch (e) {
@@ -32,4 +32,4 @@ async function submit(username, password, setMsg, setOK) {
   }
 }
 
-export default submit;
+export default submitInfo;

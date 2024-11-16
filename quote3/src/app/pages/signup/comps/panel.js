@@ -11,7 +11,7 @@ const SignUpPanel = () => {
     <div className={styles.container}>
       <div className={styles.box}>
         {page === 1 && <Page1 toNextPage={() => setPage(2)} />}
-        {page === 2 && <Page2 />}
+        {page === 2 && <Page2 isSignUp={true} />}
       </div>
     </div>
   );

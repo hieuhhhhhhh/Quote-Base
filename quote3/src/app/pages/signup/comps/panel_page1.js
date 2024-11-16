@@ -31,7 +31,7 @@ const Page1 = ({ toNextPage }) => {
 
   useEffect(() => {
     if (submitOk) {
-      dispatch(updateMyProfile({ username: username }));
+      dispatch(updateMyProfile({ name: username }));
       setUsername("");
       setPassword("");
       toNextPage();
