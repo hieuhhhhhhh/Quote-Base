@@ -24,7 +24,7 @@
 }
 
 .profileRight {
-  flex: 1.2;
+  flex: 1;
 }
 
 .name {
@@ -82,7 +82,7 @@
   max-width: 1000px;
   width: 90%;
   position: absolute;
-  background: white;
+  background: var(--middleground);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

@@ -5,7 +5,7 @@
   height: 10vh;
   width: 100%;
   background-color: var(--middleground);
-  z-index: 1000; /* Ensures the header is on top of other content */
+  z-index: 10; /* Ensures the header is on top of other content */
   display: flex;
   justify-content: space-between; /* Adjusts space between h1 and nav */
   align-items: center; /* Vertically centers h1 and nav */

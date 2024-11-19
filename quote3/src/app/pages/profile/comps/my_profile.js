@@ -6,7 +6,7 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 import Page2 from "../../signup/comps/panel_page2";
 import ReactModal from "react-modal";
 
-//ReactModal.setAppElement("SomeElement");
+import LogOutArea from "@/components/header/comps/logout_area";
 
 function MyProfile() {
   // Accessing redux state
@@ -59,7 +59,6 @@ function MyProfile() {
           <h2 className={styles.name}>{myName}</h2>
           <div className={styles.stats}>
             <div>0 posts</div>
-            <div>0 followers</div>
           </div>
           <div className={styles.bio}>{myBio}</div>
         </div>
@@ -90,7 +89,9 @@ function MyProfile() {
         </button>
         {moreOpen && (
           <span className={styles.rightModal}>
-            <button onClick={() => alert("Log Out")}>Log Out</button>
+            <LogOutArea>
+              <button>Log Out</button>
+            </LogOutArea>
           </span>
         )}
       </div>

@@ -7,13 +7,13 @@
   z-index: 10;
 }
 
-.scroll {
+.postDetails {
   position: fixed;
   background-color: var(--middleground);
   padding-inline: 1vw;
   box-sizing: border-box;
   top: 10vh;
-  height: 88vh;
+  height: 90vh;
   width: 40vw;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -78,4 +78,3 @@
   justify-content: space-between;
   margin-top: 10px;
 }
-

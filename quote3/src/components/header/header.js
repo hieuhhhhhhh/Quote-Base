@@ -4,12 +4,8 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./header.module.css";
-import removeToken from "@/lib/front_end/authentication/logout";
-import {
-  resetMyProfile,
-  updateMyProfile,
-  updateUserActions,
-} from "../redux/action";
+import { updateUserActions } from "../redux/action";
+import LogOutArea from "./comps/logout_area";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -18,11 +14,6 @@ const Header = () => {
   const myAvatar = useSelector((state) => state.myProfile.avatar);
 
   // Clear all profile data
-  const clearUserData = () => {
-    removeToken();
-    dispatch(resetMyProfile());
-    dispatch(updateMyProfile({ id: "" }));
-  };
 
   return (
     <div className={styles.header}>
@@ -66,9 +57,7 @@ const Header = () => {
 
           <li>
             <Link
-              href={
-                myId ? `/pages/posts/saved_posts/${myId}` : "/pages/login"
-              }
+              href={myId ? `/pages/posts/saved_posts/${myId}` : "/pages/login"}
             >
               Saved_Posts
             </Link>
@@ -85,15 +74,19 @@ const Header = () => {
             </Link>
           </li>
 
+          {myId != "" && (
+            <li>
+              <Link href="/pages/notifications">Notifications</Link>
+            </li>
+          )}
+
           <li>
             <Link href="/pages/token_check">Token Check</Link>
           </li>
 
           <li>
             {myId != "" ? (
-              <Link href="/pages/login" onClick={clearUserData}>
-                Log Out
-              </Link>
+              <LogOutArea>Log Out</LogOutArea>
             ) : (
               <Link href="/pages/login">Log In</Link>
             )}

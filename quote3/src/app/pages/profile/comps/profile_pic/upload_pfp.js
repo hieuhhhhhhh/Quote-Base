@@ -4,6 +4,7 @@ import BeforeCrop from "./before_crop";
 import AfterCrop from "./after_crop";
 import { useDispatch } from "react-redux";
 import { updateMyProfile } from "@/components/redux/action"; // redux actions
+import Modal from "@/components/wrappers/modal";
 
 export default function CropImage({ onUpdate }) {
   const [rawImg, setRawImg] = useState(null);
@@ -60,6 +61,13 @@ export default function CropImage({ onUpdate }) {
     }
   };
 
+  const setModalOpen = (modalOpen) => {
+    if (!modalOpen) {
+      setImg(null);
+      setRawImg(null);
+    }
+  };
+
   return (
     <div>
       <input
@@ -76,17 +84,19 @@ export default function CropImage({ onUpdate }) {
       >
         Change Profile Picture
       </button>
-      {rawImg && (
-        <BeforeCrop rawImg={rawImg} setImg={setImg} setRawImg={setRawImg} />
-      )}
-      {img && (
-        <AfterCrop
-          img={img}
-          setImg={setImg}
-          onSubmit={onSubmit}
-          onUpdate={onUpdate}
-        />
-      )}
+      <Modal modalOpen={rawImg || img} setModalOpen={setModalOpen}>
+        {rawImg && (
+          <BeforeCrop rawImg={rawImg} setImg={setImg} setRawImg={setRawImg} />
+        )}
+        {img && (
+          <AfterCrop
+            img={img}
+            setImg={setImg}
+            onSubmit={onSubmit}
+            onUpdate={onUpdate}
+          />
+        )}
+      </Modal>
     </div>
   );
 }
