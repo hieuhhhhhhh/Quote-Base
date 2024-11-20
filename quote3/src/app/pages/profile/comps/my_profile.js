@@ -12,6 +12,7 @@ function MyProfile() {
   // Accessing redux state
   const myName = useSelector((state) => state.myProfile.name);
   const myBio = useSelector((state) => state.myProfile.bio);
+  const myRole = useSelector((state) => state.myProfile.role);
   const myId = useSelector((state) => state.myProfile.id);
 
   const [moreOpen, setMoreOpen] = useState(false);
@@ -61,6 +62,7 @@ function MyProfile() {
             <div>0 posts</div>
           </div>
           <div className={styles.bio}>{myBio}</div>
+          <div className={styles.bio}>Role: {myRole}</div>
         </div>
       </div>
       <UploadProfilePic onUpdate={onUpdate} />

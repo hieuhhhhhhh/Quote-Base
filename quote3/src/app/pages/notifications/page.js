@@ -1,8 +1,7 @@
 export default function Notifications() {
   return (
     <div>
-      <button>Notifications</button>
-      <button>My Activities</button>
+      <h2>Notifications</h2>
     </div>
   );
 }
