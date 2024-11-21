@@ -28,6 +28,7 @@
   align-items: center;
 }
 
+.header h2 a,
 .header nav ul li a {
   color: inherit;
   text-decoration: none;

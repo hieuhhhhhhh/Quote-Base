@@ -5,19 +5,28 @@ import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./header.module.css";
 import { updateUserActions } from "../redux/action";
-import LogOutArea from "./comps/logout_area";
+import Notifications from "./comps/notifications/parent";
+import Reports from "./comps/reports/parent";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
   const myAvatar = useSelector((state) => state.myProfile.avatar);
-
-  // Clear all profile data
+  const myRole = useSelector((state) => state.myProfile.role);
 
   return (
     <div className={styles.header}>
-      <h2>Quotes Base</h2>
+      <h2>
+        <Link
+          href="/"
+          onClick={() => {
+            dispatch(updateUserActions({ isCreatingPost: false }));
+          }}
+        >
+          Quotes Base
+        </Link>
+      </h2>
       <nav>
         <ul>
           <li>
@@ -32,67 +41,41 @@ const Header = () => {
           </li>
 
           <li>
-            <Link href="/pages/about">About</Link>
-          </li>
-          <li>
-            <Link href="/pages/search">Search</Link>
-          </li>
-          <li>
-            {/* Conditional Link based on existance of myId*/}
-            <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
-              Profile
-            </Link>
-          </li>
-
-          <li>
-            {/* Conditional Link based on existance of myId*/}
-            <Link
-              href={
-                myId ? `/pages/posts/someone_posts/${myId}` : "/pages/login"
-              }
-            >
-              My_Posts
-            </Link>
+            {myId ? (
+              <Link
+                href="/"
+                onClick={() => {
+                  dispatch(updateUserActions({ isCreatingPost: true }));
+                }}
+              >
+                Create_Post
+              </Link>
+            ) : (
+              <Link href="/pages/login">Create_Post</Link>
+            )}
           </li>
 
-          <li>
-            <Link
-              href={myId ? `/pages/posts/saved_posts/${myId}` : "/pages/login"}
-            >
-              Saved_Posts
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/"
-              onClick={() => {
-                dispatch(updateUserActions({ isCreatingPost: true }));
-              }}
-            >
-              Create_Post
-            </Link>
-          </li>
-
-          {myId != "" && (
+          {myId && (
             <li>
-              <Link href="/pages/notifications">Notifications</Link>
+              <Notifications />
+            </li>
+          )}
+
+          {myId && myRole === "admin" && (
+            <li>
+              <Reports />
             </li>
           )}
 
           <li>
-            <Link href="/pages/token_check">Token Check</Link>
-          </li>
-
-          <li>
-            {myId != "" ? (
-              <LogOutArea>Log Out</LogOutArea>
+            {myId ? (
+              <Link href="/pages/login/logout">Log Out</Link>
             ) : (
               <Link href="/pages/login">Log In</Link>
             )}
           </li>
 
-          {myId != "" && (
+          {myId && (
             <li>
               <Link href={`/pages/profile/${myId}`}>
                 <div className="avatarHolder">

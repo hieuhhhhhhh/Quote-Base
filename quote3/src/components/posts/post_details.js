@@ -3,15 +3,17 @@ import { useState, useEffect } from "react";
 import FetchPostDetail from "@/lib/front_end/post/post_details";
 import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
 import SaveUnsavePost from "@/lib/front_end/post/save_unsave_post";
+import ReportWithdrawReport from "@/lib/front_end/post/report_withdraw_report";
 import CommentsParent from "./comment/parent";
 
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-function PostDetails({ id, onClose = () => {} }) {
+function PostDetails({ id, onClose }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
+  const [isReported, setIsReported] = useState(null);
 
   const myId = useSelector((state) => state.myProfile.id);
   const router = useRouter(); // For redirecting after login
@@ -41,11 +43,17 @@ function PostDetails({ id, onClose = () => {} }) {
 
     SaveUnsavePost(isSaved, id);
     setIsSaved(!isSaved);
+  };
 
-    setData((prev) => ({
-      ...prev,
-      saves: prev.saves + (isSaved ? -1 : 1),
-    }));
+  const onReportWithdrawReport = () => {
+    if (!myId) {
+      // user no login yet
+      router.push("/pages/login");
+      return;
+    }
+
+    ReportWithdrawReport(isReported, id);
+    setIsReported(!isReported);
   };
 
   useEffect(() => {
@@ -59,6 +67,7 @@ function PostDetails({ id, onClose = () => {} }) {
       setData(res);
       setIsLiked(res.is_liked);
       setIsSaved(res.is_saved);
+      setIsReported(res.is_reported);
     };
 
     fetch();
@@ -93,7 +102,7 @@ function PostDetails({ id, onClose = () => {} }) {
         </p>
         <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
         <p>Likes: {data?.likes}</p>
-        <div className={styles.buttonContainer}>
+        <div>
           {isLiked != null && (
             <button onClick={onLikeUnlike}>
               {isLiked ? "Unlike" : "Like"}
@@ -102,6 +111,11 @@ function PostDetails({ id, onClose = () => {} }) {
           {isSaved != null && (
             <button onClick={onSaveUnsave}>
               {isSaved ? "Unsave" : "Save"}
+            </button>
+          )}
+          {isReported != null && (
+            <button onClick={onReportWithdrawReport}>
+              {isReported ? "Withdraw My Report" : "Report"}
             </button>
           )}
         </div>

@@ -6,7 +6,7 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 import Page2 from "../../signup/comps/panel_page2";
 import ReactModal from "react-modal";
 
-import LogOutArea from "@/components/header/comps/logout_area";
+import Link from "next/link";
 
 function MyProfile() {
   // Accessing redux state
@@ -91,9 +91,9 @@ function MyProfile() {
         </button>
         {moreOpen && (
           <span className={styles.rightModal}>
-            <LogOutArea>
+            <Link href={"/pages/login/logout"}>
               <button>Log Out</button>
-            </LogOutArea>
+            </Link>
           </span>
         )}
       </div>

@@ -13,31 +13,42 @@ export async function POST(req) {
   // Fetch tb 'users_info':
   const owner_id = data1.user_id;
 
-  const [{ data: data2 }, { data: data3 }, { data: data4 }, { data: data5 }] = await Promise.all(
-    [
-      supabase
-        .from("users_info")
-        .select("alias,avatar")
-        .eq("user_id", owner_id)
-        .single(),
+  const [
+    { data: data2 },
+    { data: data3 },
+    { data: data4 },
+    { data: data5 },
+    { data: data6 },
+  ] = await Promise.all([
+    supabase
+      .from("users_info")
+      .select("alias,avatar")
+      .eq("user_id", owner_id)
+      .single(),
 
-      supabase.from("users").select("username").eq("id", owner_id).single(),
+    supabase.from("users").select("username").eq("id", owner_id).single(),
 
-      supabase
-        .from("likes")
-        .select("*")
-        .eq("post_id", post_id)
-        .eq("user_id", user_id)
-        .limit(1),
+    supabase
+      .from("likes")
+      .select("*")
+      .eq("post_id", post_id)
+      .eq("user_id", user_id)
+      .limit(1),
 
-      supabase
-        .from("saves")
-        .select("*")
-        .eq("post_id", post_id)
-        .eq("user_id", user_id)
-        .limit(1),
-    ]
-  );
+    supabase
+      .from("saves")
+      .select("*")
+      .eq("post_id", post_id)
+      .eq("user_id", user_id)
+      .limit(1),
+
+    supabase
+      .from("reports")
+      .select("*")
+      .eq("post_id", post_id)
+      .eq("reporter_id", user_id)
+      .limit(1),
+  ]);
   return new Response(
     JSON.stringify({
       likes: data1?.likes || 0,
@@ -48,6 +59,7 @@ export async function POST(req) {
       username: data3?.username || "",
       is_liked: data4?.length > 0 || false,
       is_saved: data5?.length > 0 || false,
+      is_reported: data6?.length > 0 || false,
     }),
     { status: 200 }
   );

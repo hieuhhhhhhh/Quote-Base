@@ -1,22 +1,22 @@
-import Link from "next/link";
+"use client";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import removeToken from "@/lib/front_end/authentication/logout";
 import { resetMyProfile, updateMyProfile } from "@/components/redux/action";
+import LogIn from "../comps/panel";
 
-export default function LogOutArea({ children }) {
+export default function LogOut() {
   const dispatch = useDispatch();
+
   // Clear all profile data to log out
   const clearUserData = () => {
     removeToken();
     dispatch(resetMyProfile());
-    dispatch(updateMyProfile({ id: "" }));
   };
 
-  return (
-    <div>
-      <Link href="/pages/login" onClick={clearUserData}>
-        {children}
-      </Link>
-    </div>
-  );
+  useEffect(() => {
+    clearUserData();
+  }, []);
+
+  return <LogIn />;
 }

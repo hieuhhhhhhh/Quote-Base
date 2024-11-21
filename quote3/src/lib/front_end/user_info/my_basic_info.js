@@ -38,7 +38,6 @@ async function fetchMyBasicInfo(dispatch) {
     // 3.1: Failure
   } catch (e) {
     console.log("Error (my_basic_info.js):", e);
-    dispatch(updateMyProfile({ id: "" }));
     return;
   }
 }
