@@ -25,11 +25,8 @@ function MyProfile() {
 
   const [myPostsMode, setMyPostsMode] = useState(true);
 
-  const [onShrink, setOnShrink] = useState(false);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
@@ -70,39 +67,12 @@ function MyProfile() {
               <div>0 followers</div>
             </div>
             <div className={styles.bio}>{myBio}</div>
+            <div className={styles.bio}>Role: {myRole}</div>
           </div>
         </div>
       </div>
-      <div className={styles.profileRight}>
-        <h2 className={styles.name}>{myName}</h2>
-        <div className={styles.stats}>
-          <div>0 posts</div>
-        </div>
-        <div className={styles.bio}>{myBio}</div>
-        <div className={styles.bio}>Role: {myRole}</div>
-      </div>
 
       <UploadProfilePic onUpdate={onUpdate} />
-
-      <button onClick={openModal}>Edit Profile</button>
-      
-      <ReactModal
-        ariaHideApp={false}
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Edit Profile Form"
-        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
-        className={styles.AddInfoModalContent}
-      >
-        <h2>Edit Profile</h2>
-        <Page2 closeModal={closeModal} />
-      </ReactModal>
-
-      <div>
-        <button onClick={() => setMyPostsMode(!myPostsMode)}>
-          {myPostsMode ? "Saved Posts" : "My Posts"}
-        </button>
-      </div>
 
       <ReactModal
         ariaHideApp={false}
@@ -132,13 +102,14 @@ function MyProfile() {
           </div>
         )}
       </div>
+      <div>
+        <button onClick={() => setMyPostsMode(!myPostsMode)}>
+          {myPostsMode ? "Saved Posts" : "My Posts"}
+        </button>
+      </div>
 
-      <div className={styles.profileContentSub}>
-        {myPostsMode ? (
-          <Posts user_id={myId} onShrink={setOnShrink} />
-        ) : (
-          <SavedPosts user_id={myId} onShrink={setOnShrink} />
-        )}
+      <div>
+        {myPostsMode ? <Posts user_id={myId} /> : <SavedPosts user_id={myId} />}
       </div>
     </>
   );

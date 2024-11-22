@@ -27,11 +27,13 @@ export default function preventRootScroll(activated) {
   useEffect(() => {
     if (activated) {
       document.body.style.position = "fixed";
+      document.body.style.width = "100%";
+      document.body.style.height = "100%";
+
       document.body.style.overflowY = "scroll";
       document.body.style.top = `-${offSet}px`;
     } else if (!activated) {
       document.body.style.position = "static";
-
       window.scrollTo(0, offSet);
     }
   }, [activated]);

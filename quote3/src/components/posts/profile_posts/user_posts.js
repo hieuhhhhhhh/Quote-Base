@@ -3,7 +3,7 @@ import { fetchPostIds } from "./helper/fetch_posts";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 
-export default function Posts({ user_id, onShrink }) {
+export default function Posts({ user_id }) {
   // State to hold posts
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false); // For loading message
@@ -31,6 +31,6 @@ export default function Posts({ user_id, onShrink }) {
   ) : previews.length === 0 ? (
     <p>No posts</p>
   ) : (
-    <PostsBoard posts={previews} onShrink={onShrink} />
+    <PostsBoard posts={previews} />
   );
 }

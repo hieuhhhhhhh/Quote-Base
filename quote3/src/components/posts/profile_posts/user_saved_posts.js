@@ -3,7 +3,7 @@ import { fetchSavedPostIds } from "./helper/fetch_posts";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 
-export default function SavedPosts({ user_id, onShrink }) {
+export default function SavedPosts({ user_id }) {
   // State to hold posts
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false); // For loading message
@@ -33,6 +33,6 @@ export default function SavedPosts({ user_id, onShrink }) {
   ) : previews.length === 0 ? (
     <p>No posts saved</p>
   ) : (
-    <PostsBoard posts={previews} onShrink={onShrink} refetch={setRefetch} />
+    <PostsBoard posts={previews} refetch={setRefetch} />
   );
 }

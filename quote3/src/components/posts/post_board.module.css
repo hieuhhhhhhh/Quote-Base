@@ -22,10 +22,7 @@
 
 .postsList {
   overflow: hidden;
-}
-
-.postItem:hover {
-  color: aqua;
+  background-color: pink;
 }
 
 .resultContainer {
