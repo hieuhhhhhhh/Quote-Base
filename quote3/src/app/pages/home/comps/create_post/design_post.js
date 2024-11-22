@@ -73,60 +73,59 @@ export default function CPdesign({
     setPage(PAGE.DEFAULT);
   };
 
-  const render = () => {
-    switch (page) {
-      case PAGE.UPLOAD_PIC:
-        return (
-          <Cropping
-            rawImg={rawImg}
-            aspect={Number(width.slice(0, -2)) / 190}
-            onDone={onImageUploaded}
-          />
-        );
-      case PAGE.BG_COLOR:
-        return (
-          <BackgroundColor
-            preview={PreviewComp}
-            BGcolor={BGcolor}
-            onDone={onBGcolorUpdate}
-          />
-        );
-      case PAGE.TEXT_COLOR:
-        return (
-          <TextColor
-            preview={PreviewComp}
-            whiteText={whiteText}
-            onDone={onTextColorUpdate}
-          />
-        );
-      case PAGE.DEFAULT:
-      default:
-        return (
-          <div>
-            <div className={styles.iconRow}>
-              <div>
-                <ImgInput setRawImg={setRawImg} onDone={() => setPage(PAGE.UPLOAD_PIC)} />
-              </div>
-              <div onClick={() => setPage(PAGE.BG_COLOR)}>
-                <FontAwesomeIcon icon={faPalette} title="Set Background Color" />
-              </div>
-              <div onClick={() => setPage(PAGE.TEXT_COLOR)}>
-                <FontAwesomeIcon icon={faFont} title="Set Text Color" />
-              </div>
+  switch (page) {
+    case PAGE.UPLOAD_PIC:
+      return (
+        <Cropping
+          rawImg={rawImg}
+          aspect={Number(width.slice(0, -2)) / 190}
+          onDone={onImageUploaded}
+        />
+      );
+    case PAGE.BG_COLOR:
+      return (
+        <BackgroundColor
+          preview={PreviewComp}
+          BGcolor={BGcolor}
+          onDone={onBGcolorUpdate}
+        />
+      );
+    case PAGE.TEXT_COLOR:
+      return (
+        <TextColor
+          preview={PreviewComp}
+          whiteText={whiteText}
+          onDone={onTextColorUpdate}
+        />
+      );
+    case PAGE.DEFAULT:
+    default:
+      return (
+        <div>
+          <div className={styles.iconRow}>
+            <div>
+              <ImgInput
+                setRawImg={setRawImg}
+                onDone={() => setPage(PAGE.UPLOAD_PIC)}
+              />
             </div>
-
-            <PreviewComp />
-
-            <div className={styles.footerButtons}>
-              <button onClick={onBack}>Back</button>
-              <button onClick={onFinish}>Next</button>
+            <div onClick={() => setPage(PAGE.BG_COLOR)}>
+              <FontAwesomeIcon icon={faPalette} title="Set Background Color" />
+            </div>
+            <div onClick={() => setPage(PAGE.TEXT_COLOR)}>
+              <FontAwesomeIcon icon={faFont} title="Set Text Color" />
             </div>
           </div>
-        );
-    }
-  };
 
-  return render();
+          <PreviewComp />
+
+          <div className={styles.footerButtons}>
+            <button onClick={onBack}>Back</button>
+            <button onClick={onFinish}>Next</button>
+          </div>
+        </div>
+      );
+  }
 }
 
 // Define enum values as integers

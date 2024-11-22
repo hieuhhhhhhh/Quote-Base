@@ -15,7 +15,7 @@ export async function POST(req) {
   const [{ data: data1 }, { data: data2 }] = await Promise.all([
     supabase
       .from("users_info")
-      .select("alias,biography,avatar")
+      .select("alias,avatar")
       .eq("user_id", user_id)
       .single(),
     supabase.from("users").select("username").eq("id", user_id).single(),
@@ -24,7 +24,6 @@ export async function POST(req) {
   return new Response(
     JSON.stringify({
       name: data1?.alias || data2?.username || "",
-      bio: data1?.biography || "",
       avatar: data1?.avatar || "",
     }),
     { status: 200 }

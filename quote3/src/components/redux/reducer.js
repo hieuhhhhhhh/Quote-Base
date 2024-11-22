@@ -12,6 +12,7 @@ const myProfileInit = {
   name: null,
   avatar: null,
   bio: null,
+  role: null,
 };
 
 const myProfileReducer = (state = myProfileInit, action) => {
@@ -30,6 +31,7 @@ const myProfileReducer = (state = myProfileInit, action) => {
 
 const userActionsInit = {
   isCreatingPost: false,
+  closeModal: true,
 };
 
 const userActionsReducer = (state = userActionsInit, action) => {

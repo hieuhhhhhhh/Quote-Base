@@ -5,6 +5,7 @@ import Header from "@/components/header/header.js";
 import Providers from "@/components/redux/provider";
 import Initializer from "@/components/initializer/initializer";
 import HomeLayout from "@/components/layout/home_layout";
+import { ModalController } from "@/components/wrappers/absolute_modal";
 
 export const metadata = {
   title: "Quotes Base",
@@ -20,8 +21,10 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} `}>
         <Providers>
           <Initializer>
-            <Header />
-            <HomeLayout>{children}</HomeLayout>
+            <ModalController>
+              <Header />
+              <HomeLayout>{children}</HomeLayout>
+            </ModalController>
           </Initializer>
         </Providers>
       </body>

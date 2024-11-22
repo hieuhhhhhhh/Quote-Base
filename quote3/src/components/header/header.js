@@ -4,29 +4,33 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./header.module.css";
-import removeToken from "@/lib/front_end/authentication/logout";
-import {
-  resetMyProfile,
-  updateMyProfile,
-  updateUserActions,
-} from "../redux/action";
+import { updateUserActions } from "../redux/action";
+import Notifications from "./comps/notifications/parent";
+import Reports from "./comps/reports/parent";
+import { useState } from "react";
+import { AbsoluteModal } from "../wrappers/absolute_modal";
 
 const Header = () => {
   const dispatch = useDispatch();
 
   const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
   const myAvatar = useSelector((state) => state.myProfile.avatar);
+  const myRole = useSelector((state) => state.myProfile.role);
 
-  // Clear all profile data
-  const clearUserData = () => {
-    removeToken();
-    dispatch(resetMyProfile());
-    dispatch(updateMyProfile({ id: "" }));
-  };
+  const [avatarModal, setAvatarModal] = useState(false);
 
   return (
     <div className={styles.header}>
-      <h2>Quotes Base</h2>
+      <h2>
+        <Link
+          href="/"
+          onClick={() => {
+            dispatch(updateUserActions({ isCreatingPost: false }));
+          }}
+        >
+          Quotes Base
+        </Link>
+      </h2>
       <nav>
         <ul>
           <li>
@@ -41,53 +45,79 @@ const Header = () => {
           </li>
 
           <li>
-            <Link href="/pages/about">About</Link>
-          </li>
-          <li>
-            <Link href="/pages/search">Search</Link>
-          </li>
-          <li>
-            {/* Conditional Link based on existance of myId*/}
-            <Link href={myId ? `/pages/profile/${myId}` : "/pages/login"}>
-              Profile
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href="/"
-              onClick={() => {
-                dispatch(updateUserActions({ isCreatingPost: true }));
-              }}
-            >
-              Create_Post
-            </Link>
-          </li>
-
-          <li>
-            <Link href="/pages/token_check">Token Check</Link>
-          </li>
-
-          <li>
-            {myId != "" ? (
-              <Link href="/pages/login" onClick={clearUserData}>
-                Log Out
+            {myId ? (
+              <Link
+                href="/"
+                onClick={() => {
+                  dispatch(updateUserActions({ isCreatingPost: true }));
+                }}
+              >
+                Create_Post
               </Link>
             ) : (
-              <Link href="/pages/login">Log In</Link>
+              <Link href="/pages/login">Create_Post</Link>
             )}
           </li>
 
-          {myId != "" && (
+          {myId && (
             <li>
-              <Link href={`/pages/profile/${myId}`}>
-                <div className="avatarHolder">
+              <Notifications />
+            </li>
+          )}
+
+          {myId && myRole === "admin" && (
+            <li>
+              <Reports />
+            </li>
+          )}
+
+          {!myId && (
+            <li>
+              <Link href="/pages/login">Log In</Link>{" "}
+            </li>
+          )}
+
+          {myId && (
+            <li>
+              <div style={{ position: "relative" }}>
+                <div
+                  className="avatarHolder"
+                  onClick={(event) => {
+                    setAvatarModal(!avatarModal);
+                    event.stopPropagation();
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <img
                     src={myAvatar || "/default_pfp.webp"}
                     className="avatar"
                   />
                 </div>
-              </Link>
+                <AbsoluteModal
+                  modalOpen={avatarModal}
+                  setModalOpen={setAvatarModal}
+                >
+                  <div className={styles.modalBtnContainer}>
+                    <Link
+                      href={myId ? `/pages/profile/${myId}` : "/pages/login"}
+                      onClick={() => {
+                        setAvatarModal(false);
+                      }}
+                    >
+                      <div className={styles.modalBtn}>View My Profile</div>
+                    </Link>
+                    <Link
+                      href="/pages/login/logout"
+                      onClick={() => {
+                        setAvatarModal(false);
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      <div className={styles.modalBtn}>Log Out</div>
+                    </Link>
+                  </div>
+                </AbsoluteModal>
+              </div>
             </li>
           )}
         </ul>

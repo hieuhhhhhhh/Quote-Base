@@ -5,7 +5,7 @@
   height: 10vh;
   width: 100%;
   background-color: var(--middleground);
-  z-index: 1000; /* Ensures the header is on top of other content */
+  z-index: 10; /* Ensures the header is on top of other content */
   display: flex;
   justify-content: space-between; /* Adjusts space between h1 and nav */
   align-items: center; /* Vertically centers h1 and nav */
@@ -28,7 +28,27 @@
   align-items: center;
 }
 
+.header h2 a,
 .header nav ul li a {
   color: inherit;
   text-decoration: none;
+}
+
+.modalBtn {
+  display: flex;
+  font-size: 15px;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.modalBtn:hover {
+  background-color: rgba(169, 169, 169, 0.2);
+}
+
+.modalBtnContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 5px;
+  box-shadow: 0 0 3px 1px var(--background); /* Add shadow */
 }

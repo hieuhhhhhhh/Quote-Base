@@ -41,21 +41,19 @@ function BeforeCrop({ rawImg, setImg, setRawImg }) {
   };
 
   return (
-    <div className="overlay">
-      <div className="modal">
-        <div className={styles.cropBox}>
-          <Cropper
-            image={rawImg}
-            crop={crop}
-            zoom={zoom}
-            aspect={1}
-            onCropChange={setCrop}
-            onZoomChange={setZoom}
-            onCropComplete={onCropComplete}
-          />
-        </div>
-        <button onClick={onCrop}>Crop Image</button>
+    <div>
+      <div className={styles.cropBox}>
+        <Cropper
+          image={rawImg}
+          crop={crop}
+          zoom={zoom}
+          aspect={1}
+          onCropChange={setCrop}
+          onZoomChange={setZoom}
+          onCropComplete={onCropComplete}
+        />
       </div>
+      <button onClick={onCrop}>Crop Image</button>
     </div>
   );
 }

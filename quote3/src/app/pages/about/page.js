@@ -1,31 +1,44 @@
 "use client";
-import React, { useState } from "react";
-import { PhotoshopPicker } from "react-color";
-
-const ColorPicker = () => {
-  const [color, setColor] = useState({ hex: "#fff" });
-
-  const handleChangeComplete = (color) => {
-    setColor(color);
-  };
+import { useState } from "react";
+export default function About() {
+  const [overlayOn, setOverlayOn] = useState(false);
+  const [helloOn, setHelloOn] = useState(false);
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>Color Picker</h2>
-      <div
-        style={{
-          width: "100px",
-          height: "100px",
-          backgroundColor: color.hex,
-          marginBottom: "10px",
+    <div>
+      {helloOn && <h2>Hello</h2>}
+      <button
+        onClick={() => {
+          console.log("btn is touched");
+
+          setOverlayOn(true);
         }}
-      />
-      <PhotoshopPicker
-        color={color.hex}
-        onChangeComplete={handleChangeComplete}
-      />
+      >
+        Overlay On
+      </button>
+      <button
+        onClick={() => {
+          setHelloOn(!helloOn);
+        }}
+      >
+        toogle Hello
+      </button>
+      {overlayOn && (
+        <div
+          className="overlay"
+          onClick={() => {
+            console.log("overlay is touched");
+          }}
+        >
+          <button
+            onClick={() => {
+              setOverlayOn(false);
+            }}
+          >
+            Overlay Off
+          </button>
+        </div>
+      )}
     </div>
   );
-};
-
-export default ColorPicker;
+}

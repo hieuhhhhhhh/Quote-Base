@@ -8,13 +8,14 @@ import ReactModal from "react-modal";
 
 import Posts from "@/components/posts/profile_posts/user_posts";
 import SavedPosts from "@/components/posts/profile_posts/user_saved_posts";
+import Link from "next/link";
 
-//ReactModal.setAppElement("SomeElement");
 
 function MyProfile() {
   // Accessing redux state
   const myName = useSelector((state) => state.myProfile.name);
   const myBio = useSelector((state) => state.myProfile.bio);
+  const myRole = useSelector((state) => state.myProfile.role);
   const myId = useSelector((state) => state.myProfile.id);
 
   const [moreOpen, setMoreOpen] = useState(false);
@@ -72,12 +73,48 @@ function MyProfile() {
               <div className={styles.bio}>{myBio}</div>
             </div>
           </div>
-
-          <UploadProfilePic onUpdate={onUpdate} />
-
-          <div>
-            <button onClick={openModal}>Edit Profile</button>
+        </div>
+        <div className={styles.profileRight}>
+          <h2 className={styles.name}>{myName}</h2>
+          <div className={styles.stats}>
+            <div>0 posts</div>
           </div>
+          <div className={styles.bio}>{myBio}</div>
+          <div className={styles.bio}>Role: {myRole}</div>
+        </div>
+      </div>
+      <UploadProfilePic onUpdate={onUpdate} />
+
+      <button onClick={openModal}>Edit Profile</button>
+
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Profile Form"
+        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
+        className={styles.AddInfoModalContent}
+      >
+        <h2>Edit Profile</h2>
+        <Page2 closeModal={closeModal} />
+      </ReactModal>
+
+      <div className={styles.btnMore}>
+        <button
+          onClick={() => {
+            setMoreOpen(!moreOpen);
+          }}
+        >
+          More
+        </button>
+        {moreOpen && (
+          <div className={styles.rightModal}>
+            <Link href={"/pages/login/logout"}>
+              <button>Log Out</button>
+            </Link>
+          </div>
+        )}
+      </div>
 
           <div>
             <button onClick={() => setMyPostsMode(!myPostsMode)}>

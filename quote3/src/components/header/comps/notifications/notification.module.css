@@ -1,0 +1,48 @@
+.birth {
+  margin-top: 5px;
+  font-size: 10px;
+  font-weight: 200;
+}
+
+.msg {
+  font-size: 13px;
+  line-height: 1px;
+}
+
+.container {
+  display: flex;
+  width: 220px;
+  padding: 8px;
+  padding-inline: 5px;
+  cursor: pointer;
+}
+
+.index:hover {
+  background-color: var(--background);
+}
+
+.tittle {
+  font-size: 20px;
+  margin: 5px;
+  font-weight: bold;
+}
+
+.postDetails {
+  width: 450px;
+  background-color: var(--background);
+  padding: 10px;
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.main {
+  display: flex;
+  height: 80vh;
+}
+.notifications {
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.btnLabel {
+  font-family: var(--font-geist-sans);
+  cursor: pointer;
+}

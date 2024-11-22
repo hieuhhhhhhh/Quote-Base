@@ -9,6 +9,7 @@ import CPinput from "./input_post";
 import CPauthor from "./author_post";
 import CPdesign from "./design_post";
 import CPpreview from "./preview_post";
+import Modal from "@/components/wrappers/modal";
 
 export default function CPparent() {
   const [page, setPage] = useState(1);
@@ -21,20 +22,10 @@ export default function CPparent() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, []);
-
-    useEffect(() => {
     if (page <= 0) {
       dispatch(updateUserActions({ isCreatingPost: false }));
     }
   }, [page, dispatch]);
-
-
 
   const onSubmit = async () => {
     try {
@@ -55,58 +46,59 @@ export default function CPparent() {
     setPage(page - 1);
   };
 
-  return (
-    <div className="overlay">
-      <div className="modal">
-        <button className={styles.closeButton}
-          onClick={() => {
-            dispatch(updateUserActions({ isCreatingPost: false }));
-          }}
-        >
-          X
-        </button>
-        <div>
-          {page === 1 && (
-            <CPinput 
-              content={content} 
-              setContent={setContent} 
-              onNext={onNext} />
-          )}
-         {page === 2 && (
-            <CPauthor 
-              author={author}
-              setAuthor={setAuthor}
-              onNext={onNext}
-              onBack={onBack}/>
-          )}
+  const setModalOpen = (modalOpen) => {
+    dispatch(updateUserActions({ isCreatingPost: modalOpen }));
+  };
 
-          {page === 3 && (
-            <CPdesign
-              content={content}
-              author={author}
-              img={img}
-              setImg={setImg}
-              BGcolor={BGcolor}
-              setBGcolor={setBGcolor}
-              whiteText={whiteText}
-              setWhiteT={setWhiteT}
-              onNext={onNext}
-              onBack={onBack}
-            />
-          )}
-          {page === 4 && (
-            <CPpreview
-              content={content}
-              author={author}
-              img={img}
-              BGcolor={BGcolor}
-              whiteText={whiteText}
-              onFinish={onSubmit}
-              onBack={onBack}
-            />
-          )}
-        </div>
+  return (
+    <Modal modalOpen={true}>
+      <button
+        className={styles.closeButton}
+        onClick={() => {
+          setModalOpen(false);
+        }}
+      >
+        X
+      </button>
+      <div>
+        {page === 1 && (
+          <CPinput content={content} setContent={setContent} onNext={onNext} />
+        )}
+        {page === 2 && (
+          <CPauthor
+            author={author}
+            setAuthor={setAuthor}
+            onNext={onNext}
+            onBack={onBack}
+          />
+        )}
+
+        {page === 3 && (
+          <CPdesign
+            content={content}
+            author={author}
+            img={img}
+            setImg={setImg}
+            BGcolor={BGcolor}
+            setBGcolor={setBGcolor}
+            whiteText={whiteText}
+            setWhiteT={setWhiteT}
+            onNext={onNext}
+            onBack={onBack}
+          />
+        )}
+        {page === 4 && (
+          <CPpreview
+            content={content}
+            author={author}
+            img={img}
+            BGcolor={BGcolor}
+            whiteText={whiteText}
+            onFinish={onSubmit}
+            onBack={onBack}
+          />
+        )}
       </div>
-    </div>
+    </Modal>
   );
 }

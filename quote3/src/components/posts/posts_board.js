@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./post_board.module.css"; // Import the CSS module
 import PostPreviews from "./post_previews";
 import PostDetails from "./post_details";
+import RootScrollBlockArea from "../wrappers/root_scroll_block";
 
 export default function PostsBoard({
   posts,
@@ -52,7 +53,13 @@ export default function PostsBoard({
 
   return (
     <div>
-      {detailsOpen && <PostDetails onClose={handleCloseDetails} id={seID} refetch={refetch} />}
+      {detailsOpen && (
+        <RootScrollBlockArea>
+          <div className={styles.postDetails}>
+            <PostDetails onClose={handleCloseDetails} id={seID} refetch={refetch} />
+          </div>
+        </RootScrollBlockArea>
+      )}
       <div
         className={`${styles.postsList} ${detailsOpen ? styles.shrink : null}`}
       >
