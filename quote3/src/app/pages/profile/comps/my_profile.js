@@ -81,7 +81,7 @@ function MyProfile() {
         <Page2 closeModal={closeModal} />
       </ReactModal>
 
-      <div>
+      <div className={styles.btnMore}>
         <button
           onClick={() => {
             setMoreOpen(!moreOpen);
@@ -90,11 +90,11 @@ function MyProfile() {
           More
         </button>
         {moreOpen && (
-          <span className={styles.rightModal}>
+          <div className={styles.rightModal}>
             <Link href={"/pages/login/logout"}>
               <button>Log Out</button>
             </Link>
-          </span>
+          </div>
         )}
       </div>
 

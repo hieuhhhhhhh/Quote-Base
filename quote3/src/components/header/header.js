@@ -7,6 +7,8 @@ import styles from "./header.module.css";
 import { updateUserActions } from "../redux/action";
 import Notifications from "./comps/notifications/parent";
 import Reports from "./comps/reports/parent";
+import { useState } from "react";
+import { AbsoluteModal } from "../wrappers/absolute_modal";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -14,6 +16,8 @@ const Header = () => {
   const myId = useSelector((state) => state.myProfile.id); // Access myId from Redux
   const myAvatar = useSelector((state) => state.myProfile.avatar);
   const myRole = useSelector((state) => state.myProfile.role);
+
+  const [avatarModal, setAvatarModal] = useState(false);
 
   return (
     <div className={styles.header}>
@@ -67,24 +71,53 @@ const Header = () => {
             </li>
           )}
 
-          <li>
-            {myId ? (
-              <Link href="/pages/login/logout">Log Out</Link>
-            ) : (
-              <Link href="/pages/login">Log In</Link>
-            )}
-          </li>
+          {!myId && (
+            <li>
+              <Link href="/pages/login">Log In</Link>{" "}
+            </li>
+          )}
 
           {myId && (
             <li>
-              <Link href={`/pages/profile/${myId}`}>
-                <div className="avatarHolder">
+              <div style={{ position: "relative" }}>
+                <div
+                  className="avatarHolder"
+                  onClick={(event) => {
+                    setAvatarModal(!avatarModal);
+                    event.stopPropagation();
+                  }}
+                  style={{ cursor: "pointer" }}
+                >
                   <img
                     src={myAvatar || "/default_pfp.webp"}
                     className="avatar"
                   />
                 </div>
-              </Link>
+                <AbsoluteModal
+                  modalOpen={avatarModal}
+                  setModalOpen={setAvatarModal}
+                >
+                  <div className={styles.modalBtnContainer}>
+                    <Link
+                      href={myId ? `/pages/profile/${myId}` : "/pages/login"}
+                      onClick={() => {
+                        setAvatarModal(false);
+                      }}
+                    >
+                      <div className={styles.modalBtn}>View My Profile</div>
+                    </Link>
+                    <Link
+                      href="/pages/login/logout"
+                      onClick={() => {
+                        setAvatarModal(false);
+                      }}
+                      style={{ width: "100%" }}
+                    >
+                      <div className={styles.modalBtn}>Log Out</div>
+                    </Link>
+                  </div>
+                </AbsoluteModal>
+              </div>
             </li>
           )}
         </ul>

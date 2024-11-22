@@ -31,6 +31,7 @@ const myProfileReducer = (state = myProfileInit, action) => {
 
 const userActionsInit = {
   isCreatingPost: false,
+  closeModal: true,
 };
 
 const userActionsReducer = (state = userActionsInit, action) => {
