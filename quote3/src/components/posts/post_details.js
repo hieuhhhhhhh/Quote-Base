@@ -9,10 +9,7 @@ import CommentsParent from "./comment/parent";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-import preventRootScroll from "./prevent_root_scroll";
-
 function PostDetails({ id, onClose, refetch }) {
-
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
@@ -46,16 +43,16 @@ function PostDetails({ id, onClose, refetch }) {
 
     await SaveUnsavePost(isSaved, id);
     setIsSaved(!isSaved);
-  };
 
     if (refetch) {
-      await refetch((prev) => prev + 1);
+      refetch((prev) => prev + 1);
     }
 
     setData((prev) => ({
       ...prev,
       saves: prev.saves + (isSaved ? -1 : 1),
     }));
+  };
 
   const onReportWithdrawReport = () => {
     if (!myId) {
@@ -66,7 +63,6 @@ function PostDetails({ id, onClose, refetch }) {
 
     ReportWithdrawReport(isReported, id);
     setIsReported(!isReported);
-
   };
 
   useEffect(() => {
@@ -111,7 +107,7 @@ function PostDetails({ id, onClose, refetch }) {
         </div>
         <p>
           Owner Name:
-          {data?.alias.length > 0 ? data?.alias : data?.username}
+          {data?.alias ? data?.alias : data?.username}
         </p>
         <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
         <p>Likes: {data?.likes}</p>

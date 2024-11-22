@@ -10,7 +10,6 @@ import Posts from "@/components/posts/profile_posts/user_posts";
 import SavedPosts from "@/components/posts/profile_posts/user_saved_posts";
 import Link from "next/link";
 
-
 function MyProfile() {
   // Accessing redux state
   const myName = useSelector((state) => state.myProfile.name);
@@ -53,39 +52,57 @@ function MyProfile() {
   };
 
   return (
-    <div>
-        <div className={styles.container}>
-          <div className={styles.profileContentMain}>
-            <div className={styles.profileLeft}>
-              <div className={styles.imgHolder}>
-                <img
-                  src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
-                  className={styles.profilePic}
-                />
-              </div>
-            </div>
-            <div className={styles.profileRight}>
-              <h2 className={styles.name}>{myName}</h2>
-              <div className={styles.stats}>
-                <div>0 posts</div>
-                <div>0 followers</div>
-              </div>
-              <div className={styles.bio}>{myBio}</div>
+    <>
+      <div className={styles.container}>
+        <div className={styles.profileContentMain}>
+          <div className={styles.profileLeft}>
+            <div className={styles.imgHolder}>
+              <img
+                src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
+                className={styles.profilePic}
+              />
             </div>
           </div>
-        </div>
-        <div className={styles.profileRight}>
-          <h2 className={styles.name}>{myName}</h2>
-          <div className={styles.stats}>
-            <div>0 posts</div>
+          <div className={styles.profileRight}>
+            <h2 className={styles.name}>{myName}</h2>
+            <div className={styles.stats}>
+              <div>0 posts</div>
+              <div>0 followers</div>
+            </div>
+            <div className={styles.bio}>{myBio}</div>
           </div>
-          <div className={styles.bio}>{myBio}</div>
-          <div className={styles.bio}>Role: {myRole}</div>
         </div>
       </div>
+      <div className={styles.profileRight}>
+        <h2 className={styles.name}>{myName}</h2>
+        <div className={styles.stats}>
+          <div>0 posts</div>
+        </div>
+        <div className={styles.bio}>{myBio}</div>
+        <div className={styles.bio}>Role: {myRole}</div>
+      </div>
+
       <UploadProfilePic onUpdate={onUpdate} />
 
       <button onClick={openModal}>Edit Profile</button>
+      
+      <ReactModal
+        ariaHideApp={false}
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        contentLabel="Edit Profile Form"
+        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
+        className={styles.AddInfoModalContent}
+      >
+        <h2>Edit Profile</h2>
+        <Page2 closeModal={closeModal} />
+      </ReactModal>
+
+      <div>
+        <button onClick={() => setMyPostsMode(!myPostsMode)}>
+          {myPostsMode ? "Saved Posts" : "My Posts"}
+        </button>
+      </div>
 
       <ReactModal
         ariaHideApp={false}
@@ -116,48 +133,14 @@ function MyProfile() {
         )}
       </div>
 
-          <div>
-            <button onClick={() => setMyPostsMode(!myPostsMode)}>
-              {myPostsMode ? "Saved Posts" : "My Posts"}
-            </button>
-          </div>
-
-          <ReactModal
-            ariaHideApp={false}
-            isOpen={isModalOpen}
-            onRequestClose={closeModal}
-            contentLabel="Edit Profile Form"
-            style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
-            className={styles.AddInfoModalContent}
-          >
-            <h2>Edit Profile</h2>
-            <Page2 closeModal={closeModal} />
-          </ReactModal>
-
-          <div>
-            <button
-              onClick={() => {
-                setMoreOpen(!moreOpen);
-              }}
-            >
-              More
-            </button>
-            {moreOpen && (
-              <span className={styles.rightModal}>
-                <button onClick={() => alert("Log Out")}>Log Out</button>
-              </span>
-            )}
-          </div>
-
-          <div className={styles.profileContentSub}>
-            {myPostsMode ? (
-              <Posts user_id={myId} onShrink={setOnShrink} />
-            ) : (
-              <SavedPosts user_id={myId} onShrink={setOnShrink} />
-            )}
-          </div>
-        </div>
+      <div className={styles.profileContentSub}>
+        {myPostsMode ? (
+          <Posts user_id={myId} onShrink={setOnShrink} />
+        ) : (
+          <SavedPosts user_id={myId} onShrink={setOnShrink} />
+        )}
       </div>
+    </>
   );
 }
 

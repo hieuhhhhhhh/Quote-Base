@@ -8,7 +8,6 @@ export default function SavedPosts({ user_id, onShrink }) {
   const [previews, setPreviews] = useState([]);
   const [loading, setLoading] = useState(false); // For loading message
   const [refetch, setRefetch] = useState(0);
-  //const [onShrink, setOnShrink] = useState(false);
 
   useEffect(() => {
     // Fetch post IDs and previews in sequence
