@@ -10,7 +10,7 @@ import { useRouter } from "next/navigation";
 
 import preventRootScroll from "./prevent_root_scroll";
 
-function PostDetails({ id, onClose }) {
+function PostDetails({ id, onClose, refetch }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
@@ -36,15 +36,19 @@ function PostDetails({ id, onClose }) {
     }));
   };
 
-  const onSaveUnsave = () => {
+  const onSaveUnsave = async () => {
     if (!myId) {
       // user no login yet
       router.push("/pages/login");
       return;
     }
 
-    SaveUnsavePost(isSaved, id);
+    await SaveUnsavePost(isSaved, id);
     setIsSaved(!isSaved);
+
+    if (refetch) {
+      await refetch((prev) => prev + 1);
+    }
 
     setData((prev) => ({
       ...prev,

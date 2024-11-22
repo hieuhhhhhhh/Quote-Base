@@ -54,27 +54,6 @@ const Header = () => {
           </li>
 
           <li>
-            {/* Conditional Link based on existance of myId*/}
-            <Link
-              href={
-                myId ? `/pages/posts/someone_posts/${myId}` : "/pages/login"
-              }
-            >
-              My_Posts
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              href={
-                myId ? `/pages/posts/saved_posts/${myId}` : "/pages/login"
-              }
-            >
-              Saved_Posts
-            </Link>
-          </li>
-
-          <li>
             <Link
               href="/"
               onClick={() => {

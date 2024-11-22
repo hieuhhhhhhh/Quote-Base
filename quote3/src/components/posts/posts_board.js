@@ -7,6 +7,7 @@ export default function PostsBoard({
   posts,
   onLoadMorePosts,
   onShrink = () => {},
+  refetch,
 }) {
   const [seID, setSeID] = useState(null); // seID = selected id
   const [detailsOpen, setDetailsOp] = useState(false);
@@ -51,7 +52,7 @@ export default function PostsBoard({
 
   return (
     <div>
-      {detailsOpen && <PostDetails onClose={handleCloseDetails} id={seID} />}
+      {detailsOpen && <PostDetails onClose={handleCloseDetails} id={seID} refetch={refetch} />}
       <div
         className={`${styles.postsList} ${detailsOpen ? styles.shrink : null}`}
       >

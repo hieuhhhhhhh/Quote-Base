@@ -21,7 +21,11 @@ function PostPreviews({ posts, onClickPost, seID, setSeID, detailsOpen }) {
       {posts.map((each, index) => (
         <div
           key={index}
-          ref={(el) => (refs.current[index] = el)}
+          ref={(el) => {
+            if (el) {
+              refs.current[index] = el;
+            }
+          }}
           onClick={() => {
             setSeID(each.id); // Set the selected post ID
             setSeIndex(index);
