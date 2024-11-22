@@ -6,6 +6,8 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 import Page2 from "../../signup/comps/panel_page2";
 import ReactModal from "react-modal";
 
+import Posts from "@/components/posts/profile_posts/user_posts";
+import SavedPosts from "@/components/posts/profile_posts/user_saved_posts";
 import Link from "next/link";
 
 function MyProfile() {
@@ -17,20 +19,21 @@ function MyProfile() {
 
   const [moreOpen, setMoreOpen] = useState(false);
 
-  const [bio, setBio] = useState(myBio);
+  //const [bio, setBio] = useState(myBio);
   const [pfp, setPfp] = useState("");
   const [pfpExist, setPfpExist] = useState(true);
 
+  const [myPostsMode, setMyPostsMode] = useState(true);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     // Fetch additional data not available in redux
     const fetchDB = async () => {
       const data = await getPublicInfo(myId);
-      setBio(data.biography);
+      //setBio(data.biography);
       if (data.profile_pic == "") {
         setPfpExist(false);
       }
@@ -46,28 +49,30 @@ function MyProfile() {
   };
 
   return (
-    <div className={styles.container}>
-      <div className={styles.profileContentMain}>
-        <div className={styles.profileLeft}>
-          <div className={styles.imgHolder}>
-            <img
-              src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
-              className={styles.profilePic}
-            />
+    <>
+      <div className={styles.container}>
+        <div className={styles.profileContentMain}>
+          <div className={styles.profileLeft}>
+            <div className={styles.imgHolder}>
+              <img
+                src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
+                className={styles.profilePic}
+              />
+            </div>
           </div>
-        </div>
-        <div className={styles.profileRight}>
-          <h2 className={styles.name}>{myName}</h2>
-          <div className={styles.stats}>
-            <div>0 posts</div>
+          <div className={styles.profileRight}>
+            <h2 className={styles.name}>{myName}</h2>
+            <div className={styles.stats}>
+              <div>0 posts</div>
+              <div>0 followers</div>
+            </div>
+            <div className={styles.bio}>{myBio}</div>
+            <div className={styles.bio}>Role: {myRole}</div>
           </div>
-          <div className={styles.bio}>{myBio}</div>
-          <div className={styles.bio}>Role: {myRole}</div>
         </div>
       </div>
-      <UploadProfilePic onUpdate={onUpdate} />
 
-      <button onClick={openModal}>Edit Profile</button>
+      <UploadProfilePic onUpdate={onUpdate} />
 
       <ReactModal
         ariaHideApp={false}
@@ -97,11 +102,16 @@ function MyProfile() {
           </div>
         )}
       </div>
-
-      <div className={styles.profileContentSub}>
-        <p>To be continued area ....</p>
+      <div>
+        <button onClick={() => setMyPostsMode(!myPostsMode)}>
+          {myPostsMode ? "Saved Posts" : "My Posts"}
+        </button>
       </div>
-    </div>
+
+      <div>
+        {myPostsMode ? <Posts user_id={myId} /> : <SavedPosts user_id={myId} />}
+      </div>
+    </>
   );
 }
 

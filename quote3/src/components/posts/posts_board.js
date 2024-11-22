@@ -8,6 +8,7 @@ export default function PostsBoard({
   posts,
   onLoadMorePosts,
   onShrink = () => {},
+  refetch,
 }) {
   const [seID, setSeID] = useState(null); // seID = selected id
   const [detailsOpen, setDetailsOp] = useState(false);
@@ -55,7 +56,7 @@ export default function PostsBoard({
       {detailsOpen && (
         <RootScrollBlockArea>
           <div className={styles.postDetails}>
-            <PostDetails onClose={handleCloseDetails} id={seID} />
+            <PostDetails onClose={handleCloseDetails} id={seID} refetch={refetch} />
           </div>
         </RootScrollBlockArea>
       )}

@@ -1,20 +1,19 @@
-"use client";
-
 import React, { useEffect, useState } from "react";
-import fetchSavedPostIds from "../helpers/fetch_savedPosts";
+import { fetchSavedPostIds } from "./helper/fetch_posts";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 
-export default function Posts({ params }) {
-  // Determine the user ID from params
-  const user_id = params.user_id;
-
+export default function SavedPosts({ user_id }) {
   // State to hold posts
   const [previews, setPreviews] = useState([]);
+  const [loading, setLoading] = useState(false); // For loading message
+  const [refetch, setRefetch] = useState(0);
 
   useEffect(() => {
     // Fetch post IDs and previews in sequence
     const fetchData = async () => {
+      setLoading(true); // Start loading
+      setPreviews([]); // Clear previous data which will remove the last post being displayed if necessary
       // Step 1: Fetch post IDs
       const ids = await fetchSavedPostIds(user_id);
       // Step 2: Fetch previews for those IDs
@@ -22,11 +21,18 @@ export default function Posts({ params }) {
         const res = await fetchPreviews(ids);
         setPreviews(res);
       }
+      setLoading(false); // End loading
     };
 
     fetchData();
-  }, [user_id]);
+  }, [user_id, refetch]);
 
   // Render posts if available
-  return <PostsBoard posts={previews} onShrink={() => {}} />;
+  return loading ? (
+    <p>Loading...</p>
+  ) : previews.length === 0 ? (
+    <p>No posts saved</p>
+  ) : (
+    <PostsBoard posts={previews} refetch={setRefetch} />
+  );
 }
