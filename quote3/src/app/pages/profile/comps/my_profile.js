@@ -6,8 +6,9 @@ import UploadProfilePic from "./profile_pic/upload_pfp";
 import Page2 from "../../signup/comps/panel_page2";
 import ReactModal from "react-modal";
 
-import Posts from "@/components/posts/profile_posts/user_posts";
-import SavedPosts from "@/components/posts/profile_posts/user_saved_posts";
+import Posts from "@/app/pages/profile/comps/profile_posts/user_posts";
+import SavedPosts from "@/app/pages/profile/comps/profile_posts/user_saved_posts";
+
 import Link from "next/link";
 
 function MyProfile() {
@@ -22,6 +23,8 @@ function MyProfile() {
   //const [bio, setBio] = useState(myBio);
   const [pfp, setPfp] = useState("");
   const [pfpExist, setPfpExist] = useState(true);
+
+  const [onShrink, setOnShrink] = useState(false);
 
   const [myPostsMode, setMyPostsMode] = useState(true);
 
@@ -51,65 +54,71 @@ function MyProfile() {
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.profileContentMain}>
-          <div className={styles.profileLeft}>
-            <div className={styles.imgHolder}>
-              <img
-                src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
-                className={styles.profilePic}
-              />
+        <div className={onShrink ? "shrinkForDetails" : ""}>
+          <div className={styles.profileContentMain}>
+            <div className={styles.profileLeft}>
+              <div className={styles.imgHolder}>
+                <img
+                  src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
+                  className={styles.profilePic}
+                />
+              </div>
             </div>
-          </div>
-          <div className={styles.profileRight}>
-            <h2 className={styles.name}>{myName}</h2>
-            <div className={styles.stats}>
-              <div>0 posts</div>
-              <div>0 followers</div>
+            <div className={styles.profileRight}>
+              <h2 className={styles.name}>{myName}</h2>
+              <div className={styles.stats}>
+                <div>0 posts</div>
+                <div>0 followers</div>
+              </div>
+              <div className={styles.bio}>{myBio}</div>
+              <div className={styles.bio}>Role: {myRole}</div>
             </div>
-            <div className={styles.bio}>{myBio}</div>
-            <div className={styles.bio}>Role: {myRole}</div>
           </div>
         </div>
-      </div>
 
-      <UploadProfilePic onUpdate={onUpdate} />
+        <UploadProfilePic onUpdate={onUpdate} />
 
-      <ReactModal
-        ariaHideApp={false}
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        contentLabel="Edit Profile Form"
-        style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
-        className={styles.AddInfoModalContent}
-      >
-        <h2>Edit Profile</h2>
-        <Page2 closeModal={closeModal} />
-      </ReactModal>
-
-      <div className={styles.btnMore}>
-        <button
-          onClick={() => {
-            setMoreOpen(!moreOpen);
-          }}
+        <ReactModal
+          ariaHideApp={false}
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Edit Profile Form"
+          style={{ overlay: { backgroundColor: "rgba(0, 0, 0, 0.5)" } }}
+          className={styles.AddInfoModalContent}
         >
-          More
-        </button>
-        {moreOpen && (
-          <div className={styles.rightModal}>
-            <Link href={"/pages/login/logout"}>
-              <button>Log Out</button>
-            </Link>
-          </div>
-        )}
-      </div>
-      <div>
-        <button onClick={() => setMyPostsMode(!myPostsMode)}>
-          {myPostsMode ? "Saved Posts" : "My Posts"}
-        </button>
-      </div>
+          <h2>Edit Profile</h2>
+          <Page2 closeModal={closeModal} />
+        </ReactModal>
 
-      <div>
-        {myPostsMode ? <Posts user_id={myId} /> : <SavedPosts user_id={myId} />}
+        <div className={styles.btnMore}>
+          <button
+            onClick={() => {
+              setMoreOpen(!moreOpen);
+            }}
+          >
+            More
+          </button>
+          {moreOpen && (
+            <div className={styles.rightModal}>
+              <Link href={"/pages/login/logout"}>
+                <button>Log Out</button>
+              </Link>
+            </div>
+          )}
+        </div>
+        <div>
+          <button onClick={() => setMyPostsMode(!myPostsMode)}>
+            {myPostsMode ? "Saved Posts" : "My Posts"}
+          </button>
+        </div>
+
+        <div>
+          {myPostsMode ? (
+            <Posts user_id={myId} onShrink={setOnShrink} />
+          ) : (
+            <SavedPosts user_id={myId} onShrink={setOnShrink} />
+          )}
+        </div>
       </div>
     </>
   );
