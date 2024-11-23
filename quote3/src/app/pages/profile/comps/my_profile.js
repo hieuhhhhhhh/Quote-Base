@@ -8,6 +8,7 @@ import ReactModal from "react-modal";
 
 import Posts from "@/app/pages/profile/comps/profile_posts/user_posts";
 import SavedPosts from "@/app/pages/profile/comps/profile_posts/user_saved_posts";
+
 import Link from "next/link";
 
 function MyProfile() {
