@@ -30,6 +30,8 @@ function MyProfile() {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const openModal = () => setIsModalOpen(true);
+
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
@@ -77,6 +79,7 @@ function MyProfile() {
         </div>
 
         <UploadProfilePic onUpdate={onUpdate} />
+        <button onClick={openModal}>Edit Profile</button>
 
         <ReactModal
           ariaHideApp={false}
