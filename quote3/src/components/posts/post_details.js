@@ -9,7 +9,7 @@ import CommentsParent from "./comment/parent";
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-function PostDetails({ id, onClose, refetch }) {
+function PostDetails({ id, onClose, onShrink, refetch }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
@@ -46,6 +46,7 @@ function PostDetails({ id, onClose, refetch }) {
 
     if (refetch) {
       refetch((prev) => prev + 1);
+      onShrink(false);
     }
 
     setData((prev) => ({

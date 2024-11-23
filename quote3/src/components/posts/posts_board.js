@@ -56,7 +56,7 @@ export default function PostsBoard({
       {detailsOpen && (
         <RootScrollBlockArea>
           <div className={styles.postDetails}>
-            <PostDetails onClose={handleCloseDetails} id={seID} refetch={refetch} />
+            <PostDetails onClose={handleCloseDetails} id={seID} onShrink={onShrink} refetch={refetch} />
           </div>
         </RootScrollBlockArea>
       )}
