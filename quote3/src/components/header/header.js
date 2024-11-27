@@ -51,7 +51,12 @@ const Header = () => {
                 dispatch(updateUserActions({ isCreatingPost: false }));
               }}
             >
-              <FontAwesomeIcon title="Home" icon={faHome} size="lg" />
+              <FontAwesomeIcon
+                title="Home"
+                icon={faHome}
+                size="lg"
+                className="icon"
+              />
             </Link>
           </li>
 
@@ -67,6 +72,7 @@ const Header = () => {
                   title="Write a Post"
                   icon={faPenToSquare}
                   size="lg"
+                  className="icon"
                 />
               </Link>
             ) : (
@@ -75,6 +81,7 @@ const Header = () => {
                   title="Write a Post"
                   icon={faPenToSquare}
                   size="lg"
+                  className="icon"
                 />
               </Link>
             )}
@@ -82,23 +89,31 @@ const Header = () => {
 
           <li>
             <Link href="/pages/trending">
-              <FontAwesomeIcon title="Trending" icon={faFire} size="lg" />
+              <FontAwesomeIcon
+                title="Trending"
+                icon={faFire}
+                size="lg"
+                className="icon"
+              />
             </Link>
           </li>
 
           {myId && (
             <li>
               <Link href="/pages/search">
-                <FontAwesomeIcon title="Search" icon={faSearch} size="lg" />
+                <FontAwesomeIcon
+                  title="Search"
+                  icon={faSearch}
+                  size="lg"
+                  className="icon"
+                />
               </Link>
             </li>
           )}
 
           {myId && (
             <li>
-              <Notifications>
-                <FontAwesomeIcon icon={faBell} size="lg" />
-              </Notifications>
+              <Notifications />
             </li>
           )}
 
@@ -111,7 +126,12 @@ const Header = () => {
           {!myId && (
             <li>
               <Link href="/pages/login">
-                <FontAwesomeIcon title="Login" icon={faSignInAlt} size="lg" />
+                <FontAwesomeIcon
+                  title="Login"
+                  icon={faSignInAlt}
+                  size="lg"
+                  className="icon"
+                />
               </Link>{" "}
             </li>
           )}
@@ -147,6 +167,7 @@ const Header = () => {
                         <FontAwesomeIcon
                           icon={faUser}
                           style={{ marginRight: "10px" }}
+                          className="icon"
                         />
                         <span>My Profile</span>
                       </div>
@@ -162,6 +183,7 @@ const Header = () => {
                         <FontAwesomeIcon
                           icon={faSignOutAlt}
                           style={{ marginRight: "10px" }}
+                          className="icon"
                         />
                         <span>Log Out</span>
                       </div>

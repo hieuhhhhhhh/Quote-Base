@@ -29,11 +29,6 @@
   align-items: center;
 }
 
-.header nav ul li:hover {
-  background-color: rgba(169, 169, 169, 0.2);
-  border-radius: 20px;
-}
-
 .header h2 a,
 .header nav ul li a {
   color: inherit;

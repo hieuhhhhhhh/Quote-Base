@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 import { useSelector } from "react-redux";
+import CreatePost from "./comps/create_post/parent";
 
 const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
@@ -38,6 +39,7 @@ const Home = () => {
 
   return (
     <div>
+      {isCreatingPost && <CreatePost />}
       <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
     </div>
   );

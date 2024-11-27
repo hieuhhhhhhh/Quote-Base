@@ -41,9 +41,19 @@ export default function NotificationsBoard({
     >
       <div className={styles.btnLabel}>
         {title === "Reports" ? (
-          <FontAwesomeIcon title ="Reports" icon={faFlag} size="lg" />
+          <FontAwesomeIcon
+            title="Reports"
+            icon={faFlag}
+            size="lg"
+            className="icon"
+          />
         ) : (
-          <FontAwesomeIcon title ="Notifications" icon={faBell} size="lg" />
+          <FontAwesomeIcon
+            title="Notifications"
+            icon={faBell}
+            size="lg"
+            className="icon"
+          />
         )}
       </div>
       <Modal modalOpen={notiOpen} setModalOpen={setNotiOpen}>
