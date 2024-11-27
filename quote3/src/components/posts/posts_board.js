@@ -12,6 +12,7 @@ export default function PostsBoard({
 }) {
   const [seID, setSeID] = useState(null); // seID = selected id
   const [detailsOpen, setDetailsOp] = useState(false);
+  const [loading, setLoading] = useState(false);
   const loadingRef = useRef(null);
 
   const onClickPost = (id) => {
@@ -26,6 +27,12 @@ export default function PostsBoard({
   };
 
   useEffect(() => {
+    if (!onLoadMorePosts) {
+      setLoading(false);
+      return;
+    }
+
+    setLoading(true);
     const observer = new IntersectionObserver(
       (entries) => {
         // Check if the loading div is seenable
@@ -56,7 +63,12 @@ export default function PostsBoard({
       {detailsOpen && (
         <RootScrollBlockArea>
           <div className={styles.postDetails}>
-            <PostDetails onClose={handleCloseDetails} id={seID} onShrink={onShrink} refetch={refetch} />
+            <PostDetails
+              onClose={handleCloseDetails}
+              id={seID}
+              onShrink={onShrink}
+              refetch={refetch}
+            />
           </div>
         </RootScrollBlockArea>
       )}
@@ -70,7 +82,7 @@ export default function PostsBoard({
           setSeID={setSeID}
           detailsOpen={detailsOpen}
         />
-        {onLoadMorePosts && (
+        {loading && (
           <>
             <div style={{ height: "60px" }}></div>
             <div ref={loadingRef}>Loading...</div>

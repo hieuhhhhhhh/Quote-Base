@@ -4,7 +4,16 @@
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faHome, faSearch, faBell, faSignOutAlt, faUser, faPenToSquare, faSignInAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faSearch,
+  faBell,
+  faSignOutAlt,
+  faUser,
+  faPenToSquare,
+  faSignInAlt,
+  faFire,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
 import { updateUserActions } from "../redux/action";
 import Notifications from "./comps/notifications/parent";
@@ -42,7 +51,7 @@ const Header = () => {
                 dispatch(updateUserActions({ isCreatingPost: false }));
               }}
             >
-              <FontAwesomeIcon title ="Home" icon={faHome} size="lg" />
+              <FontAwesomeIcon title="Home" icon={faHome} size="lg" />
             </Link>
           </li>
 
@@ -54,19 +63,33 @@ const Header = () => {
                   dispatch(updateUserActions({ isCreatingPost: true }));
                 }}
               >
-                 <FontAwesomeIcon title ="Add Post" icon={faPenToSquare} size="lg" />
+                <FontAwesomeIcon
+                  title="Write a Post"
+                  icon={faPenToSquare}
+                  size="lg"
+                />
               </Link>
             ) : (
               <Link href="/pages/login">
-                <FontAwesomeIcon title ="Add Post" icon={faPenToSquare} size="lg" />
+                <FontAwesomeIcon
+                  title="Write a Post"
+                  icon={faPenToSquare}
+                  size="lg"
+                />
               </Link>
             )}
+          </li>
+
+          <li>
+            <Link href="/pages/trending">
+              <FontAwesomeIcon title="Trending" icon={faFire} size="lg" />
+            </Link>
           </li>
 
           {myId && (
             <li>
               <Link href="/pages/search">
-                <FontAwesomeIcon title ="Search" icon={faSearch} size="lg" />
+                <FontAwesomeIcon title="Search" icon={faSearch} size="lg" />
               </Link>
             </li>
           )}
@@ -88,7 +111,7 @@ const Header = () => {
           {!myId && (
             <li>
               <Link href="/pages/login">
-                <FontAwesomeIcon title ="Login" icon={faSignInAlt} size="lg" />
+                <FontAwesomeIcon title="Login" icon={faSignInAlt} size="lg" />
               </Link>{" "}
             </li>
           )}
@@ -120,10 +143,13 @@ const Header = () => {
                         setAvatarModal(false);
                       }}
                     >
-                    <div className={styles.modalBtn}>
-                      <FontAwesomeIcon icon={faUser} style={{ marginRight: "10px" }} />
-                      <span>My Profile</span>
-                    </div>
+                      <div className={styles.modalBtn}>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          style={{ marginRight: "10px" }}
+                        />
+                        <span>My Profile</span>
+                      </div>
                     </Link>
                     <Link
                       href="/pages/login/logout"
@@ -133,8 +159,11 @@ const Header = () => {
                       style={{ width: "100%" }}
                     >
                       <div className={styles.modalBtn}>
-                      <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: "10px" }} />
-                      <span>Log Out</span> 
+                        <FontAwesomeIcon
+                          icon={faSignOutAlt}
+                          style={{ marginRight: "10px" }}
+                        />
+                        <span>Log Out</span>
                       </div>
                     </Link>
                   </div>
