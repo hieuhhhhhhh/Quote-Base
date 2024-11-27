@@ -8,7 +8,7 @@ export default function Reports() {
     <Board
       fetchNotifications={fetchReports}
       emptyMsg={emptyMsg}
-      tittle="Reports"
+      title="Reports"
     />
   );
 }
