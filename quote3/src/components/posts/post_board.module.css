@@ -7,6 +7,12 @@
   z-index: 10;
 }
 
+.tittle {
+  display: flex;
+  align-items: center;
+  padding-top: 2vh;
+}
+
 .postDetails {
   position: fixed;
   background-color: var(--middleground);
@@ -25,7 +31,7 @@
 }
 
 .resultContainer {
-  margin: 5px;
+  margin: 1px;
   white-space: pre-wrap;
   overflow-wrap: break-word;
   overflow: hidden;
@@ -37,15 +43,19 @@
   align-items: center;
 
   height: 190px;
-  border-radius: 10px;
+  border-radius: 5px;
+}
 
+.clickable {
   /* Make it look clickable */
+  margin: 5px;
+  border-radius: 10px;
   cursor: pointer;
   transition: box-shadow 0.1s ease;
 }
 
 /* Add hover effect */
-.resultContainer:hover {
+.clickable:hover {
   box-shadow: 0 0 3px 1px var(--foreground); /* Add shadow */
 }
 
@@ -73,4 +83,35 @@
   display: flex;
   justify-content: space-between;
   margin-top: 10px;
+}
+
+.iconBtn {
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.iconBtn:hover {
+  background-color: rgb(126, 126, 126, 0.2);
+}
+
+.PreviewInDetails {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+}
+
+.secondBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
 }

@@ -4,6 +4,7 @@
   --light-text: white;
 
   --post-background: #999999;
+  --theme-color: #1baf48;
 }
 
 @media (prefers-color-scheme: dark) {
