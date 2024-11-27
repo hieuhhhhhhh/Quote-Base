@@ -15,7 +15,7 @@ export default function CPauthor({ author, setAuthor, onNext, onBack }) {
 
   return (
     <div>
-      <div className={styles.authorAreaContainer}>
+      <div className={styles.textareaContainer}>
         <label className={styles.label}>
           Would you like to display the author's name?
           <input
@@ -29,7 +29,7 @@ export default function CPauthor({ author, setAuthor, onNext, onBack }) {
       </div>
       <div className={styles.footerButtons}>
         <button onClick={onBack}>Back</button>
-        <button onClick={onContinue}>Continue</button>
+        <button onClick={onContinue}>Next</button>
       </div>
     </div>
   );

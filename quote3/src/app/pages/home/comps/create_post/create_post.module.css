@@ -17,19 +17,12 @@
   height: 130px;
   width: 400px;
   padding: 30px;
+  margin-bottom: 1em;
 }
 
 .textarea:focus {
   border: none;
   outline: none;
-}
-
-.authorAreaContainer {
-  display: flex;
-  align-items: center;
-  height: 130px;
-  width: 400px;
-  padding: 30px;
 }
 
 
@@ -68,10 +61,7 @@
   height: 200px;
 }
 
-.textareaContainer {
-  /* Adjust this if needed */
-  margin-bottom: 1em;
-}
+
 
 .singelFooterButton {
   position: absolute;
@@ -82,22 +72,38 @@
 .singelFooterButton button {
   align-self: flex-end;   
   cursor: pointer;
+
+  width: 80px;
+  height: 40px; 
+  font-size: 18px;
+  border-radius: 8px; 
+  border: none; 
 }
 
 .footerButtons {
   display: flex;
   justify-content: space-between; 
-  margin-top: 20px; 
+  
 }
 
 .footerButtons button:first-child {
   align-self: flex-start; 
   cursor: pointer;
+  width: 80px;
+  height: 40px; 
+  font-size: 18px;
+  border-radius: 8px; 
+  border: none;
 }
 
 .footerButtons button:last-child {
   align-self: flex-end;
   cursor: pointer; 
+  width: 80px;
+  height: 40px; 
+  font-size: 18px;
+  border-radius: 8px; 
+  border: none;
 }
 
 .iconRow {

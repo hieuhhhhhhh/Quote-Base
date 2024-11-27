@@ -9,7 +9,7 @@ export default function Parent() {
     <Board
       fetchNotifications={fetchNotifications}
       emptyMsg={emptyMsg}
-      tittle="Notifications"
+      title="Notifications"
     />
   );
 }
