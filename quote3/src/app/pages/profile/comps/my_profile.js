@@ -14,6 +14,8 @@ function MyProfile() {
   const myBio = useSelector((state) => state.myProfile.bio);
   const myId = useSelector((state) => state.myProfile.id);
   const [postCount, setPostCount] = useState(null);
+  const [likeCount, setLikeCount] = useState(null);
+  const [savedCount, setSavedCount] = useState(null);
 
   //const [bio, setBio] = useState(myBio);
   const [pfp, setPfp] = useState("");
@@ -33,6 +35,7 @@ function MyProfile() {
       }
       setPfp(data.profile_pic);
       setPostCount(data.post_count);
+      console.log(data);
     };
 
     fetchDB();
@@ -52,24 +55,40 @@ function MyProfile() {
               <div className={styles.imgHolder}>
                 <img
                   src={pfpExist ? pfp : "/default_pfp.webp"} // if no pfp set default pfp
+                  alt="Profile Picture"
                   className={styles.profilePic}
                 />
               </div>
             </div>
             <div className={styles.profileRight}>
               <h2 className={styles.name}>{myName}</h2>
+              <h3 className={styles.bio}>{myBio || "Write a short bio here!"}</h3>
               <div className={styles.stats}>
-                {postCount && <div>{postCount} posts</div>}
+                <div>{postCount || 0} <br/> posts</div>
+                <div>{likeCount || 0} <br/>likes</div>
+                <div>{savedCount || 0} <br/>saved</div>
               </div>
-              <div className={styles.bio}>{myBio}</div>
+              <br/>
+              
               <MyProfileButtons onUpdatePFP={onUpdatePFP} />
             </div>
           </div>
         </div>
 
-        <div>
-          <button onClick={() => setMyPostsMode(true)}>My Posts</button>
-          <button onClick={() => setMyPostsMode(false)}>Saved</button>
+        {/* Tabs for My Posts and Saved Posts */}
+        <div className={styles.tabs}>
+          <button
+            className={myPostsMode ? styles.activeTab : ""}
+            onClick={() => setMyPostsMode(true)}
+          >
+            My Posts
+          </button>
+          <button
+            className={!myPostsMode ? styles.activeTab : ""}
+            onClick={() => setMyPostsMode(false)}
+          >
+            Saved
+          </button>
         </div>
 
         <div>
