@@ -14,8 +14,6 @@ function MyProfile() {
   const myBio = useSelector((state) => state.myProfile.bio);
   const myId = useSelector((state) => state.myProfile.id);
   const [postCount, setPostCount] = useState(null);
-  const [likeCount, setLikeCount] = useState(null);
-  const [savedCount, setSavedCount] = useState(null);
 
   //const [bio, setBio] = useState(myBio);
   const [pfp, setPfp] = useState("");
@@ -62,33 +60,37 @@ function MyProfile() {
             </div>
             <div className={styles.profileRight}>
               <h2 className={styles.name}>{myName}</h2>
-              <h3 className={styles.bio}>{myBio || "Write a short bio here!"}</h3>
+              <h3 className={styles.bio}>
+                {myBio || "Write a short bio here!"}
+              </h3>
               <div className={styles.stats}>
-                <div>{postCount || 0} <br/> posts</div>
-                <div>{likeCount || 0} <br/>likes</div>
-                <div>{savedCount || 0} <br/>saved</div>
+                <div>{postCount} posts</div>
               </div>
-              <br/>
-              
+              <br />
+
               <MyProfileButtons onUpdatePFP={onUpdatePFP} />
             </div>
           </div>
-        </div>
-
-        {/* Tabs for My Posts and Saved Posts */}
-        <div className={styles.tabs}>
-          <button
-            className={myPostsMode ? styles.activeTab : ""}
-            onClick={() => setMyPostsMode(true)}
-          >
-            My Posts
-          </button>
-          <button
-            className={!myPostsMode ? styles.activeTab : ""}
-            onClick={() => setMyPostsMode(false)}
-          >
-            Saved
-          </button>
+          <div className={styles.tabs}>
+            <button
+              className={myPostsMode ? styles.activeTab : ""}
+              onClick={() => {
+                setMyPostsMode(true);
+                setOnShrink(false);
+              }}
+            >
+              My Posts
+            </button>
+            <button
+              className={!myPostsMode ? styles.activeTab : ""}
+              onClick={() => {
+                setMyPostsMode(false);
+                setOnShrink(false);
+              }}
+            >
+              Saved
+            </button>
+          </div>
         </div>
 
         <div>
