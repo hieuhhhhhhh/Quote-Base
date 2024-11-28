@@ -5,6 +5,7 @@ import fetchAdUrl from "./helper/fetch_ad_url";
 const BottomImageBar = () => {
   const [url, setUrl] = useState(null); // State to hold the ad URL
   const [error, setError] = useState(null); // State to handle errors
+  const [closeAd, setCloseAd] = useState(false);
 
   useEffect(() => {
     const fetchAd = async () => {
@@ -30,15 +31,21 @@ const BottomImageBar = () => {
   }
 
   // Render the image once the URL is available
-  return (
-    <div className={styles.bottomBar}>
-      <img src={url} alt="Kitten Ad" className={styles.image} />
-      <img src={url} alt="Kitten Ad" className={styles.image} />
-      <img src={url} alt="Kitten Ad" className={styles.image} />
-      <img src={url} alt="Kitten Ad" className={styles.image} />
-      <img src={url} alt="Kitten Ad" className={styles.image} />
-    </div>
-  );
+  if (!closeAd)
+    return (
+      <div className={styles.bottomBar}>
+        <div className={styles.btnClose}>
+          <button
+            onClick={() => {
+              setCloseAd(true);
+            }}
+          >
+            X
+          </button>
+        </div>
+        <img src={url} alt="Kitten Ad" className={styles.image} />
+      </div>
+    );
 };
 
 export default BottomImageBar;
