@@ -2,14 +2,14 @@
   width: 100%; /* This makes the textarea take the full width of its container */
   text-align: center;
   font-size: 20px;
-  resize: none; 
+  resize: none;
   border: none;
   font-family: inherit;
   background-color: var(--middleground);
 
   overflow-wrap: normal; /* Prevents words from breaking */
   overflow: hidden;
-  }
+}
 
 .textareaContainer {
   display: flex;
@@ -17,6 +17,7 @@
   height: 130px;
   width: 400px;
   padding: 30px;
+  margin-bottom: 1em;
 }
 
 .textarea:focus {
@@ -31,7 +32,6 @@
   width: 400px;
   padding: 30px;
 }
-
 
 .resultContainer {
   margin: 10px;
@@ -68,11 +68,6 @@
   height: 200px;
 }
 
-.textareaContainer {
-  /* Adjust this if needed */
-  margin-bottom: 1em;
-}
-
 .singelFooterButton {
   position: absolute;
   bottom: 20px; /* Adjust distance from the bottom as needed */
@@ -80,24 +75,40 @@
 }
 
 .singelFooterButton button {
-  align-self: flex-end;   
+  align-self: flex-end;
   cursor: pointer;
+
+  width: 80px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
 }
 
 .footerButtons {
   display: flex;
-  justify-content: space-between; 
-  margin-top: 20px; 
+  justify-content: space-between;
+  margin-top: 20px;
 }
 
 .footerButtons button:first-child {
-  align-self: flex-start; 
+  align-self: flex-start;
   cursor: pointer;
+  width: 80px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
 }
 
 .footerButtons button:last-child {
   align-self: flex-end;
-  cursor: pointer; 
+  width: 80px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
 }
 
 .iconRow {
@@ -110,11 +121,11 @@
 .iconRow div {
   cursor: pointer;
   font-size: 24px; /* Adjust icon size as needed */
-  color: #f1f1f1; /* Icon color for dark theme */
+  color: var(--fore-ground); /* Icon color for dark theme */
 }
 
 .iconRow div:hover {
-  color: #ccc; /* Slight color change on hover for feedback */
+  color: darkgray;
 }
 
 .closeButton {
@@ -152,12 +163,3 @@
   width: 100%;
   box-sizing: border-box;
 }
-
-
-
-
-
-
-
-
-

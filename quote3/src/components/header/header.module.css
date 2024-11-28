@@ -23,7 +23,8 @@
 }
 
 .header nav ul li {
-  margin-inline: 10px;
+  margin: auto;
+  padding: 10px;
   display: flex;
   align-items: center;
 }

@@ -75,12 +75,11 @@ function MyProfile() {
               </div>
               <div className={styles.bio}>{myBio}</div>
               <div className={styles.bio}>Role: {myRole}</div>
+              <button onClick={openModal}>Edit Profile</button>
+              <UploadProfilePic onUpdate={onUpdate} />
             </div>
           </div>
         </div>
-
-        <UploadProfilePic onUpdate={onUpdate} />
-        <button onClick={openModal}>Edit Profile</button>
 
         <ReactModal
           ariaHideApp={false}
@@ -118,9 +117,8 @@ function MyProfile() {
           </div>
         )}
         <div>
-          <button onClick={() => setMyPostsMode(!myPostsMode)}>
-            {myPostsMode ? "Saved Posts" : "My Posts"}
-          </button>
+          <button onClick={() => setMyPostsMode(true)}>My Posts</button>
+          <button onClick={() => setMyPostsMode(false)}>Saved</button>
         </div>
 
         <div>

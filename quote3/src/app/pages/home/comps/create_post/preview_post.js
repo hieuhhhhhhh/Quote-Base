@@ -23,7 +23,7 @@ export default function CPpreview({
 
   return (
     <div>
-      <h3 style={{ textAlign: 'center', margin: '20px 0', fontSize: '1.5em', fontWeight: 'bold' }}> Final Preview </h3>
+      <h2 style={{ textAlign: 'center'}}> Final Preview </h2>
 
       <Preview
         width={width}

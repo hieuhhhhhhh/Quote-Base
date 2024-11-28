@@ -82,7 +82,7 @@ export default function CropImage({ onUpdate }) {
           inputRef.current.click();
         }}
       >
-        Change Profile Picture
+        Upload Profile Picture
       </button>
       <Modal modalOpen={rawImg || img} setModalOpen={setModalOpen}>
         {rawImg && (

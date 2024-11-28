@@ -2,6 +2,7 @@
 import { useState } from "react";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
+import styles from "@/app/pages/search/Search.module.css";
 
 export default function Search() {
   const [term, setTerm] = useState("");
@@ -44,9 +45,9 @@ export default function Search() {
   };
 
   return (
-    <div>
-      <div className={onShrink ? "shrinkForDetails" : ""}>
-        <form onSubmit={submit}>
+    <div className={styles.searchContainers}>
+      <div className={onShrink ? "shrinkForDetails" : styles.formContainer}>
+        <form onSubmit={submit} className={styles.searchForm}>
           <input
             type="text"
             value={term}
@@ -56,10 +57,14 @@ export default function Search() {
           />
           <button type="submit">Search</button>
         </form>
-        <br />
-        {loading && <p>Loading...</p>} {/* Loading status */}
-        {idCount >= 0 && !loading && <h2>Found {idCount} posts</h2>}{" "}
       </div>
+      <div className={styles.statusContainer}>
+        <br/>
+          {loading && <p>Loading...</p>} {/* Loading status */}
+          {!loading && idCount >= 0 && <h2>Found {idCount} posts</h2>}
+        <br/><br/>
+      </div>
+      
       <PostsBoard posts={previews} onShrink={setOnShrink} />
     </div>
   );

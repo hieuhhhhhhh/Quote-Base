@@ -4,11 +4,13 @@ import Modal from "@/components/wrappers/modal";
 import Notification from "./notification";
 import PostDetails from "@/components/posts/post_details";
 import styles from "./notification.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell, faFlag } from "@fortawesome/free-solid-svg-icons";
 
 export default function NotificationsBoard({
   fetchNotifications,
   emptyMsg,
-  tittle,
+  title,
 }) {
   const [notifications, setNotifications] = useState([]);
   const [notiOpen, setNotiOpen] = useState(false);
@@ -37,11 +39,27 @@ export default function NotificationsBoard({
         setNotiOpen(!notiOpen);
       }}
     >
-      <div className={styles.btnLabel}>{tittle}</div>
+      <div className={styles.btnLabel}>
+        {title === "Reports" ? (
+          <FontAwesomeIcon
+            title="Reports"
+            icon={faFlag}
+            size="lg"
+            className="icon"
+          />
+        ) : (
+          <FontAwesomeIcon
+            title="Notifications"
+            icon={faBell}
+            size="lg"
+            className="icon"
+          />
+        )}
+      </div>
       <Modal modalOpen={notiOpen} setModalOpen={setNotiOpen}>
         <div className={styles.main}>
           <div className={styles.notifications}>
-            <div className={styles.tittle}>{tittle}</div>
+            <div className={styles.title}>{title}</div>
 
             {notifications &&
               notifications.map((e, index) => (
