@@ -77,6 +77,11 @@ function MyProfile() {
               <div className={styles.bio}>Role: {myRole}</div>
               <button onClick={openModal}>Edit Profile</button>
               <UploadProfilePic onUpdate={onUpdate} />
+              {ads && (
+                <Link href={"/pages/payment"}>
+                  <button>Remove Ads</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -93,29 +98,6 @@ function MyProfile() {
           <Page2 closeModal={closeModal} />
         </ReactModal>
 
-        <div className={styles.btnMore}>
-          <button
-            onClick={() => {
-              setMoreOpen(!moreOpen);
-            }}
-          >
-            More
-          </button>
-          {moreOpen && (
-            <div className={styles.rightModal}>
-              {ads && (
-                <div>
-                  <Link href={"/pages/payment"}>
-                    <button>Remove Ads</button>
-                  </Link>
-                </div>
-              )}
-              <Link href={"/pages/login/logout"}>
-                <button>Log Out</button>
-              </Link>
-            </div>
-          )}
-        </div>
         <div>
           <button onClick={() => setMyPostsMode(true)}>My Posts</button>
           <button onClick={() => setMyPostsMode(false)}>Saved</button>
