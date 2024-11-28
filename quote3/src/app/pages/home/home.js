@@ -4,6 +4,7 @@ import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 import { useSelector } from "react-redux";
 import CreatePost from "./comps/create_post/parent";
+import BottomImageBar from "@/components/ads/bottom_image_bar";
 
 const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
@@ -11,6 +12,8 @@ const Home = () => {
   const [trending, setTrending] = useState(false); // To track if the posts should be sorted by likes
   const [index, setIndex] = useState(0);
   const loadSize = 50;
+
+  const ads = useSelector((state) => state.myProfile.ads);
 
   const isCreatingPost = useSelector(
     (state) => state.userActions.isCreatingPost
@@ -20,7 +23,6 @@ const Home = () => {
     // Fetch new post IDs and reset index if index reaches the max
     const checkAndFetch = async () => {
       if (index >= postIds.length || postIds.length <= 0) {
-        console.log("trending", trending);
         const res = trending ? await fetchTrendingIds() : await fetchIds(); // Determine which data to GET depending on the value of trending
         setPostIds(res);
         setIndex(0); // Reset index to 0
@@ -53,6 +55,7 @@ const Home = () => {
       </button>
 
       <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
+      {ads && <BottomImageBar />}
     </div>
   );
 };

@@ -17,6 +17,7 @@ function MyProfile() {
   const myBio = useSelector((state) => state.myProfile.bio);
   const myRole = useSelector((state) => state.myProfile.role);
   const myId = useSelector((state) => state.myProfile.id);
+  const ads = useSelector((state) => state.myProfile.ads);
 
   const [moreOpen, setMoreOpen] = useState(false);
 
@@ -103,6 +104,13 @@ function MyProfile() {
           </button>
           {moreOpen && (
             <div className={styles.rightModal}>
+              {ads && (
+                <div>
+                  <Link href={"/pages/payment"}>
+                    <button>Remove Ads</button>
+                  </Link>
+                </div>
+              )}
               <Link href={"/pages/login/logout"}>
                 <button>Log Out</button>
               </Link>

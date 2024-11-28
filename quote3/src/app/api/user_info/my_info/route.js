@@ -24,7 +24,23 @@ export async function GET(req) {
     });
   }
 
-  const userInfo = data[0];
+  // Query to get info on ads for the user
+  const { data: adsData, error: adsError } = await supabase
+    .from("users_info")
+    .select("ads")
+    .eq("user_id", userId)
+    .single(); // Ensure only one record is returned
+
+  if (adsError) {
+    return new Response(
+      JSON.stringify({
+        message: `Error fetching ads info: ${adsError.message}`,
+      }),
+      { status: 500 }
+    );
+  }
+
+  const userInfo = data?.[0];
 
   let response = NextResponse.json({
     id: userId,
@@ -32,6 +48,7 @@ export async function GET(req) {
     bio: userInfo?.biography || "",
     avatar: userInfo?.avatar || "",
     role: userInfo?.role || "user",
+    ads: adsData?.ads ?? true,
   });
 
   // refresh token:
