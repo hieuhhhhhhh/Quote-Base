@@ -9,6 +9,8 @@ import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import IconButtons from "./comps/icon_buttons";
 import PreviewInDetails from "./comps/preview_in_details";
+import AvatarLink from "../wrappers/profile_link/avatar_link";
+import NameLink from "../wrappers/profile_link/name_link";
 
 function PostDetails({ id, onClose, onShrink, refetch }) {
   const [data, setData] = useState(null);
@@ -95,13 +97,17 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
           </div>
         )}
         <div className={styles.tittle}>
-          <div className="avatarHolder">
-            <img
-              src={data?.avatar !== "" ? data?.avatar : "/default_pfp.webp"}
-              className="avatar"
-            />
+          <AvatarLink user_id={data.owner_id}>
+            <div className="avatarHolder">
+              <img
+                src={data?.avatar !== "" ? data?.avatar : "/default_pfp.webp"}
+                className="avatar"
+              />
+            </div>
+          </AvatarLink>
+          <div style={{ paddingLeft: "10px" }}>
+            <NameLink user_id={data.owner_id}>{data?.name}</NameLink>
           </div>
-          <div style={{ paddingLeft: "10px" }}>{data?.name}</div>
         </div>
 
         <PreviewInDetails

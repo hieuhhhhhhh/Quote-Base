@@ -11,6 +11,7 @@ const Trending = () => {
   const [index, setIndex] = useState(0);
   const loadSize = 50;
   const [onLoadMorePosts, setOnLoadMorePosts] = useState(null);
+  const [onShrink, setOnShrink] = useState(false);
 
   useEffect(() => {
     // Fetch new post IDs and reset index if index reaches the max
@@ -38,13 +39,19 @@ const Trending = () => {
 
   return (
     <div>
-      <h1 style={{ marginLeft: "20px" }}>
-        <FontAwesomeIcon icon={faFire} />
-        <span style={{ paddingLeft: "10px" }} />
-        Trending
-      </h1>
+      <div className={onShrink ? "shrinkForDetails" : ""}>
+        <h1 style={{ marginLeft: "20px" }}>
+          <FontAwesomeIcon icon={faFire} />
+          <span style={{ paddingLeft: "10px" }} />
+          Trending
+        </h1>
+      </div>
 
-      <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
+      <PostsBoard
+        posts={previews}
+        onLoadMorePosts={onLoadMorePosts}
+        onShrink={setOnShrink}
+      />
     </div>
   );
 };

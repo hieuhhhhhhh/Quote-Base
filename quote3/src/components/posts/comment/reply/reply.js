@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "../comment.module.css";
 import ReplyParent from "./parent";
 import useFormat from "../helpers/format_time";
+import AvatarLink from "@/components/wrappers/profile_link/avatar_link";
+import NameLink from "@/components/wrappers/profile_link/name_link";
 
 export default function Reply({ each }) {
   const [formattedTime, setFtime] = useState("");
@@ -11,16 +13,20 @@ export default function Reply({ each }) {
   return (
     <div className={styles.comment}>
       <div className={styles.column1}>
-        <div className="smallAvatarHolder">
-          <img
-            src={each.commenter.avatar || "/default_pfp.webp"}
-            className="avatar"
-          />
-        </div>
+        <AvatarLink user_id={each.commenter.id}>
+          <div className="smallAvatarHolder">
+            <img
+              src={each.commenter.avatar || "/default_pfp.webp"}
+              className="avatar"
+            />
+          </div>
+        </AvatarLink>
       </div>
       <div className={styles.column2}>
         <div className={styles.title}>
-          <span className={styles.name}>{each.commenter.name}</span>
+          <NameLink user_id={each.commenter.id}>
+            <span className={styles.name}>{each.commenter.name}</span>
+          </NameLink>
           <span className={styles.birth_time}>{formattedTime}</span>
         </div>
         <div> {each.comment}</div>

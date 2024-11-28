@@ -43,6 +43,7 @@ export async function POST(req) {
       content: data?.content || "",
       author: data?.author || "",
       avatar: data?.owner_avatar || "",
+      owner_id: data?.owner_id,
       name: data?.owner_alias || data?.owner_username || "",
       background_img: data?.background_img || "",
       background_color: data?.background_color || "",

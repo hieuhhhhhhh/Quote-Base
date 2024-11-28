@@ -3,11 +3,13 @@ import styles from "../comment.module.css";
 import TextareaAutosize from "react-textarea-autosize";
 import { useSelector } from "react-redux";
 import SubmitReply from "../helpers/submit_reply";
+import AvatarLink from "@/components/wrappers/profile_link/avatar_link";
 
 export default function ReplyInput({ parent_id, onAddReply, onClose }) {
   const [comment, setComment] = useState("");
 
   const myAvatar = useSelector((state) => state.myProfile.avatar);
+  const myId = useSelector((state) => state.myProfile.id);
 
   const onInput = (e) => {
     setComment(e.target.value);
@@ -26,9 +28,11 @@ export default function ReplyInput({ parent_id, onAddReply, onClose }) {
   return (
     <div>
       <span className={styles.inputBox}>
-        <span className="smallAvatarHolder">
-          <img src={myAvatar || "/default_pfp.webp"} className="avatar" />
-        </span>
+        <AvatarLink user_id={myId}>
+          <div className="smallAvatarHolder">
+            <img src={myAvatar || "/default_pfp.webp"} className="avatar" />
+          </div>
+        </AvatarLink>
         <TextareaAutosize
           value={comment}
           onChange={onInput}
