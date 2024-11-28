@@ -1,6 +1,7 @@
 import styles from "./post_board.module.css";
 import { useState, useEffect } from "react";
 import FetchPostDetail from "@/lib/front_end/post/post_details";
+import DeletePost from "@/lib/front_end/post/delete_post";
 import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
 import SaveUnsavePost from "@/lib/front_end/post/save_unsave_post";
 import ReportWithdrawReport from "@/lib/front_end/post/report_withdraw_report";
@@ -19,6 +20,7 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
   const [isReported, setIsReported] = useState(null);
 
   const myId = useSelector((state) => state.myProfile.id);
+  const myRole = useSelector((state) => state.myProfile.role);
   const router = useRouter(); // For redirecting after login
 
   const onLikeUnlike = () => {
@@ -62,6 +64,11 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
 
     ReportWithdrawReport(isReported, id);
     setIsReported(!isReported);
+  };
+
+  const onDelete = async () => {
+    await DeletePost(id, myRole);
+    onClose();
   };
 
   useEffect(() => {
@@ -126,6 +133,8 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
           onSaveUnsave={onSaveUnsave}
           isReported={isReported}
           onReportWithdrawReport={onReportWithdrawReport}
+          isDeletable={myRole === "admin" || myId == data.owner_id}
+          onDelete={onDelete}
         />
         <CommentsParent post_id={id} />
       </>

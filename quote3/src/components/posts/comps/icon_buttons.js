@@ -3,6 +3,7 @@ import {
   faThumbsUp,
   faBookmark,
   faFlag,
+  faTrashAlt,
 } from "@fortawesome/free-regular-svg-icons"; // Add solid icon for active state
 import {
   faThumbsUp as faThumbsUpSolid,
@@ -19,6 +20,8 @@ export default function IconButtons({
   onSaveUnsave,
   isReported,
   onReportWithdrawReport,
+  isDeletable,
+  onDelete,
 }) {
   return (
     <div>
@@ -72,6 +75,12 @@ export default function IconButtons({
           >
             {isReported ? "Reported" : "Report"}
           </span>
+        </span>
+      )}
+      {isDeletable == true && (
+        <span onClick={onDelete} className={styles.iconBtn}>
+          <FontAwesomeIcon icon={faTrashAlt} title="Delete" />
+          <span> Delete</span>
         </span>
       )}
     </div>
