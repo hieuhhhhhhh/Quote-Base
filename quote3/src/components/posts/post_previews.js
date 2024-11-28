@@ -10,7 +10,6 @@ function PostPreviews({ posts, onClickPost, seID, setSeID, detailsOpen }) {
   useEffect(() => {
     if (seID !== null) {
       refs.current[seIndex].scrollIntoView({
-        behavior: "smooth",
         block: "center",
       });
     }

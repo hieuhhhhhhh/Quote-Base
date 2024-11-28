@@ -5,9 +5,10 @@ import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
 import SaveUnsavePost from "@/lib/front_end/post/save_unsave_post";
 import ReportWithdrawReport from "@/lib/front_end/post/report_withdraw_report";
 import CommentsParent from "./comment/parent";
-
 import { useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
+import IconButtons from "./comps/icon_buttons";
+import PreviewInDetails from "./comps/preview_in_details";
 
 function PostDetails({ id, onClose, onShrink, refetch }) {
   const [data, setData] = useState(null);
@@ -48,11 +49,6 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
       refetch((prev) => prev + 1);
       onShrink(false);
     }
-
-    setData((prev) => ({
-      ...prev,
-      saves: prev.saves + (isSaved ? -1 : 1),
-    }));
   };
 
   const onReportWithdrawReport = () => {
@@ -92,43 +88,39 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
               onClick={() => {
                 onClose();
               }}
+              style={{ cursor: "pointer" }}
             >
-              Close
+              X
             </button>
           </div>
         )}
-        <div>
-          Owner Avatar:
+        <div className={styles.tittle}>
           <div className="avatarHolder">
             <img
               src={data?.avatar !== "" ? data?.avatar : "/default_pfp.webp"}
               className="avatar"
             />
           </div>
+          <div style={{ paddingLeft: "10px" }}>{data?.name}</div>
         </div>
-        <p>
-          Owner Name:
-          {data?.alias ? data?.alias : data?.username}
-        </p>
-        <p style={{ whiteSpace: "pre-line" }}>{data?.content}</p>
-        <p>Likes: {data?.likes}</p>
-        <div>
-          {isLiked != null && (
-            <button onClick={onLikeUnlike}>
-              {isLiked ? "Unlike" : "Like"}
-            </button>
-          )}
-          {isSaved != null && (
-            <button onClick={onSaveUnsave}>
-              {isSaved ? "Unsave" : "Save"}
-            </button>
-          )}
-          {isReported != null && (
-            <button onClick={onReportWithdrawReport}>
-              {isReported ? "Withdraw My Report" : "Report"}
-            </button>
-          )}
-        </div>
+
+        <PreviewInDetails
+          img={data.background_img}
+          content={data.content}
+          author={data.author}
+          BGcolor={data.background_color}
+          whiteText={data.text_is_white}
+        />
+        <div style={{ padding: "10px" }}></div>
+        <IconButtons
+          data={data}
+          isLiked={isLiked}
+          onLikeUnlike={onLikeUnlike}
+          isSaved={isSaved}
+          onSaveUnsave={onSaveUnsave}
+          isReported={isReported}
+          onReportWithdrawReport={onReportWithdrawReport}
+        />
         <CommentsParent post_id={id} />
       </>
     );

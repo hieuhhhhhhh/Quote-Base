@@ -16,7 +16,7 @@ export default function Preview({ img, content, author, BGcolor, whiteText }) {
 
   return (
     <div
-      className={styles.resultContainer}
+      className={`${styles.resultContainer} ${styles.clickable}`}
       style={{
         backgroundColor: BGcolor || "var(--post-background)", // Set to "var(--foreground)" if BGcolor is null
         width,

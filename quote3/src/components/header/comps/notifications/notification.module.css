@@ -21,11 +21,13 @@
   background-color: var(--background);
 }
 
-.tittle {
-  font-size: 20px;
-  margin: 5px;
+.title {
+  font-size: 25px;
+  margin: 5px auto; 
   font-weight: bold;
+  text-align: center;
 }
+
 
 .postDetails {
   width: 450px;

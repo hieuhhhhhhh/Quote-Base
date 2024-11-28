@@ -3,6 +3,17 @@
 "use client";
 import Link from "next/link";
 import { useSelector, useDispatch } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faHome,
+  faSearch,
+  faBell,
+  faSignOutAlt,
+  faUser,
+  faPenToSquare,
+  faSignInAlt,
+  faFire,
+} from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
 import { updateUserActions } from "../redux/action";
 import Notifications from "./comps/notifications/parent";
@@ -40,7 +51,12 @@ const Header = () => {
                 dispatch(updateUserActions({ isCreatingPost: false }));
               }}
             >
-              Home
+              <FontAwesomeIcon
+                title="Home"
+                icon={faHome}
+                size="lg"
+                className="icon"
+              />
             </Link>
           </li>
 
@@ -52,12 +68,48 @@ const Header = () => {
                   dispatch(updateUserActions({ isCreatingPost: true }));
                 }}
               >
-                Create_Post
+                <FontAwesomeIcon
+                  title="Write a Post"
+                  icon={faPenToSquare}
+                  size="lg"
+                  className="icon"
+                />
               </Link>
             ) : (
-              <Link href="/pages/login">Create_Post</Link>
+              <Link href="/pages/login">
+                <FontAwesomeIcon
+                  title="Write a Post"
+                  icon={faPenToSquare}
+                  size="lg"
+                  className="icon"
+                />
+              </Link>
             )}
           </li>
+
+          <li>
+            <Link href="/pages/trending">
+              <FontAwesomeIcon
+                title="Trending"
+                icon={faFire}
+                size="lg"
+                className="icon"
+              />
+            </Link>
+          </li>
+
+          {myId && (
+            <li>
+              <Link href="/pages/search">
+                <FontAwesomeIcon
+                  title="Search"
+                  icon={faSearch}
+                  size="lg"
+                  className="icon"
+                />
+              </Link>
+            </li>
+          )}
 
           {myId && (
             <li>
@@ -73,7 +125,14 @@ const Header = () => {
 
           {!myId && (
             <li>
-              <Link href="/pages/login">Log In</Link>{" "}
+              <Link href="/pages/login">
+                <FontAwesomeIcon
+                  title="Login"
+                  icon={faSignInAlt}
+                  size="lg"
+                  className="icon"
+                />
+              </Link>{" "}
             </li>
           )}
 
@@ -104,7 +163,14 @@ const Header = () => {
                         setAvatarModal(false);
                       }}
                     >
-                      <div className={styles.modalBtn}>View My Profile</div>
+                      <div className={styles.modalBtn}>
+                        <FontAwesomeIcon
+                          icon={faUser}
+                          style={{ marginRight: "10px" }}
+                          className="icon"
+                        />
+                        <span>My Profile</span>
+                      </div>
                     </Link>
                     <Link
                       href="/pages/login/logout"
@@ -113,7 +179,14 @@ const Header = () => {
                       }}
                       style={{ width: "100%" }}
                     >
-                      <div className={styles.modalBtn}>Log Out</div>
+                      <div className={styles.modalBtn}>
+                        <FontAwesomeIcon
+                          icon={faSignOutAlt}
+                          style={{ marginRight: "10px" }}
+                          className="icon"
+                        />
+                        <span>Log Out</span>
+                      </div>
                     </Link>
                   </div>
                 </AbsoluteModal>
