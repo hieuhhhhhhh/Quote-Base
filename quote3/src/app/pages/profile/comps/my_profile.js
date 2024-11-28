@@ -104,19 +104,19 @@ function MyProfile() {
           </button>
           {moreOpen && (
             <div className={styles.rightModal}>
-              {ads && (
-                <div>
-                  <Link href={"/pages/payment"}>
-                    <button>Remove Ads</button>
-                  </Link>
-                </div>
-              )}
               <Link href={"/pages/login/logout"}>
                 <button>Log Out</button>
               </Link>
             </div>
           )}
         </div>
+        {ads && (
+          <div>
+            <Link href={"/pages/payment"}>
+              <button>Remove Ads</button>
+            </Link>
+          </div>
+        )}
         <div>
           <button onClick={() => setMyPostsMode(!myPostsMode)}>
             {myPostsMode ? "Saved Posts" : "My Posts"}
