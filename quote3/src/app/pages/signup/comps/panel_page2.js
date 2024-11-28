@@ -52,8 +52,6 @@ const Page2 = ({ isSignUp, closeModal }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h2>Tell us about yourself</h2>
-
       <div className={styles.inputField}>
         <p className={styles.label}>
           Would you like a different name displayed on your profile? (optional)

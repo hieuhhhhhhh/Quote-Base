@@ -10,6 +10,7 @@ function SomeoneProfile({ user_id }) {
     biography: "",
     pfp: "",
     pfpExist: true,
+    postCount: null,
   });
 
   const [onShrink, setOnShrink] = useState(false);
@@ -28,6 +29,7 @@ function SomeoneProfile({ user_id }) {
         name: basicData.name,
         biography: publicData.biography,
         pfp: publicData.profile_pic,
+        postCount: publicData.post_count,
       }));
 
       if (publicData.profile_pic == "") {
@@ -56,7 +58,7 @@ function SomeoneProfile({ user_id }) {
           <div className={styles.profileRight}>
             <h2 className={styles.name}>{profile.name}</h2>
             <div className={styles.stats}>
-              <p>0 posts</p>
+              {profile.postCount && <p>{profile.postCount} posts</p>}
             </div>
             <p className={styles.bio}>{profile.bio}</p>
           </div>
