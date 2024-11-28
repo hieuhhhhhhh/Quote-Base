@@ -11,7 +11,7 @@ import CPdesign from "./design_post";
 import CPpreview from "./preview_post";
 import Modal from "@/components/wrappers/modal";
 
-export default function CPparent() {
+export default function CPparent({ afterCreatePost }) {
   const [page, setPage] = useState(1);
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
@@ -32,6 +32,7 @@ export default function CPparent() {
       const id = await addPost(content, author, img, BGcolor, whiteText);
       if (id) {
         dispatch(updateUserActions({ isCreatingPost: false }));
+        afterCreatePost(id);
       }
     } catch (err) {
       console.error(err);

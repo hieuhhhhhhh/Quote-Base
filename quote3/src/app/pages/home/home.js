@@ -40,9 +40,16 @@ const Home = () => {
     }
   };
 
+  const afterCreatePost = (id) => {
+    //reset all fields after add a post:
+    setPostIds([id]);
+    setPreviews([]);
+    setIndex(0);
+  };
+
   return (
     <div>
-      {isCreatingPost && <CreatePost />}
+      {isCreatingPost && <CreatePost afterCreatePost={afterCreatePost} />}
       <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
       {ads && <BottomImageBar />}
     </div>
