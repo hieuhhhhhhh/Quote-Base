@@ -13,6 +13,7 @@ const myProfileInit = {
   avatar: null,
   bio: null,
   role: null,
+  ads: true,
 };
 
 const myProfileReducer = (state = myProfileInit, action) => {

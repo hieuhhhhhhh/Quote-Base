@@ -17,6 +17,7 @@ function MyProfile() {
   const myBio = useSelector((state) => state.myProfile.bio);
   const myRole = useSelector((state) => state.myProfile.role);
   const myId = useSelector((state) => state.myProfile.id);
+  const ads = useSelector((state) => state.myProfile.ads);
 
   const [moreOpen, setMoreOpen] = useState(false);
 
@@ -76,6 +77,11 @@ function MyProfile() {
               <div className={styles.bio}>Role: {myRole}</div>
               <button onClick={openModal}>Edit Profile</button>
               <UploadProfilePic onUpdate={onUpdate} />
+              {ads && (
+                <Link href={"/pages/payment"}>
+                  <button>Remove Ads</button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -4,12 +4,15 @@ import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 import { useSelector } from "react-redux";
 import CreatePost from "./comps/create_post/parent";
+import BottomImageBar from "@/components/ads/bottom_image_bar";
 
 const Home = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
   const [previews, setPreviews] = useState([]);
   const [index, setIndex] = useState(0);
   const loadSize = 50;
+
+  const ads = useSelector((state) => state.myProfile.ads);
 
   const isCreatingPost = useSelector(
     (state) => state.userActions.isCreatingPost
@@ -41,6 +44,7 @@ const Home = () => {
     <div>
       {isCreatingPost && <CreatePost />}
       <PostsBoard posts={previews} onLoadMorePosts={onLoadMorePosts} />
+      {ads && <BottomImageBar />}
     </div>
   );
 };

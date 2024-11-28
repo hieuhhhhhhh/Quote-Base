@@ -30,6 +30,7 @@ async function fetchMyBasicInfo(dispatch) {
         avatar: data.avatar,
         bio: data.bio,
         role: data.role,
+        ads: data.ads,
       })
     );
 
