@@ -12,12 +12,15 @@ import IconButtons from "./comps/icon_buttons";
 import PreviewInDetails from "./comps/preview_in_details";
 import AvatarLink from "../wrappers/profile_link/avatar_link";
 import NameLink from "../wrappers/profile_link/name_link";
+import ConfirmDeleteModal from "./comps/confirm_delete_modal";
 
 function PostDetails({ id, onClose, onShrink, refetch }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
   const [isReported, setIsReported] = useState(null);
+
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const myId = useSelector((state) => state.myProfile.id);
   const myRole = useSelector((state) => state.myProfile.role);
@@ -66,9 +69,20 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
     setIsReported(!isReported);
   };
 
-  const onDelete = async () => {
-    await DeletePost(id, myRole);
-    onClose();
+  const handleDeleteClick = () => {
+    setIsDeleteModalOpen(true);
+  };
+
+  const handleConfirmDelete = async () => {
+    try {
+      await DeletePost(id, myRole);
+      //alert("Post deleted successfully.");
+      onClose();
+    } catch (error) {
+      console.error("Error deleting post:", error);
+    } finally {
+      setIsDeleteModalOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -134,9 +148,15 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
           isReported={isReported}
           onReportWithdrawReport={onReportWithdrawReport}
           isDeletable={myRole === "admin" || myId == data.owner_id}
-          onDelete={onDelete}
+          onDelete={handleDeleteClick}
         />
         <CommentsParent post_id={id} />
+
+        <ConfirmDeleteModal
+          isOpen={isDeleteModalOpen}
+          onClose={() => setIsDeleteModalOpen(false)}
+          onConfirm={handleConfirmDelete}
+        />
       </>
     );
 }

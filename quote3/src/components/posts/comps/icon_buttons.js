@@ -12,6 +12,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons"; // Add solid icon for active state
 import styles from "../post_board.module.css";
 
+import ConfirmDeleteModal from "./confirm_delete_modal";
+
 export default function IconButtons({
   data,
   isLiked,
