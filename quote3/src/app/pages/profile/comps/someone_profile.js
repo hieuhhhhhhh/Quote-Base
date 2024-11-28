@@ -57,10 +57,11 @@ function SomeoneProfile({ user_id }) {
           </div>
           <div className={styles.profileRight}>
             <h2 className={styles.name}>{profile.name}</h2>
+            <h3 className={styles.bio}>{profile.biography}</h3>
+
             <div className={styles.stats}>
-              {profile.postCount && <p>{profile.postCount} posts</p>}
+              <div>{profile.postCount} posts</div>
             </div>
-            <p className={styles.bio}>{profile.bio}</p>
           </div>
         </div>
       </div>

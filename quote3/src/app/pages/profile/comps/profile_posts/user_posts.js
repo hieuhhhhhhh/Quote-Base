@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { fetchPostIds } from "./helper/fetch_posts";
 import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
+import styles from "./user_posts.module.css";
 
 export default function Posts({ user_id, onShrink }) {
   // State to hold posts
@@ -27,9 +28,9 @@ export default function Posts({ user_id, onShrink }) {
 
   // Render posts if available
   return loading ? (
-    <p>Loading...</p>
+    <p className={styles.msg}>Loading...</p>
   ) : previews.length === 0 ? (
-    <p>No posts</p>
+    <p className={styles.msg}>No posts to show</p>
   ) : (
     <PostsBoard posts={previews} onShrink={onShrink} />
   );

@@ -44,7 +44,14 @@ export default function MyProfileButtons({ onUpdatePFP }) {
       >
         <h2>Edit Profile</h2>
         <div style={{ marginLeft: "15px" }}>
-          <UploadProfilePic onUpdate={onUpdatePFP} />
+          <UploadProfilePic
+            onUpdate={(pfp) => {
+              onUpdatePFP(pfp);
+              setIsModalOpen(false);
+            }}
+          >
+            <button style={{ padding: "10px" }}>Change Profile Picture</button>
+          </UploadProfilePic>
         </div>
 
         <Page2 closeModal={closeModal} />

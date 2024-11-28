@@ -42,18 +42,18 @@
 }
 
 .imgHolder {
-  background-color: #ccc; /* Default background color */
   width: 35%;
   aspect-ratio: 1/1;
   min-width: 100px;
   border-radius: 50%;
+  display: flex;
   margin-right: -20%;
-  overflow: hidden;
   position: relative; /* Keep the relative positioning for child elements */
 }
 
 .profilePic {
   width: 100%;
+  border-radius: 50%;
 }
 
 .rightModal {
@@ -90,21 +90,20 @@
   margin-right: 10px;
   padding: 10px 20px;
   border: none;
-  background-color: #bbb;
-  color: #fff;
+  background-color: var(--background);
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .buttonsContainer button:hover {
-  background-color: #aaa;
+  background-color: rgba(158, 158, 158, 0.3); /* Light vibrant blue */
 }
 
 .tabs {
   display: flex;
   justify-content: space-between; /* Distribute tabs equally */
-  border: 2px solid #444; /* Optional: underline for tabs */
+  border: 2px solid rgba(158, 158, 158, 0.3); /* Optional: underline for tabs */
 }
 
 .tabs button {
@@ -113,21 +112,17 @@
   font-size: 16px;
   text-align: center;
   border: none;
-  background-color: var(--middleground);
-  color: #ccc; /* Default text color */
+  background-color: var(--background);
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .tabs .activeTab {
-  background-color: #ccc; /* Light vibrant blue */
-  color: #fff; /* White text for high contrast */
+  background-color: rgba(158, 158, 158, 0.3); /* Light vibrant blue */
   font-weight: bold;
   transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
 }
 
 .tabs button:hover {
-  background-color: #555; /* Hover effect for inactive tabs */
-  color: #fff;
+  background-color: rgba(158, 158, 158, 0.6); /* Light vibrant blue */
 }
-

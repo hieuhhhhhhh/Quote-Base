@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { updateMyProfile } from "@/components/redux/action"; // redux actions
 import Modal from "@/components/wrappers/modal";
 
-export default function CropImage({ onUpdate }) {
+export default function CropImage({ children, onUpdate }) {
   const [rawImg, setRawImg] = useState(null);
   const [img, setImg] = useState(null);
 
@@ -77,13 +77,14 @@ export default function CropImage({ onUpdate }) {
         style={{ display: "none" }} // Hide the actual file input
         onChange={onSelectImg}
       />
-      <button
+      <div
         onClick={() => {
           inputRef.current.click();
         }}
+        style={{ borderRadius: "50%" }}
       >
-        Upload Profile Picture
-      </button>
+        {children}
+      </div>
       <Modal modalOpen={rawImg || img} setModalOpen={setModalOpen}>
         {rawImg && (
           <BeforeCrop rawImg={rawImg} setImg={setImg} setRawImg={setRawImg} />
