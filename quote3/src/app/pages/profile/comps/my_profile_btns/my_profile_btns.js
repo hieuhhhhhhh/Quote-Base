@@ -18,7 +18,7 @@ export default function MyProfileButtons({ onUpdatePFP }) {
 
   const closeModal = () => setIsModalOpen(false);
   return (
-    <div>
+    <div className={styles.buttonsContainer}>
       <span>
         <Link
           href="/"

@@ -85,3 +85,49 @@
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
+.buttonsContainer button {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #bbb;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buttonsContainer button:hover {
+  background-color: #aaa;
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between; /* Distribute tabs equally */
+  border: 2px solid #444; /* Optional: underline for tabs */
+}
+
+.tabs button {
+  flex: 1; /* Make each tab take equal space */
+  padding: 15px;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  background-color: var(--middleground);
+  color: #ccc; /* Default text color */
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.tabs .activeTab {
+  background-color: #ccc; /* Light vibrant blue */
+  color: #fff; /* White text for high contrast */
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.tabs button:hover {
+  background-color: #555; /* Hover effect for inactive tabs */
+  color: #fff;
+}
+
