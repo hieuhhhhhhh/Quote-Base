@@ -46,6 +46,7 @@ export default function LogIn() {
     <div className={styles.container}>
       <div className={styles.box}>
         <form onSubmit={handleSubmit}>
+          <h2>Log In</h2>
           <div className={styles.inputField}>
             <input
               type="text"

@@ -76,13 +76,18 @@ export default function PostsBoard({
       <div
         className={`${styles.postsList} ${detailsOpen ? styles.shrink : null}`}
       >
-        <PostPreviews
-          posts={posts}
-          onClickPost={onClickPost}
-          seID={seID}
-          setSeID={setSeID}
-          detailsOpen={detailsOpen}
-        />
+        {posts ? (
+          <PostPreviews
+            posts={posts}
+            onClickPost={onClickPost}
+            seID={seID}
+            setSeID={setSeID}
+            detailsOpen={detailsOpen}
+          />
+        ) : (
+          !loading && <div>No Posts</div>
+        )}
+
         {loading && (
           <>
             <div style={{ height: "60px" }}></div>

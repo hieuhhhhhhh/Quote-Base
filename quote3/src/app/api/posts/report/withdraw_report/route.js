@@ -13,15 +13,47 @@ export async function POST(req) {
     });
   }
 
-  const res = await supabase
-    .from("reports")
-    .delete()
-    .match({ post_id: post_id, reporter_id: user_id });
+  // Check the user's role first
+  const { data: roleData, error: roleError } = await supabase
+    .from("roles")
+    .select("role")
+    .eq("user_id", user_id)
+    .limit(1)
+    .single(); // Use `.single()` to get a single row instead of an array
 
-  if (res.error) {
-    return new Response(`${res.error.message}`, {
-      status: 500,
+  if (roleError || !roleData) {
+    return new Response("User role not found or error fetching role", {
+      status: 400,
     });
+  }
+
+  // If the user is an admin, fetch additional data
+  const isAdmin = roleData.role === "admin";
+
+  if (isAdmin) {
+    // Admin can delete any report
+    const res = await supabase
+      .from("reports")
+      .delete()
+      .match({ post_id: post_id });
+
+    if (res.error) {
+      return new Response(`${res.error.message}`, {
+        status: 500,
+      });
+    }
+  } else {
+    // Non-admin can only delete their own report
+    const res = await supabase
+      .from("reports")
+      .delete()
+      .match({ post_id: post_id, reporter_id: user_id });
+
+    if (res.error) {
+      return new Response(`${res.error.message}`, {
+        status: 500,
+      });
+    }
   }
 
   return new Response(
