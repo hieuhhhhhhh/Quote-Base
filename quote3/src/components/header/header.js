@@ -7,7 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
   faSearch,
-  faBell,
   faSignOutAlt,
   faUser,
   faPenToSquare,
@@ -20,6 +19,7 @@ import Notifications from "./comps/notifications/parent";
 import Reports from "./comps/reports/parent";
 import { useState } from "react";
 import { AbsoluteModal } from "../wrappers/absolute_modal";
+import SearchBar from "./comps/search_bar";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -45,19 +45,7 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link
-              href="/"
-              onClick={() => {
-                dispatch(updateUserActions({ isCreatingPost: false }));
-              }}
-            >
-              <FontAwesomeIcon
-                title="Home"
-                icon={faHome}
-                size="lg"
-                className="icon"
-              />
-            </Link>
+            <SearchBar />
           </li>
 
           <li>
@@ -88,6 +76,22 @@ const Header = () => {
           </li>
 
           <li>
+            <Link
+              href="/"
+              onClick={() => {
+                dispatch(updateUserActions({ isCreatingPost: false }));
+              }}
+            >
+              <FontAwesomeIcon
+                title="Home"
+                icon={faHome}
+                size="lg"
+                className="icon"
+              />
+            </Link>
+          </li>
+
+          <li>
             <Link href="/pages/trending">
               <FontAwesomeIcon
                 title="Trending"
@@ -97,19 +101,6 @@ const Header = () => {
               />
             </Link>
           </li>
-
-          {myId && (
-            <li>
-              <Link href="/pages/search">
-                <FontAwesomeIcon
-                  title="Search"
-                  icon={faSearch}
-                  size="lg"
-                  className="icon"
-                />
-              </Link>
-            </li>
-          )}
 
           {myId && (
             <li>
