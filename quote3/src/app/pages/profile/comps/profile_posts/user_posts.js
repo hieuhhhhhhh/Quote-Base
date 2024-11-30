@@ -26,12 +26,24 @@ export default function Posts({ user_id, onShrink }) {
     fetchData();
   }, [user_id]);
 
+  const onDeletePost = (post_id) => {
+    // Iterate and turn matched ids to null
+    const newPreviews = previews.filter((each) => each.id !== post_id);
+
+    // Update the state
+    setPreviews(newPreviews);
+  };
+
   // Render posts if available
   return loading ? (
     <p className={styles.msg}>Loading...</p>
   ) : previews.length === 0 ? (
     <p className={styles.msg}>No posts to show</p>
   ) : (
-    <PostsBoard posts={previews} onShrink={onShrink} />
+    <PostsBoard
+      posts={previews}
+      onShrink={onShrink}
+      onDeletePost={onDeletePost}
+    />
   );
 }

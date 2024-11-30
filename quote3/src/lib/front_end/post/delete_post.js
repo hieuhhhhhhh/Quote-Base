@@ -10,7 +10,8 @@ export default async function DeletePost(id, role) {
   });
 
   if (!res.ok) {
-    const error = await res.text();
-    console.log(error);
+    const msg = await res.text();
+    console.error(msg);
+    throw Error(msg);
   }
 }

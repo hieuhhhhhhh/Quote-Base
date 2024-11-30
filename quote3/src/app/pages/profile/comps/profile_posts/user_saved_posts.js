@@ -28,12 +28,25 @@ export default function SavedPosts({ user_id, onShrink }) {
     fetchData();
   }, [user_id, refetch]);
 
+  const onDeletePost = (post_id) => {
+    // Iterate and turn matched ids to null
+    const newPreviews = previews.filter((each) => each.id !== post_id);
+
+    // Update the state
+    setPreviews(newPreviews);
+  };
+
   // Render posts if available
   return loading ? (
     <p className={styles.msg}>Loading...</p>
   ) : previews.length === 0 ? (
     <p className={styles.msg}>No posts saved</p>
   ) : (
-    <PostsBoard posts={previews} onShrink={onShrink} refetch={setRefetch} />
+    <PostsBoard
+      posts={previews}
+      onShrink={onShrink}
+      refetch={setRefetch}
+      onDeletePost={onDeletePost}
+    />
   );
 }

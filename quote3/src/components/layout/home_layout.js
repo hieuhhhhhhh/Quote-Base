@@ -9,9 +9,11 @@ import Home from "@/app/pages/home/home";
 
 export default function HomeLayout({ children }) {
   const myId = useSelector((state) => state.myProfile.id);
+  const resetHomeKey = useSelector((state) => state.userActions.resetHomeKey);
 
   const [homeScrollPosition, set_HSP] = useState(0);
   const [isRestored, setIsRestored] = useState(false); // Flag to track if the scroll has been restored
+  const [resetKey, setResetKey] = useState(0);
 
   const path = usePathname();
   const isHomePage = path === "/";
@@ -48,6 +50,10 @@ export default function HomeLayout({ children }) {
     };
   }, [isRestored]);
 
+  useEffect(() => {
+    setResetKey(resetKey + 1); // Cause Home to remount
+  }, [myId, resetHomeKey]);
+
   return (
     <div>
       <div
@@ -56,7 +62,7 @@ export default function HomeLayout({ children }) {
           visibility: isRestored ? "visible" : "hidden",
         }}
       >
-        <Home key={myId} />
+        <Home key={resetKey} />
       </div>
       <div>{children}</div>
     </div>

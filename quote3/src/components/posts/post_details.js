@@ -6,15 +6,16 @@ import LikeUnlikePost from "@/lib/front_end/post/like_unlike_post";
 import SaveUnsavePost from "@/lib/front_end/post/save_unsave_post";
 import ReportWithdrawReport from "@/lib/front_end/post/report_withdraw_report";
 import CommentsParent from "./comment/parent";
-import { useSelector } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { usePathname, useRouter } from "next/navigation";
 import IconButtons from "./comps/icon_buttons";
 import PreviewInDetails from "./comps/preview_in_details";
 import AvatarLink from "../wrappers/profile_link/avatar_link";
 import NameLink from "../wrappers/profile_link/name_link";
 import ConfirmDeleteModal from "./comps/confirm_delete_modal";
+import { updateUserActions } from "@/components/redux/action";
 
-function PostDetails({ id, onClose, onShrink, refetch }) {
+function PostDetails({ id, onClose, refetch, onDeletePost }) {
   const [data, setData] = useState(null);
   const [isLiked, setIsLiked] = useState(null);
   const [isSaved, setIsSaved] = useState(null);
@@ -25,6 +26,10 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
   const myId = useSelector((state) => state.myProfile.id);
   const myRole = useSelector((state) => state.myProfile.role);
   const router = useRouter(); // For redirecting after login
+  const currentPath = usePathname();
+
+  const dispatch = useDispatch();
+  const resetHomeKey = useSelector((state) => state.userActions.resetHomeKey);
 
   const onLikeUnlike = () => {
     if (!myId) {
@@ -54,7 +59,6 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
 
     if (refetch) {
       refetch((prev) => prev + 1);
-      onShrink(false);
     }
   };
 
@@ -73,10 +77,15 @@ function PostDetails({ id, onClose, onShrink, refetch }) {
     setIsDeleteModalOpen(true);
   };
 
+  const resetHome = () => {
+    dispatch(updateUserActions({ resetHomeKey: resetHomeKey + 1 })); // change the constant to activate the useEffect()
+  };
+
   const handleConfirmDelete = async () => {
     try {
       await DeletePost(id, myRole);
-      //alert("Post deleted successfully.");
+      if (currentPath !== "/") resetHome();
+      onDeletePost(id);
       onClose();
     } catch (error) {
       console.error("Error deleting post:", error);

@@ -33,6 +33,12 @@ export default function NotificationsBoard({
     }
   }, [notiOpen]);
 
+  const onDeletePost = (post_id) => {
+    setSeId(null);
+    const newNotis = notifications.filter((each) => each.post_id !== post_id);
+    setNotifications(newNotis);
+  };
+
   return (
     <div
       onClick={() => {
@@ -82,7 +88,7 @@ export default function NotificationsBoard({
           </div>
           {seId && (
             <div className={styles.postDetails}>
-              <PostDetails id={seId} />
+              <PostDetails id={seId} onDeletePost={onDeletePost} />
             </div>
           )}
         </div>

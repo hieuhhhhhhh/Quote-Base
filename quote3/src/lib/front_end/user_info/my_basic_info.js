@@ -16,7 +16,7 @@ async function fetchMyBasicInfo(dispatch) {
 
     if (!res.ok) {
       const { message } = await res.json();
-      console.log(message);
+      console.error(message);
       throw new Error(message);
     }
 

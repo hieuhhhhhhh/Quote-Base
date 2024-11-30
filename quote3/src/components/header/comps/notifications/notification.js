@@ -35,7 +35,7 @@ export default function Notification({ notification }) {
       </div>
       <div style={{ marginLeft: "10px" }}>
         <span className={styles.msg}>
-          <b>{notification.alias || notification.user_name}</b>
+          <b>{notification.alias || notification.username}</b>
           {msg}
         </span>
         <div className={styles.birth}>{formattedTime}</div>

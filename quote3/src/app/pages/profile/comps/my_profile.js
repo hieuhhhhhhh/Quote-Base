@@ -33,7 +33,6 @@ function MyProfile() {
 
       setPfp(data.profile_pic);
       setPostCount(data.post_count);
-      console.log(data);
     };
 
     fetchDB();

@@ -37,6 +37,16 @@ const Trending = () => {
     }
   }, [index, postIds]);
 
+  const onDeletePost = (post_id) => {
+    // Iterate and turn matched ids to null
+    const newPostIds = postIds.filter((id) => id !== post_id);
+    const newPreviews = previews.filter((each) => each.id !== post_id);
+
+    // Update the state
+    setPostIds(newPostIds);
+    setPreviews(newPreviews);
+  };
+
   return (
     <div>
       <div className={onShrink ? "shrinkForDetails" : ""}>
@@ -51,6 +61,7 @@ const Trending = () => {
         posts={previews}
         onLoadMorePosts={onLoadMorePosts}
         onShrink={setOnShrink}
+        onDeletePost={onDeletePost}
       />
     </div>
   );
