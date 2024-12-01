@@ -11,14 +11,8 @@ export async function POST(req) {
     .limit(1)
     .single(); // Use `.single()` to get a single row instead of an array
 
-  if (roleError || !roleData) {
-    return new Response("User role not found or error fetching role", {
-      status: 400,
-    });
-  }
-
   // If the user is an admin, fetch additional data
-  const isAdmin = roleData.role === "admin";
+  const isAdmin = roleData?.role === "admin" && !roleError;
 
   const [
     { data: data1 }, // This is your result from the `get_post_details` function (returns a table)
@@ -42,23 +36,12 @@ export async function POST(req) {
       .eq("user_id", user_id)
       .limit(1),
 
-    // Admin-specific query (if the user is an admin)
-    ...(isAdmin
-      ? [
-          supabase
-            .from("reports")
-            .select("*")
-            .eq("post_id", post_id)
-            .limit(1),
-        ]
-      : [
-          supabase
-            .from("reports")
-            .select("*")
-            .eq("post_id", post_id)
-            .eq("reporter_id", user_id)
-            .limit(1),
-        ]), // limited query if not admin
+    supabase
+      .from("reports")
+      .select("*")
+      .eq("post_id", post_id)
+      .limit(1)
+      .eq(isAdmin ? null : "reporter_id", user_id),
   ]);
 
   // Since get_post_details returns a table (array of rows), we need to check if there are any rows and pick the first one

@@ -21,14 +21,8 @@ export async function POST(req) {
     .limit(1)
     .single(); // Use `.single()` to get a single row instead of an array
 
-  if (roleError || !roleData) {
-    return new Response("User role not found or error fetching role", {
-      status: 400,
-    });
-  }
-
   // If the user is an admin, fetch additional data
-  const isAdmin = roleData.role === "admin";
+  const isAdmin = roleData?.role === "admin" && !roleError;
 
   if (isAdmin) {
     // Admin can delete any report
