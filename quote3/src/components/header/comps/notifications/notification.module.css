@@ -23,15 +23,13 @@
 
 .title {
   font-size: 25px;
-  margin: 5px auto; 
+  margin: 5px auto;
   font-weight: bold;
   text-align: center;
 }
 
-
 .postDetails {
   width: 450px;
-  background-color: var(--background);
   padding: 10px;
   overflow-y: auto; /* Enable vertical scrolling */
 }
