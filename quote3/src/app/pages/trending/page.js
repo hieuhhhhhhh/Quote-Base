@@ -4,23 +4,31 @@ import fetchPreviews from "@/lib/front_end/post/fetch_previews";
 import PostsBoard from "@/components/posts/posts_board";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFire } from "@fortawesome/free-solid-svg-icons";
+import { useSelector } from "react-redux";
+import BottomImageBar from "@/components/ads/bottom_image_bar";
+import styles from "./trending_page.module.css";
 
 const Trending = () => {
   const [postIds, setPostIds] = useState([]); // Array of pure IDs
+  const [timeRange, setTimeRange] = useState("all");
   const [previews, setPreviews] = useState([]);
   const [index, setIndex] = useState(0);
   const loadSize = 50;
   const [onLoadMorePosts, setOnLoadMorePosts] = useState(null);
   const [onShrink, setOnShrink] = useState(false);
 
+  const ads = useSelector((state) => state.myProfile.ads);
+
   useEffect(() => {
     // Fetch new post IDs and reset index if index reaches the max
     const fetch = async () => {
-      const res = await fetchTrendingIds();
+      const res = await fetchTrendingIds(timeRange);
       setPostIds(res);
+      setIndex(0); // Reset index on timeRange change
+      setPreviews([]); // Clear previous previews
     };
     fetch();
-  }, []);
+  }, [timeRange]);
 
   useEffect(() => {
     if (index < postIds.length) {
@@ -57,12 +65,32 @@ const Trending = () => {
         </h1>
       </div>
 
+      <div>
+        <button className={styles.button} onClick={() => setTimeRange("all")}>
+          All Time
+        </button>
+        <button className={styles.button} onClick={() => setTimeRange("day")}>
+          Day
+        </button>
+        <button className={styles.button} onClick={() => setTimeRange("week")}>
+          Week
+        </button>
+        <button className={styles.button} onClick={() => setTimeRange("month")}>
+          Month
+        </button>
+        <button className={styles.button} onClick={() => setTimeRange("year")}>
+          Year
+        </button>
+      </div>
+
       <PostsBoard
         posts={previews}
         onLoadMorePosts={onLoadMorePosts}
         onShrink={setOnShrink}
         onDeletePost={onDeletePost}
       />
+
+      {ads && <BottomImageBar />}
     </div>
   );
 };
@@ -70,11 +98,18 @@ const Trending = () => {
 export default Trending;
 
 // Fetch post IDs for ordered by likes
-const fetchTrendingIds = async () => {
-  const response = await fetch("/api/posts/trending_previews"); // Replace with your actual API endpoint
-  const data = await response.json();
+const fetchTrendingIds = async (timeRange) => {
+  const res = await fetch("/api/posts/trending_previews", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ timeRange }),
+  });
 
-  if (!response.ok) {
+  const data = await res.json();
+
+  if (!res.ok) {
     console.error(data.error || "Something went wrong");
   } else {
     return data.map((post) => post.id);

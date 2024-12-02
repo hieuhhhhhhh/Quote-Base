@@ -36,7 +36,7 @@ export default function PaymentComponent() {
 
   return (
     <div className={styles.container}>
-      <h2>Payment Page</h2>
+      <h2>Remove Ads For Only $4.99!</h2>
       <form className={styles.paymentForm} onSubmit={handleSubmit}>
         <label>
           Cardholder Name:
