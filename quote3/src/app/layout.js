@@ -8,8 +8,8 @@ import HomeLayout from "@/components/layout/home_layout";
 import { ModalController } from "@/components/wrappers/absolute_modal";
 
 export const metadata = {
-  title: "Quotes Base",
-  description: "Quotes Base",
+  title: "Quote Base",
+  description: "Quote Base",
 };
 
 export default function RootLayout({ children }) {
