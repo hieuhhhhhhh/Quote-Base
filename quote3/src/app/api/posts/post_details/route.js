@@ -36,12 +36,17 @@ export async function POST(req) {
       .eq("user_id", user_id)
       .limit(1),
 
-    supabase
-      .from("reports")
-      .select("*")
-      .eq("post_id", post_id)
-      .limit(1)
-      .eq(isAdmin ? null : "reporter_id", user_id),
+    // Admin-specific query (if the user is an admin)
+    ...(isAdmin
+      ? [supabase.from("reports").select("*").eq("post_id", post_id).limit(1)]
+      : [
+          supabase
+            .from("reports")
+            .select("*")
+            .eq("post_id", post_id)
+            .eq("reporter_id", user_id)
+            .limit(1),
+        ]), // limited query if not admin
   ]);
 
   // Since get_post_details returns a table (array of rows), we need to check if there are any rows and pick the first one
