@@ -39,7 +39,7 @@ const Header = () => {
             dispatch(updateUserActions({ isCreatingPost: false }));
           }}
         >
-          Quotes Base
+          Quote Base
         </Link>
       </h2>
       <nav>
